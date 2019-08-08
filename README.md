@@ -2,7 +2,7 @@
 
 # core.js
 
-> Extendable GitHub API core client for REST & GraphQL
+> Extendable client for GitHub's REST & GraphQL APIs
 
 <!-- toc -->
 
@@ -58,6 +58,8 @@ const response = await octokit.request("GET /orgs/:org/repos", {
 });
 ```
 
+See https://github.com/octokit/request.js for full documentation of the `.request` method.
+
 ### GraphQL example
 
 ```js
@@ -74,7 +76,7 @@ const response = await octokit.graphql(`
   login: 'octokit');
 ```
 
-See https://octokit.github.io/rest.js/ for full documentation.
+See https://github.com/octokit/graphql.js for full documentation of the `.graphql` method.
 
 ## Authentication
 
