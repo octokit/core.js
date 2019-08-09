@@ -1,4 +1,4 @@
-import { Octokit, OctokitOptions } from "../src";
+import { Octokit } from "../src";
 
 describe("Octokit.plugin()", () => {
   it("gets called in constructor", () => {
