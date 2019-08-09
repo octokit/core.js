@@ -35,13 +35,17 @@
     "@pika/plugin-build-node": "^0.6.0",
     "@pika/plugin-build-web": "^0.6.0",
     "@pika/plugin-ts-standard-pkg": "^0.6.0",
+    "@types/fetch-mock": "^7.3.1",
     "@types/jest": "^24.0.17",
     "@types/node": "^12.7.1",
+    "fetch-mock": "^7.3.9",
+    "http-proxy-agent": "^2.1.0",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
+    "proxy": "^0.2.4",
+    "semantic-release": "^15.13.19",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3",
-    "semantic-release": "^15.13.19"
+    "typescript": "^3.5.3"
   },
   "jest": {
     "preset": "ts-jest",
@@ -92,5 +96,9 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@octokit/request": "^5.0.2",
+    "universal-user-agent": "^3.0.0"
   }
 }
