@@ -129,7 +129,10 @@ describe("octokit.request()", () => {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent
       },
-      request: {}
+      request: {
+        // @ts-ignore
+        hook: requestOptions.request.hook
+      }
     });
   });
 });
