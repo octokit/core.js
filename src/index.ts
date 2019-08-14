@@ -1,4 +1,5 @@
 import getUserAgent from "universal-user-agent";
+import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
 
 import { OctokitOptions, Parameters, Plugin } from "./types";
@@ -18,10 +19,13 @@ export class Octokit {
   }
 
   constructor(options: OctokitOptions = {}) {
+    const hook = new Collection();
     const requestDefaults: Required<Parameters> = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
-      request: options.request || {},
+      request: Object.assign({}, options.request, {
+        hook: hook.bind(null, "request")
+      }),
       mediaType: {
         previews: [],
         format: ""
@@ -45,6 +49,7 @@ export class Octokit {
     }
 
     this.request = request.defaults(requestDefaults);
+    this.hook = hook;
 
     // apply plugins
     // https://stackoverflow.com/a/16345172
@@ -54,6 +59,7 @@ export class Octokit {
 
   // assigned during constructor
   request: typeof request;
+  hook: HookCollection;
 
   // allow for plugins to extend the Octokit instance
   [key: string]: any;
