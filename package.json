@@ -99,6 +99,7 @@
   },
   "dependencies": {
     "@octokit/request": "^5.0.2",
+    "before-after-hook": "^2.1.0",
     "universal-user-agent": "^3.0.0"
   }
 }
