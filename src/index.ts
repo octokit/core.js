@@ -4,6 +4,7 @@ import { request } from "@octokit/request";
 
 import { OctokitOptions, Parameters, Plugin } from "./types";
 import { VERSION } from "./version";
+import { withAuthorizationPrefix } from "./auth";
 
 export class Octokit {
   static plugins: Plugin[] = [];
@@ -46,6 +47,12 @@ export class Octokit {
 
     if (options.previews) {
       requestDefaults.mediaType.previews = options.previews;
+    }
+
+    if (options.auth) {
+      requestDefaults.headers.authorization = withAuthorizationPrefix(
+        options.auth
+      );
     }
 
     this.request = request.defaults(requestDefaults);

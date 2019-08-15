@@ -3,6 +3,7 @@ import { Agent } from "http";
 import { Octokit } from ".";
 
 export type OctokitOptions = {
+  auth?: string;
   request?: OctokitRequestOptions;
   [option: string]: any;
 };
