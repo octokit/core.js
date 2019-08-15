@@ -82,14 +82,15 @@ See https://github.com/octokit/graphql.js for full documentation of the `.graphq
 
 ## Authentication
 
-The `auth` option passed be one of
+The `auth` option is a string and can be one of
 
 1. A personal access token
 1. An OAuth token
 1. A GitHub App installation token
 1. A GitHub App JSON Web Token
 1. A GitHub Action token (`GITHUB_TOKEN` environment variable)
-1. An [@octokit/auth](https://github.com/octokit/auth.js) instance
+
+More complex authentication strategies will be supported by passing an [@octokit/auth](https://github.com/octokit/auth.js) instance (🚧 currently work in progress).
 
 ## Hooks
 
