@@ -1,6 +1,7 @@
 import getUserAgent from "universal-user-agent";
 import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
+import { graphql } from "@octokit/graphql";
 
 import { OctokitOptions, Parameters, Plugin } from "./types";
 import { VERSION } from "./version";
@@ -56,6 +57,7 @@ export class Octokit {
     }
 
     this.request = request.defaults(requestDefaults);
+    this.graphql = graphql.defaults(requestDefaults);
     this.hook = hook;
 
     // apply plugins
@@ -66,6 +68,7 @@ export class Octokit {
 
   // assigned during constructor
   request: typeof request;
+  graphql: typeof graphql;
   hook: HookCollection;
 
   // allow for plugins to extend the Octokit instance
