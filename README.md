@@ -65,17 +65,18 @@ See https://github.com/octokit/request.js for full documentation of the `.reques
 ### GraphQL example
 
 ```js
-const octokit = new Octokit({ auth: `secret123`});
+const octokit = new Octokit({ auth: `secret123` });
 
-const response = await octokit.graphql(`
-  query ($login: String!) {
+const response = await octokit.graphql(
+  `query ($login: String!) {
     organization(login: $login) {
       repositories(privacy: PRIVATE) {
         totalCount
       }
     }
   }`,
-  login: 'octokit');
+  { login: "octokit" }
+);
 ```
 
 See https://github.com/octokit/graphql.js for full documentation of the `.graphql` method.
