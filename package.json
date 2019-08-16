@@ -8,8 +8,8 @@
   "main": "index.js",
   "scripts": {
     "build": "pika build",
-    "lint": "prettier --check '{src,test}/**/*' README.md package.json",
-    "lint:fix": "prettier --write '{src,test}/**/*' README.md package.json",
+    "lint": "prettier --check '{src,test}/**/*.{js,ts,css,less,scss,vue,json,gql,md}' README.md package.json",
+    "lint:fix": "prettier --write '{src,test}/**/*.{js,ts,css,less,scss,vue,json,gql,md}' README.md package.json",
     "pretest": "npm run -s lint",
     "test": "jest --coverage"
   },
