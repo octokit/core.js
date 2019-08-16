@@ -9,8 +9,8 @@
 <!-- toc -->
 
 - [Usage](#usage)
-  * [REST API example](#rest-api-example)
-  * [GraphQL example](#graphql-example)
+  - [REST API example](#rest-api-example)
+  - [GraphQL example](#graphql-example)
 - [Authentication](#authentication)
 - [Hooks](#hooks)
 - [Plugins](#plugins)
