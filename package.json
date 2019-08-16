@@ -30,6 +30,12 @@
     "url": "https://github.com/octokit/core.js/issues"
   },
   "homepage": "https://github.com/octokit/core.js#readme",
+  "dependencies": {
+    "@octokit/graphql": "^4.0.0",
+    "@octokit/request": "^5.0.2",
+    "before-after-hook": "^2.1.0",
+    "universal-user-agent": "^3.0.0"
+  },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.6.0",
@@ -96,10 +102,5 @@
         }
       ]
     ]
-  },
-  "dependencies": {
-    "@octokit/request": "^5.0.2",
-    "before-after-hook": "^2.1.0",
-    "universal-user-agent": "^3.0.0"
   }
 }
