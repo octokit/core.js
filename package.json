@@ -49,7 +49,7 @@
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "proxy": "^0.2.4",
-    "semantic-release": "^15.13.19",
+    "semantic-release": "^15.13.21",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },
