@@ -6,5 +6,47 @@ import { Octokit } from "../src";
 const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
 
 describe("octokit.graphql()", () => {
-  it.todo("is a function");
+  it("is a function", () => {
+    const octokit = new Octokit();
+    expect(octokit.graphql).toBeInstanceOf(Function);
+  });
+
+  it("README usage example", async () => {
+    const mockResult = {
+      organization: {
+        repositories: {
+          totalCount: 123
+        }
+      }
+    };
+    const mock = fetchMock
+      .sandbox()
+      .postOnce("https://api.github.com/graphql", (url, request) => {
+        const body = JSON.parse(request.body!.toString());
+        expect(body.query).toEqual(query);
+
+        return {
+          data: mockResult
+        };
+      });
+
+    const octokit = new Octokit({
+      auth: `secret123`,
+      request: {
+        fetch: mock
+      }
+    });
+
+    const query = `query ($login: String!) {
+      organization(login: $login) {
+        repositories(privacy: PRIVATE) {
+          totalCount
+        }
+      }
+    }`;
+
+    const result = await octokit.graphql(query, { login: "octokit" });
+
+    expect(result).toStrictEqual(mockResult);
+  });
 });
