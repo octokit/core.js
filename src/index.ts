@@ -51,9 +51,14 @@ export class Octokit {
     }
 
     if (options.auth) {
-      requestDefaults.headers.authorization = withAuthorizationPrefix(
-        options.auth
-      );
+      if (typeof options.auth === "string") {
+        requestDefaults.headers.authorization = withAuthorizationPrefix(
+          options.auth
+        );
+      } else {
+        // @ts-ignore
+        hook.wrap("request", options.auth.hook);
+      }
     }
 
     this.request = request.defaults(requestDefaults);
