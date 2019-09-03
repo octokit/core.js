@@ -18,6 +18,10 @@
 
 <!-- tocstop -->
 
+If you need a minimalistic library to utilize GitHub's [REST API](https://developer.github.com/v3/) and [GraphQL API](https://developer.github.com/v4/) which you can extend with plugins as needed, than `@octokit/core` is a great starting point.
+
+If you don't need the Plugin API then using [`@octokit/request`](https://github.com/octokit/request.js/) or [`@octokit/graphql`](https://github.com/octokit/graphql.js/) directly is a good alternative.
+
 ## Usage
 
 <table>
@@ -83,15 +87,33 @@ See https://github.com/octokit/graphql.js for full documentation of the `.graphq
 
 ## Authentication
 
-The `auth` option is a string and can be one of
+You can set `options.auth` to a token, which will be used to correctly set the `Authorization` header for the requests you do with `octokit.request()` and `octokit.graphql()`. Example
 
-1. A personal access token
-1. An OAuth token
-1. A GitHub App installation token
-1. A GitHub App JSON Web Token
-1. A GitHub Action token (`GITHUB_TOKEN` environment variable)
+```js
+import { Octokit } from "@octokit/core";
 
-More complex authentication strategies will be supported by passing an [@octokit/auth](https://github.com/octokit/auth.js) instance (🚧 currently work in progress).
+const octokit = new Octokit({
+  auth: "mypersonalaccesstoken123"
+});
+
+octokit.request("/user").then(response => console.log(response.data));
+```
+
+All other authentication strategies are supported using [`@octokit/auth`](@octokit/auth-app.js#readme), just pass the `auth()` method returned by any of the strategies as `options.auth`. Example
+
+```js
+import { Octokit } from "@octokit/core";
+import { createAppAuth } from "@octokit/auth-app";
+
+const octokit = new Octokit({
+  auth: createAppAuth({
+    id: 123,
+    privateKey: process.env.PRIVATE_KEY
+  )}
+})
+
+octokit.request('/app').then(response => console.log(response.data))
+```
 
 ## Hooks
 
