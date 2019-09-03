@@ -50,6 +50,7 @@
     "prettier": "^1.18.2",
     "proxy": "^0.2.4",
     "semantic-release": "^15.13.21",
+    "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.3"
   },
