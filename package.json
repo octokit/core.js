@@ -37,6 +37,7 @@
     "universal-user-agent": "^3.0.0"
   },
   "devDependencies": {
+    "@octokit/auth": "^1.1.0",
     "@pika/pack": "^0.5.0",
     "@pika/plugin-build-node": "^0.6.0",
     "@pika/plugin-build-web": "^0.6.0",
