@@ -1,7 +1,7 @@
 # core.js
 
 [![@latest](https://img.shields.io/npm/v/@octokit/core.svg)](https://www.npmjs.com/package/@octokit/core)
-[![Build Status](https://travis-ci.org/octokit/core.js.svg?branch=master)](https://travis-ci.org/octokit/core.js)
+[![Build Status](https://github.com/octokit/core.js/workflows/Test/badge.svg)](https://github.com/octokit/core.js/actions)
 [![Greenkeeper](https://badges.greenkeeper.io/octokit/core.js.svg)](https://greenkeeper.io/)
 
 > Extendable client for GitHub's REST & GraphQL APIs
