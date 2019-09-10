@@ -99,7 +99,7 @@ const octokit = new Octokit({
 octokit.request("/user").then(response => console.log(response.data));
 ```
 
-All other authentication strategies are supported using [`@octokit/auth`](@octokit/auth-app.js#readme), just pass the `auth()` method returned by any of the strategies as `options.auth`. Example
+All other authentication strategies are supported using [`@octokit/auth`](https://github.com/octokit/auth-app.js#readme), just pass the `auth()` method returned by any of the strategies as `options.auth`. Example
 
 ```js
 import { Octokit } from "@octokit/core";
