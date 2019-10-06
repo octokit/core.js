@@ -11,6 +11,7 @@
 - [Usage](#usage)
   - [REST API example](#rest-api-example)
   - [GraphQL example](#graphql-example)
+- [Options](#options)
 - [Authentication](#authentication)
 - [Hooks](#hooks)
 - [Plugins](#plugins)
