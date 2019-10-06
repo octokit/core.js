@@ -12,6 +12,7 @@
   - [REST API example](#rest-api-example)
   - [GraphQL example](#graphql-example)
 - [Options](#options)
+- [Defaults](#defaults)
 - [Authentication](#authentication)
 - [Hooks](#hooks)
 - [Plugins](#plugins)
@@ -206,6 +207,20 @@ const octokit = new Octokit({
 </td></tr>
   </tbody>
 </table>
+
+## Defaults
+
+You can create a new Octokit class with customized default options.
+
+```js
+const MyOctokit = Octokit.defaults({
+  auth: "personal-access-token123",
+  baseUrl: "https://github.acme-inc.com/api/v3",
+  userAgent: "my-app/v1.2.3"
+});
+const octokit1 = new MyOctokit();
+const octokit2 = new MyOctokit();
+```
 
 ## Authentication
 
