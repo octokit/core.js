@@ -8,6 +8,18 @@ import { VERSION } from "./version";
 import { withAuthorizationPrefix } from "./auth";
 
 export class Octokit {
+  static defaults(defaults: OctokitOptions) {
+    return class OctokitWithDefaults extends this {
+      static defaults(newDefaults: OctokitOptions): typeof Octokit {
+        return Octokit.defaults(Object.assign({}, defaults, newDefaults));
+      }
+
+      constructor(options: OctokitOptions = {}) {
+        super(Object.assign({}, defaults, options));
+      }
+    };
+  }
+
   static plugins: Plugin[] = [];
   static plugin(plugins: Plugin | Plugin[]) {
     const currentPlugins = this.plugins;
