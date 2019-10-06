@@ -56,7 +56,8 @@ const { Octokit } = require("@octokit/core");
 ### REST API example
 
 ```js
-const octokit = new Octokit({ auth: `secret123` });
+// Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
+const octokit = new Octokit({ auth: `personal-access-token123` });
 
 const response = await octokit.request("GET /orgs/:org/repos", {
   org: "octokit",
@@ -64,7 +65,7 @@ const response = await octokit.request("GET /orgs/:org/repos", {
 });
 ```
 
-See https://github.com/octokit/request.js for full documentation of the `.request` method.
+See [`@octokit/request`](https://github.com/octokit/request.js) for full documentation of the `.request` method.
 
 ### GraphQL example
 
@@ -83,7 +84,109 @@ const response = await octokit.graphql(
 );
 ```
 
-See https://github.com/octokit/graphql.js for full documentation of the `.graphql` method.
+See (`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documentation of the `.graphql` method.
+
+## Options
+
+<table>
+  <thead align=left>
+    <tr>
+      <th>
+        name
+      </th>
+      <th>
+        type
+      </th>
+      <th width=100%>
+        description
+      </th>
+    </tr>
+  </thead>
+  <tbody align=left valign=top>
+    <tr>
+      <th>
+        <code>options.auth</code>
+      </th>
+      <td>
+        <code>String</code> or <a href="https://github.com/octokit/auth.js"><code>@octokit/auth</code></a> instance
+      </td>
+      <td>
+        If set to a <code>String</code>, then it's expected to be a <a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">personal access token</a> or  <a href="https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow">OAuth access token</a> and used accordingly in the <code>Authorization</code> header.<br>
+        <br>
+        For all other authentication strategies, set <code>options.auth</code> to a <a href="https://github.com/octokit/auth.js"><code>@octokit/auth</code></a> instance.<br>
+        <br>
+        See <a href="authentication">Authentication</a> below for examples.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.baseUrl</code>
+      </th>
+      <td>
+        <code>String</code>
+      </td>
+      <td>
+
+When using with GitHub Enterprise Server, set `options.baseUrl` to the root URL of the API. For example, if your GitHub Enterprise Server's hostname is `github.acme-inc.com`, then set `options.baseUrl` to `https://github.acme-inc.com/api/v3`. Example
+
+```js
+const octokit = new Octokit({
+  baseUrl: "https://github.acme-inc.com/api/v3"
+});
+```
+
+</td></tr>
+    <tr>
+      <th>
+        <code>options.previews</code>
+      </th>
+      <td>
+        <code>Array of Strings</code>
+      </td>
+      <td>
+
+Some REST API endpoints require preview headers to be set, or enable
+additional features. Preview headers can be set on a per-request basis, e.g.
+
+```js
+octokit.request("POST /repos/:owner/:repo/pulls", {
+  mediaType: {
+    previews: ["shadow-cat"]
+  },
+  owner,
+  repo,
+  title: "My pull request",
+  base: "master",
+  head: "my-feature",
+  draft: true
+});
+```
+
+You can also set previews globally, by setting the `options.previews` option on the constructor. Example:
+
+```js
+const octokit = new Octokit({
+  previews: ["shadow-cat"]
+});
+```
+
+</td></tr>
+    <tr>
+      <th>
+        <code>options.request</code>
+      </th>
+      <td>
+        <code>Object</code>
+      </td>
+      <td>
+
+Set a default request timeout (`options.request.timeout`) or an [`http(s).Agent`](https://nodejs.org/api/http.html#http_class_http_agent) e.g. for proxy usage (Node only, `options.request.agent`).
+
+There are more `options.request.*` options, see [`@octokit/request` options](https://github.com/octokit/request.js#request). `options.request` can also be set on a per-request basis.
+
+</td></tr>
+  </tbody>
+</table>
 
 ## Authentication
 
