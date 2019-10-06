@@ -186,6 +186,24 @@ Set a default request timeout (`options.request.timeout`) or an [`http(s).Agent`
 There are more `options.request.*` options, see [`@octokit/request` options](https://github.com/octokit/request.js#request). `options.request` can also be set on a per-request basis.
 
 </td></tr>
+    <tr>
+      <th>
+        <code>options.userAgent</code>
+      </th>
+      <td>
+        <code>String</code>
+      </td>
+      <td>
+
+A custom user agent string for your app or library. Example
+
+```js
+const octokit = new Octokit({
+  userAgent: "my-app/v1.2.3"
+});
+```
+
+</td></tr>
   </tbody>
 </table>
 
