@@ -1,4 +1,4 @@
-import getUserAgent from "universal-user-agent";
+import { getUserAgent } from "universal-user-agent";
 import fetchMock from "fetch-mock";
 
 import { Octokit } from "../src";

@@ -1,7 +1,7 @@
-import getUserAgent from "universal-user-agent";
+import { getUserAgent } from "universal-user-agent";
 import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
-import { graphql } from "@octokit/graphql";
+import { graphql, withCustomRequest } from "@octokit/graphql";
 
 import { OctokitOptions, Parameters, Plugin } from "./types";
 import { VERSION } from "./version";
@@ -62,7 +62,7 @@ export class Octokit {
     }
 
     this.request = request.defaults(requestDefaults);
-    this.graphql = graphql.defaults(requestDefaults);
+    this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
     this.hook = hook;
 
     // apply plugins
