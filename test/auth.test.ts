@@ -1,4 +1,4 @@
-import getUserAgent from "universal-user-agent";
+import { getUserAgent } from "universal-user-agent";
 import fetchMock, { MockMatcherFunction } from "fetch-mock";
 import { Response } from "node-fetch";
 import {
