@@ -42,7 +42,7 @@
     "fetch-mock": "^7.3.9",
     "http-proxy-agent": "^2.1.0",
     "jest": "^24.8.0",
-    "lolex": "^4.2.0",
+    "lolex": "^5.0.0",
     "prettier": "^1.18.2",
     "proxy": "^0.2.4",
     "semantic-release": "^15.13.21",
