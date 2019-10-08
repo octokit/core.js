@@ -1,10 +1,11 @@
+name: Release
 on:
   push:
     branches:
       - master
-name: Release
+
 jobs:
-  build:
+  release:
     name: release
     runs-on: ubuntu-latest
     steps:
