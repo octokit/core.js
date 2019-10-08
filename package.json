@@ -52,7 +52,7 @@
     "jest": "^24.8.0",
     "lolex": "^4.2.0",
     "prettier": "^1.18.2",
-    "proxy": "^0.2.4",
+    "proxy": "^1.0.1",
     "semantic-release": "^15.13.21",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^24.0.2",
