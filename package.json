@@ -5,7 +5,6 @@
     "access": "public"
   },
   "description": "Extendable client for GitHub's REST & GraphQL APIs",
-  "main": "index.js",
   "scripts": {
     "build": "pika build",
     "lint": "prettier --check '{src,test}/**/*.{js,ts,css,less,scss,vue,json,gql,md}' README.md package.json",
@@ -13,10 +12,7 @@
     "pretest": "npm run -s lint",
     "test": "jest --coverage"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/octokit/core.js.git"
-  },
+  "repository": "https://github.com/octokit/core.js",
   "keywords": [
     "octokit",
     "github",
@@ -26,10 +22,6 @@
   ],
   "author": "Gregor Martynus (https://github.com/gr2m)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/octokit/core.js/issues"
-  },
-  "homepage": "https://github.com/octokit/core.js#readme",
   "dependencies": {
     "@octokit/graphql": "^4.2.0",
     "@octokit/request": "^5.1.0",
@@ -69,9 +61,6 @@
       }
     }
   },
-  "files": [
-    "lib"
-  ],
   "@pika/pack": {
     "pipeline": [
       [
