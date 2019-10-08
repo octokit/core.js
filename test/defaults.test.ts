@@ -63,6 +63,33 @@ describe("Octokit.defaults", () => {
     });
   });
 
+  it("Octokit.defaults({timeZone})", () => {
+    const mock = fetchMock.sandbox().getOnce(
+      "https://api.github.com/",
+      { ok: true },
+      {
+        headers: {
+          accept: "application/vnd.github.v3+json",
+          "user-agent": userAgent,
+          "time-zone": "Europe/Amsterdam"
+        }
+      }
+    );
+
+    const OctokitWithDefaults = Octokit.defaults({
+      timeZone: "Europe/Amsterdam",
+      request: {
+        fetch: mock
+      }
+    });
+
+    const octokit = new OctokitWithDefaults();
+
+    return octokit.request("GET /").then(response => {
+      expect(response.data).toStrictEqual({ ok: true });
+    });
+  });
+
   it("Octokit.defaults({auth})", async () => {
     const mock = fetchMock.sandbox().getOnce(
       "https://api.github.com/app",

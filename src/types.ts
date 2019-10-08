@@ -6,6 +6,7 @@ import { Octokit } from ".";
 export type OctokitOptions = {
   auth?: string | AutenticationHook;
   request?: OctokitRequestOptions;
+  timeZone?: string;
   [option: string]: any;
 };
 
