@@ -62,6 +62,10 @@ export class Octokit {
       requestDefaults.mediaType.previews = options.previews;
     }
 
+    if (options.timeZone) {
+      requestDefaults.headers["time-zone"] = options.timeZone;
+    }
+
     if (options.auth) {
       if (typeof options.auth === "string") {
         requestDefaults.headers.authorization = withAuthorizationPrefix(
