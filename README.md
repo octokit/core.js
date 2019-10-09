@@ -14,6 +14,7 @@
 - [Options](#options)
 - [Defaults](#defaults)
 - [Authentication](#authentication)
+- [Logging](#logging)
 - [Hooks](#hooks)
 - [Plugins](#plugins)
 - [LICENSE](#license)
