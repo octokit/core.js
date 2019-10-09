@@ -75,6 +75,15 @@ export class Octokit {
 
     this.request = request.defaults(requestDefaults);
     this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
+    this.log = Object.assign(
+      {
+        debug: () => {},
+        info: () => {},
+        warn: console.warn.bind(console),
+        error: console.error.bind(console)
+      },
+      options.log
+    );
     this.hook = hook;
 
     // apply plugins
@@ -86,6 +95,13 @@ export class Octokit {
   // assigned during constructor
   request: typeof request;
   graphql: typeof graphql;
+  log: {
+    debug: (message: string, additionalInfo?: object) => any;
+    info: (message: string, additionalInfo?: object) => any;
+    warn: (message: string, additionalInfo?: object) => any;
+    error: (message: string, additionalInfo?: object) => any;
+    [key: string]: any;
+  };
   hook: HookCollection;
 
   // allow for plugins to extend the Octokit instance
