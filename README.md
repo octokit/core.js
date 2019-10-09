@@ -252,6 +252,27 @@ const octokit = new Octokit({
 octokit.request('/app').then(response => console.log(response.data))
 ```
 
+## Logging
+
+There are four built-in log methods
+
+1. `octokit.log.debug(message[, additionalInfo])`
+1. `octokit.log.info(message[, additionalInfo])`
+1. `octokit.log.warn(message[, additionalInfo])`
+1. `octokit.log.error(message[, additionalInfo])`
+
+They can be configured using the [`log` client option](client-options). By default, `octokit.log.debug()` and `octokit.log.info()` are no-ops, while the other two call `console.warn()` and `console.error()` respectively.
+
+This is useful if you build reusable [plugins](#plugins).
+
+If you would like to make the log level configurable using an environment variable or external option, we recommend the [console-log-level](https://github.com/watson/console-log-level) package. Example
+
+```js
+const octokit = new Octokit({
+  log: require("console-log-level")({ level: "info" })
+});
+```
+
 ## Hooks
 
 You can customize Octokit's request lifecycle with hooks.
