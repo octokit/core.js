@@ -18,7 +18,7 @@ interface AutenticationHook {
   ) => ReturnType<typeof Request>;
 }
 
-export type Plugin = (octokit: Octokit, options?: OctokitOptions) => void;
+export type Plugin = (octokit: Octokit, options: OctokitOptions) => void;
 
 // TODO: deduplicate
 
