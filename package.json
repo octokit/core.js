@@ -89,9 +89,9 @@
         "semantic-release-plugin-update-version-in-files",
         {
           "files": [
-            "dist-web/*",
-            "dist-node/*",
-            "*/version.*"
+            "pkg/dist-web/*",
+            "pkg/dist-node/*",
+            "pkg/*/version.*"
           ]
         }
       ]
