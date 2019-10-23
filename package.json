@@ -25,6 +25,7 @@
   "dependencies": {
     "@octokit/graphql": "^4.2.0",
     "@octokit/request": "^5.1.0",
+    "@octokit/types": "file:../types.ts",
     "before-after-hook": "^2.1.0",
     "universal-user-agent": "^4.0.0"
   },
