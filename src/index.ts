@@ -3,7 +3,7 @@ import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
 import { graphql, withCustomRequest } from "@octokit/graphql";
 
-import { OctokitOptions, Parameters, Plugin } from "./types";
+import { OctokitOptions, Plugin, RequestParameters } from "./types";
 import { VERSION } from "./version";
 import { withAuthorizationPrefix } from "./auth";
 
@@ -34,7 +34,7 @@ export class Octokit {
 
   constructor(options: OctokitOptions = {}) {
     const hook = new Collection();
-    const requestDefaults: Required<Parameters> = {
+    const requestDefaults: Required<RequestParameters> = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
       request: Object.assign({}, options.request, {
