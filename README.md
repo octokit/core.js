@@ -307,7 +307,9 @@ Octokit’s functionality can be extended using plugins. THe `Octokit.plugin()` 
 A plugin is a function which gets two arguments:
 
 1. the current instance
-2. the Options passed to the constructor.
+2. the options passed to the constructor.
+
+In order to extend `octokit`'s API, the plugin must return an object with the new methods.
 
 ```js
 // index.js
@@ -322,9 +324,6 @@ octokit.request("GET /"); // logs "GET / - 200 in 123ms"
 
 // lib/my-plugin.js
 module.exports = (octokit, options = { greeting: "Hello" }) => {
-  // add a custom method
-  octokit.helloWorld = () => console.log(`${options.greeting}, world!`);
-
   // hook into the request lifecycle
   octokit.hook.wrap("request", async (request, options) => {
     const time = Date.now();
@@ -335,6 +334,11 @@ module.exports = (octokit, options = { greeting: "Hello" }) => {
     );
     return response;
   });
+
+  // add a custom method
+  return {
+    helloWorld: () => console.log(`${options.greeting}, world!`);
+  }
 };
 ```
 
