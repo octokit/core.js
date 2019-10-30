@@ -11,4 +11,29 @@ export type OctokitOptions = {
   [option: string]: any;
 };
 
-export type Plugin = (octokit: Octokit, options: OctokitOptions) => void;
+export type Constructor<T> = new (...args: any[]) => T;
+
+export type ReturnTypeOf<
+  T extends AnyFunction | AnyFunction[]
+> = T extends AnyFunction
+  ? ReturnType<T>
+  : T extends AnyFunction[]
+  ? UnionToIntersection<ReturnType<T[number]>>
+  : never;
+
+/**
+ * @author https://stackoverflow.com/users/2887218/jcalz
+ * @see https://stackoverflow.com/a/50375286/10325032
+ */
+type UnionToIntersection<Union> = (Union extends any
+  ? (argument: Union) => void
+  : never) extends (argument: infer Intersection) => void // tslint:disable-line: no-unused
+  ? Intersection
+  : never;
+
+type AnyFunction = (...args: any) => any;
+
+export type OctokitPlugin = (
+  octokit: Octokit,
+  options: OctokitOptions
+) => { [key: string]: any } | void;
