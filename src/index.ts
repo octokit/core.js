@@ -3,9 +3,17 @@ import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
 import { graphql, withCustomRequest } from "@octokit/graphql";
 
-import { OctokitOptions, Plugin, RequestParameters } from "./types";
+import {
+  Constructor,
+  OctokitOptions,
+  OctokitPlugin,
+  RequestParameters,
+  ReturnTypeOf
+} from "./types";
 import { VERSION } from "./version";
 import { withAuthorizationPrefix } from "./auth";
+
+export { OctokitOptions } from "./types";
 
 export class Octokit {
   static defaults(defaults: OctokitOptions) {
@@ -20,16 +28,20 @@ export class Octokit {
     };
   }
 
-  static plugins: Plugin[] = [];
-  static plugin(plugins: Plugin | Plugin[]) {
+  static plugins: OctokitPlugin[] = [];
+  static plugin<T extends OctokitPlugin | OctokitPlugin[]>(pluginOrPlugins: T) {
     const currentPlugins = this.plugins;
-    const newPlugins = Array.isArray(plugins) ? plugins : [plugins];
+    const newPlugins = Array.isArray(pluginOrPlugins)
+      ? pluginOrPlugins
+      : [pluginOrPlugins];
 
-    return class NewOctokit extends this {
+    const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
         newPlugins.filter(plugin => !currentPlugins.includes(plugin))
       );
     };
+
+    return NewOctokit as typeof NewOctokit & Constructor<ReturnTypeOf<T>>;
   }
 
   constructor(options: OctokitOptions = {}) {
@@ -93,7 +105,9 @@ export class Octokit {
     // apply plugins
     // https://stackoverflow.com/a/16345172
     const classConstructor = this.constructor as typeof Octokit;
-    classConstructor.plugins.forEach(plugin => plugin(this, options));
+    classConstructor.plugins.forEach(plugin => {
+      Object.assign(this, plugin(this, options));
+    });
   }
 
   // assigned during constructor
@@ -107,7 +121,4 @@ export class Octokit {
     [key: string]: any;
   };
   hook: HookCollection;
-
-  // allow for plugins to extend the Octokit instance
-  [key: string]: any;
 }
