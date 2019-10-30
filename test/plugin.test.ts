@@ -2,8 +2,10 @@ import { Octokit } from "../src";
 
 describe("Octokit.plugin()", () => {
   it("gets called in constructor", () => {
-    const MyOctokit = Octokit.plugin(octokit => {
-      octokit.foo = "bar";
+    const MyOctokit = Octokit.plugin(() => {
+      return {
+        foo: "bar"
+      };
     });
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
@@ -11,11 +13,13 @@ describe("Octokit.plugin()", () => {
 
   it("supports array of plugins", () => {
     const MyOctokit = Octokit.plugin([
-      octokit => {
-        octokit.foo = "bar";
+      () => {
+        return {
+          foo: "bar"
+        };
       },
-      octokit => {
-        octokit.baz = "daz";
+      () => {
+        return { baz: "daz" };
       }
     ]);
     const myClient = new MyOctokit();
@@ -25,13 +29,15 @@ describe("Octokit.plugin()", () => {
 
   it("does not override plugins of original constructor", () => {
     const MyOctokit = Octokit.plugin(octokit => {
-      octokit.foo = "bar";
+      return {
+        foo: "bar"
+      };
     });
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
 
     const octokit = new Octokit();
-    expect(octokit.foo).toEqual(undefined);
+    expect(octokit).not.toHaveProperty("foo");
   });
 
   it("receives client options", () => {
@@ -45,11 +51,13 @@ describe("Octokit.plugin()", () => {
 
   it("does not load the same plugin more than once", () => {
     const myPlugin = (octokit: Octokit) => {
-      if (octokit.customKey) {
+      if ("customKey" in octokit) {
         throw new Error("Boom!");
-      } else {
-        octokit.customKey = true;
       }
+
+      return {
+        customKey: true
+      };
     };
     const MyOctokit = Octokit.plugin(myPlugin).plugin(myPlugin);
     expect(() => new MyOctokit()).not.toThrow();
