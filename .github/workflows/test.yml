@@ -1,5 +1,11 @@
 name: Test
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - "greenkeeper/*"
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   test:
@@ -13,7 +19,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
-          version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }}
       - name: Install
         run: npm ci
       - name: Test
