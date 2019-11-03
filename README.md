@@ -17,6 +17,8 @@
 - [Logging](#logging)
 - [Hooks](#hooks)
 - [Plugins](#plugins)
+- [Build your own Octokit with Plugins and Defaults](#build-your-own-octokit-with-plugins-and-defaults)
+  - [⚠️ A note on TypeScript](#%E2%9A%A0%EF%B8%8F-a-note-on-typescript)
 - [LICENSE](#license)
 
 <!-- tocstop -->
@@ -340,6 +342,72 @@ module.exports = (octokit, options = { greeting: "Hello" }) => {
     helloWorld: () => console.log(`${options.greeting}, world!`);
   }
 };
+```
+
+## Build your own Octokit with Plugins and Defaults
+
+You can build your own Octokit class with preset default options and plugins. In fact, this is mostly how the `@octokit/<context>` modules work, such as [`@octokit/action`](https://github.com/octokit/action.js):
+
+```js
+const MyActionOctokit = require("@octokit/core")
+  .plugin([
+    require("@octokit/plugin-paginate"),
+    require("@octokit/plugin-throttle"),
+    require("@octokit/plugin-retry")
+  ])
+  .defaults({
+    authStrategy: require("@octokit/auth-action"),
+    userAgent: `my-octokit-action/v1.2.3`
+  });
+
+const octokit = new MyActionOctokit();
+const installations = await octokit.paginate("GET /app/installations");
+```
+
+### ⚠️ A note on TypeScript
+
+When creating a new Octokit class using `.plugin()`, the TypeScript definitions `octokit` API extensions will get last when `.plugin()` or `.defaults()` is called on the new class again to derive yet another class. To workaround that, an intermediade class needs to be defined. For the example above, the code would look like this
+
+```js
+import { Octokit, BuildYourOwnWorkaround } from '@octokit/core'
+
+const MyActionOctokitWithPlugins = Octokit
+  .plugin([
+    paginate,
+    throttle,
+    retry
+  ])
+
+class MyActionOctokitWorkaround extends MyActionOctokitWithPlugins {
+  static plugin<T extends BuildYourOwnWorkaround.TestPlugin | BuildYourOwnWorkaround.TestPlugin[]>(plugin: T) {
+    const currentPlugins = this.plugins;
+
+    const BaseWithPlugins = class extends this {
+      static plugins = currentPlugins.concat(plugin);
+    };
+
+    type Extension = BuildYourOwnWorkaround.ReturnTypeOf<T>;
+    return BaseWithPlugins as typeof BaseWithPlugins &
+      BuildYourOwnWorkaround.Constructor<Extension>;
+  }
+
+  static defaults(defaults: BuildYourOwnWorkaround.Options) {
+    return class OctokitWithDefaults extends this {
+      constructor(options: BuildYourOwnWorkaround.Options = {}) {
+        super(Object.assign({}, defaults, options));
+      }
+    };
+  }
+}
+
+const MyActionOctokit = MyActionOctokitWorkaround
+  .defaults({
+    authStrategy: require("@octokit/auth-action"),
+    userAgent: `my-octokit-action/v1.2.3`
+  });
+
+const octokit = new MyActionOctokit();
+const installations = await octokit.paginate("GET /app/installations");
 ```
 
 ## LICENSE
