@@ -377,6 +377,7 @@ const installations = await octokit.paginate("GET /app/installations");
 ```
 
 <a name="a-note-on-typescript"></a>
+
 ### ⚠️ A note on TypeScript
 
 When creating a new Octokit class using `.plugin()`, the TypeScript definitions `octokit` API extensions will get last when `.plugin()` or `.defaults()` is called on the new class again to derive yet another class. To workaround that, an intermediade class needs to be defined. For the example above, the code would look like this
