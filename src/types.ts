@@ -5,7 +5,8 @@ import { Octokit } from ".";
 export type RequestParameters = OctokitTypes.RequestParameters;
 
 export type OctokitOptions = {
-  auth?: string | OctokitTypes.AuthInterface;
+  authStrategy?: any;
+  auth?: any;
   request?: OctokitTypes.RequestRequestOptions;
   timeZone?: string;
   [option: string]: any;

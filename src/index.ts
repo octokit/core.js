@@ -2,6 +2,7 @@ import { getUserAgent } from "universal-user-agent";
 import { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
 import { graphql, withCustomRequest } from "@octokit/graphql";
+import { createTokenAuth } from "@octokit/auth-token";
 
 import {
   Constructor,
@@ -11,17 +12,12 @@ import {
   ReturnTypeOf
 } from "./types";
 import { VERSION } from "./version";
-import { withAuthorizationPrefix } from "./auth";
 
 export { OctokitOptions } from "./types";
 
 export class Octokit {
   static defaults(defaults: OctokitOptions) {
     return class OctokitWithDefaults extends this {
-      static defaults(newDefaults: OctokitOptions): typeof Octokit {
-        return Octokit.defaults(Object.assign({}, defaults, newDefaults));
-      }
-
       constructor(options: OctokitOptions = {}) {
         super(Object.assign({}, defaults, options));
       }
@@ -78,15 +74,29 @@ export class Octokit {
       requestDefaults.headers["time-zone"] = options.timeZone;
     }
 
-    if (options.auth) {
-      if (typeof options.auth === "string") {
-        requestDefaults.headers.authorization = withAuthorizationPrefix(
-          options.auth
-        );
+    // (1) If neither `options.authStrategy` nor `options.auth` are set, the `octokit` instance
+    //     is unauthenticated. The `this.auth()` method is a no-op and no request hook is registred.
+    // (2) If only `options.auth` is set, use the default token authentication strategy.
+    // (3) If `options.authStrategy` is set then use it and pass in `options.auth`
+    // TODO: type `options.auth` based on `options.authStrategy`.
+    if (!options.authStrategy) {
+      if (!options.auth) {
+        // (1)
+        this.auth = async () => ({
+          type: "unauthenticated"
+        });
       } else {
-        // @ts-ignore
-        hook.wrap("request", options.auth.hook);
+        // (2)
+        const auth = createTokenAuth(options.auth as string);
+        // @ts-ignore  ¯\_(ツ)_/¯
+        hook.wrap("request", auth.hook);
+        this.auth = auth;
       }
+    } else {
+      const auth = options.authStrategy(options.auth);
+      // @ts-ignore  ¯\_(ツ)_/¯
+      hook.wrap("request", auth.hook);
+      this.auth = auth;
     }
 
     this.request = request.defaults(requestDefaults);
@@ -121,4 +131,7 @@ export class Octokit {
     [key: string]: any;
   };
   hook: HookCollection;
+
+  // TODO: type `octokit.auth` based on passed options.authStrategy
+  auth: (...args: unknown[]) => Promise<unknown>;
 }
