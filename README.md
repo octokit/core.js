@@ -376,43 +376,47 @@ const octokit = new MyActionOctokit();
 const installations = await octokit.paginate("GET /app/installations");
 ```
 
+<a name="a-note-on-typescript"></a>
 ### ⚠️ A note on TypeScript
 
 When creating a new Octokit class using `.plugin()`, the TypeScript definitions `octokit` API extensions will get last when `.plugin()` or `.defaults()` is called on the new class again to derive yet another class. To workaround that, an intermediade class needs to be defined. For the example above, the code would look like this
 
 ```js
-import { Octokit, BuildYourOwnWorkaround } from '@octokit/core'
+import { Octokit, OctokitOptions, OctokitPlugin, ReturnTypeOf, Constructor } from '@octokit/core'
 
-const MyActionOctokitWithPlugins = Octokit
+const CoreWithPlugins = Octokit
   .plugin([
     paginate,
     throttle,
     retry
   ])
 
-class MyActionOctokitWorkaround extends MyActionOctokitWithPlugins {
-  static plugin<T extends BuildYourOwnWorkaround.TestPlugin | BuildYourOwnWorkaround.TestPlugin[]>(plugin: T) {
+class CoreWithPluginsWorkaround extends CoreWithPlugins {
+  static plugin<T extends OctokitPlugin | OctokitPlugin[]>(pluginOrPlugins: T) {
     const currentPlugins = this.plugins;
+    const newPlugins = Array.isArray(pluginOrPlugins)
+      ? pluginOrPlugins
+      : [pluginOrPlugins];
 
-    const BaseWithPlugins = class extends this {
-      static plugins = currentPlugins.concat(plugin);
+    const NewOctokit = class extends this {
+      static plugins = currentPlugins.concat(
+        newPlugins.filter(plugin => !currentPlugins.includes(plugin))
+      );
     };
 
-    type Extension = BuildYourOwnWorkaround.ReturnTypeOf<T>;
-    return BaseWithPlugins as typeof BaseWithPlugins &
-      BuildYourOwnWorkaround.Constructor<Extension>;
+    return NewOctokit as typeof NewOctokit & Constructor<ReturnTypeOf<T>>;
   }
 
-  static defaults(defaults: BuildYourOwnWorkaround.Options) {
+  static defaults(defaults: OctokitOptions) {
     return class OctokitWithDefaults extends this {
-      constructor(options: BuildYourOwnWorkaround.Options = {}) {
+      constructor(options: OctokitOptions = {}) {
         super(Object.assign({}, defaults, options));
       }
     };
   }
 }
 
-const MyActionOctokit = MyActionOctokitWorkaround
+const MyActionOctokit = CoreWithPluginsWorkaround
   .defaults({
     authStrategy: require("@octokit/auth-action"),
     userAgent: `my-octokit-action/v1.2.3`
