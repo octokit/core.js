@@ -5,6 +5,8 @@ import { Octokit } from ".";
 export type RequestParameters = OctokitTypes.RequestParameters;
 
 export type OctokitOptions = {
+  // TODO: add types for authStrategy & auth options and octokit.auth() method,
+  //       see https://tinyurl.com/typescript-auth-strategies
   authStrategy?: any;
   auth?: any;
   request?: OctokitTypes.RequestRequestOptions;
