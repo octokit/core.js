@@ -2,6 +2,7 @@ import fetchMock from "fetch-mock";
 import { getUserAgent } from "universal-user-agent";
 import { createActionAuth } from "@octokit/auth";
 
+import { OctokitOptions } from "../src/types";
 import { Octokit } from "../src";
 
 const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
@@ -90,7 +91,7 @@ describe("Octokit.defaults", () => {
     });
   });
 
-  it("Octokit.defaults({auth})", async () => {
+  it("Octokit.defaults({ auth })", async () => {
     const mock = fetchMock.sandbox().getOnce(
       "https://api.github.com/app",
       { id: 123 },
@@ -109,7 +110,7 @@ describe("Octokit.defaults", () => {
     };
 
     const OctokitWithDefaults = Octokit.defaults({
-      auth: createActionAuth(),
+      authStrategy: createActionAuth,
       request: {
         fetch: mock
       }
@@ -149,7 +150,7 @@ describe("Octokit.defaults", () => {
     });
   });
 
-  it("Octokit.plugins().defaults()", () => {
+  it("Octokit.plugin().defaults()", () => {
     const mock = fetchMock.sandbox().getOnce(
       "https://github.acme-inc.test/api/v3/",
       { ok: true },
@@ -161,16 +162,31 @@ describe("Octokit.defaults", () => {
       }
     );
 
-    const OctokitWithDefaults = Octokit.plugin(octokit => {
-      octokit.foo = "bar";
-    }).defaults({
+    const OctokitWithPlugin = Octokit.plugin(() => {
+      return {
+        foo: "bar"
+      };
+    });
+
+    // See "A note on TypeScript" in README
+    class OctokitWithPluginWorkaround extends OctokitWithPlugin {
+      static defaults(defaults: OctokitOptions) {
+        return class OctokitWithDefaults extends this {
+          constructor(options: OctokitOptions = {}) {
+            super(Object.assign({}, defaults, options));
+          }
+        };
+      }
+    }
+
+    const OctokitWithPluginAndDefaults = OctokitWithPluginWorkaround.defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
         fetch: mock
       }
     });
 
-    const octokit = new OctokitWithDefaults();
+    const octokit = new OctokitWithPluginAndDefaults();
 
     expect(octokit.foo).toEqual("bar");
 
