@@ -227,7 +227,9 @@ const octokit2 = new MyOctokit();
 
 ## Authentication
 
-You can set `options.auth` to a token, which will be used to correctly set the `Authorization` header for the requests you do with `octokit.request()` and `octokit.graphql()`. Example
+Authentication is optional for some REST API endpoints accessing public data, but is required for GraphQL queries. Using authentication also increases your [API rate limit](https://developer.github.com/v3/#rate-limiting).
+
+By default, Octokit authenticates using the [token authentication strategy](https://github.com/octokit/auth-token.js). Pass in a token using `options.auth`. It can be a personal access token, an OAuth token, an installation access token or a JSON Web Token for GitHub App authentication. The `Authorization` header will be set according to the type of token.
 
 ```js
 import { Octokit } from "@octokit/core";
@@ -236,23 +238,33 @@ const octokit = new Octokit({
   auth: "mypersonalaccesstoken123"
 });
 
-octokit.request("/user").then(response => console.log(response.data));
+const { data } = await octokit.request("/user");
 ```
 
-All other authentication strategies are supported using [`@octokit/auth`](https://github.com/octokit/auth-app.js#readme), just pass the `auth()` method returned by any of the strategies as `options.auth`. Example
+To use a different authentication strategy, set `options.authStrategy`. A set of officially supported authentication strategies can be retrieved from [`@octokit/auth`](https://github.com/octokit/auth-app.js#readme). Example
 
 ```js
 import { Octokit } from "@octokit/core";
 import { createAppAuth } from "@octokit/auth-app";
 
-const octokit = new Octokit({
-  auth: createAppAuth({
+const appOctokit = new Octokit({
+  authStrategy: createAppAuth,
+  auth: {
     id: 123,
     privateKey: process.env.PRIVATE_KEY
-  )}
-})
+  }
+});
 
-octokit.request('/app').then(response => console.log(response.data))
+const { data } = await appOctokit.request("/app");
+```
+
+The `.auth()` method returned by the current authentication strategy can be accessed at `octokit.auth()`. Example
+
+```js
+const { token } = await appOctokit.auth({
+  type: "installation",
+  installationId: 123
+});
 ```
 
 ## Logging
