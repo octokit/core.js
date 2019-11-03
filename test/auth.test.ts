@@ -202,11 +202,12 @@ describe("Authentication", () => {
       .getOnce(matchGetUserWithOtp, responseGetUser);
 
     const octokit = new Octokit({
-      auth: createBasicAuth({
+      authStrategy: createBasicAuth,
+      auth: {
         username: "octocat",
         password: "secret",
         on2Fa: () => `123456`
-      }),
+      },
       request: {
         fetch: mock
       }
@@ -282,11 +283,12 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
       );
 
     const octokit = new Octokit({
-      auth: createAppAuth({
+      authStrategy: createAppAuth,
+      auth: {
         id: APP_ID,
         privateKey: PRIVATE_KEY,
         installationId: 123
-      }),
+      },
       request: {
         fetch: mock
       }
@@ -322,7 +324,7 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
     };
 
     const octokit = new Octokit({
-      auth: createActionAuth(),
+      authStrategy: createActionAuth,
       request: {
         fetch: mock
       }
@@ -330,5 +332,23 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
 
     await octokit.request("/app");
     process.env = currentEnv;
+  });
+
+  it("octokit.auth() is noop by default", async () => {
+    const octokit = new Octokit();
+    const result = await octokit.auth();
+    expect(result).toStrictEqual({ type: "unauthenticated" });
+  });
+
+  it("octokit.auth() with options.auth = secret", async () => {
+    const octokit = new Octokit({
+      auth: "secret"
+    });
+    const result = await octokit.auth();
+    expect(result).toStrictEqual({
+      type: "token",
+      tokenType: "oauth",
+      token: "secret"
+    });
   });
 });
