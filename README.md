@@ -18,7 +18,6 @@
 - [Hooks](#hooks)
 - [Plugins](#plugins)
 - [Build your own Octokit with Plugins and Defaults](#build-your-own-octokit-with-plugins-and-defaults)
-  - [⚠️ A note on TypeScript](#%E2%9A%A0%EF%B8%8F-a-note-on-typescript)
 - [LICENSE](#license)
 
 <!-- tocstop -->
@@ -367,57 +366,6 @@ const MyActionOctokit = require("@octokit/core")
     require("@octokit/plugin-throttle"),
     require("@octokit/plugin-retry")
   ])
-  .defaults({
-    authStrategy: require("@octokit/auth-action"),
-    userAgent: `my-octokit-action/v1.2.3`
-  });
-
-const octokit = new MyActionOctokit();
-const installations = await octokit.paginate("GET /app/installations");
-```
-
-<a name="a-note-on-typescript"></a>
-
-### ⚠️ A note on TypeScript
-
-When creating a new Octokit class using `.plugin()`, the TypeScript definitions `octokit` API extensions will get last when `.plugin()` or `.defaults()` is called on the new class again to derive yet another class. To workaround that, an intermediade class needs to be defined. For the example above, the code would look like this
-
-```js
-import { Octokit, OctokitOptions, OctokitPlugin, ReturnTypeOf, Constructor } from '@octokit/core'
-
-const CoreWithPlugins = Octokit
-  .plugin([
-    paginate,
-    throttle,
-    retry
-  ])
-
-class CoreWithPluginsWorkaround extends CoreWithPlugins {
-  static plugin<T extends OctokitPlugin | OctokitPlugin[]>(pluginOrPlugins: T) {
-    const currentPlugins = this.plugins;
-    const newPlugins = Array.isArray(pluginOrPlugins)
-      ? pluginOrPlugins
-      : [pluginOrPlugins];
-
-    const NewOctokit = class extends this {
-      static plugins = currentPlugins.concat(
-        newPlugins.filter(plugin => !currentPlugins.includes(plugin))
-      );
-    };
-
-    return NewOctokit as typeof NewOctokit & Constructor<ReturnTypeOf<T>>;
-  }
-
-  static defaults(defaults: OctokitOptions) {
-    return class OctokitWithDefaults extends this {
-      constructor(options: OctokitOptions = {}) {
-        super(Object.assign({}, defaults, options));
-      }
-    };
-  }
-}
-
-const MyActionOctokit = CoreWithPluginsWorkaround
   .defaults({
     authStrategy: require("@octokit/auth-action"),
     userAgent: `my-octokit-action/v1.2.3`
