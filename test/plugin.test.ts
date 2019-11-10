@@ -62,4 +62,23 @@ describe("Octokit.plugin()", () => {
     const MyOctokit = Octokit.plugin(myPlugin).plugin(myPlugin);
     expect(() => new MyOctokit()).not.toThrow();
   });
+
+  it("supports chaining", () => {
+    const MyOctokit = Octokit.plugin(() => {
+      return {
+        foo: "bar"
+      };
+    })
+      .plugin(() => {
+        return { baz: "daz" };
+      })
+      .plugin(() => {
+        return { qaz: "naz" };
+      });
+
+    const myClient = new MyOctokit();
+    expect(myClient.foo).toEqual("bar");
+    expect(myClient.baz).toEqual("daz");
+    expect(myClient.qaz).toEqual("naz");
+  });
 });
