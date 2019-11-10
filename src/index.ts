@@ -23,16 +23,24 @@ export {
 } from "./types";
 
 export class Octokit {
-  static defaults(defaults: OctokitOptions) {
-    return class OctokitWithDefaults extends this {
-      constructor(options: OctokitOptions = {}) {
-        super(Object.assign({}, defaults, options));
+  static defaults<S extends Constructor<any>>(
+    this: S,
+    defaults: OctokitOptions
+  ) {
+    const OctokitWithDefaults = class extends this {
+      constructor(...args: any[]) {
+        super(Object.assign({}, defaults, args[0] || {}));
       }
     };
+
+    return OctokitWithDefaults;
   }
 
   static plugins: OctokitPlugin[] = [];
-  static plugin<T extends OctokitPlugin | OctokitPlugin[]>(pluginOrPlugins: T) {
+  static plugin<
+    S extends Constructor<any> & { plugins: any[] },
+    T extends OctokitPlugin | OctokitPlugin[]
+  >(this: S, pluginOrPlugins: T) {
     const currentPlugins = this.plugins;
     const newPlugins = Array.isArray(pluginOrPlugins)
       ? pluginOrPlugins
