@@ -2,7 +2,6 @@ import fetchMock from "fetch-mock";
 import { getUserAgent } from "universal-user-agent";
 import { createActionAuth } from "@octokit/auth";
 
-import { OctokitOptions } from "../src/types";
 import { Octokit } from "../src";
 
 const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
@@ -162,24 +161,11 @@ describe("Octokit.defaults", () => {
       }
     );
 
-    const OctokitWithPlugin = Octokit.plugin(() => {
+    const OctokitWithPluginAndDefaults = Octokit.plugin(() => {
       return {
         foo: "bar"
       };
-    });
-
-    // See "A note on TypeScript" in README
-    class OctokitWithPluginWorkaround extends OctokitWithPlugin {
-      static defaults(defaults: OctokitOptions) {
-        return class OctokitWithDefaults extends this {
-          constructor(options: OctokitOptions = {}) {
-            super(Object.assign({}, defaults, options));
-          }
-        };
-      }
-    }
-
-    const OctokitWithPluginAndDefaults = OctokitWithPluginWorkaround.defaults({
+    }).defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
         fetch: mock
