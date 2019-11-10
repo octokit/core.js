@@ -13,15 +13,6 @@ import {
 } from "./types";
 import { VERSION } from "./version";
 
-// These exports are necessary for a TypeScript workaround when using Octokit.plugin()
-// see https://github.com/octokit/core.js/blob/master/README.md#a-note-on-typescript
-export {
-  OctokitOptions,
-  OctokitPlugin,
-  ReturnTypeOf,
-  Constructor
-} from "./types";
-
 export class Octokit {
   static defaults<S extends Constructor<any>>(
     this: S,
