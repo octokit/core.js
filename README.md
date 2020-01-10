@@ -88,7 +88,7 @@ const response = await octokit.graphql(
 );
 ```
 
-See (`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documentation of the `.graphql` method.
+See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documentation of the `.graphql` method.
 
 ## Options
 
