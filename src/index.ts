@@ -140,4 +140,6 @@ export class Octokit {
 
   // TODO: type `octokit.auth` based on passed options.authStrategy
   auth: (...args: unknown[]) => Promise<unknown>;
+
+  [key: string]: any;
 }
