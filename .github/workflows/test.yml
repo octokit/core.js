@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - "greenkeeper/*"
+      - "greenkeeper/**"
   pull_request:
     types: [opened, synchronize]
 
