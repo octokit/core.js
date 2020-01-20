@@ -4,11 +4,20 @@ import { Octokit } from ".";
 
 export type RequestParameters = OctokitTypes.RequestParameters;
 
-export type OctokitOptions = {
-  // TODO: add types for authStrategy & auth options and octokit.auth() method,
-  //       see https://tinyurl.com/typescript-auth-strategies
-  authStrategy?: any;
-  auth?: any;
+type AuthOptions =
+  | {
+      authStrategy: OctokitTypes.StrategyInterface<
+        [unknown],
+        [unknown],
+        { [key: string]: unknown }
+      >;
+      auth: Parameters<OctokitOptions["authStrategy"]>[0];
+    }
+  | {
+      auth?: string;
+      authStrategy: never;
+    };
+export type OctokitOptions = AuthOptions & {
   request?: OctokitTypes.RequestRequestOptions;
   timeZone?: string;
   [option: string]: any;
