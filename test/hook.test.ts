@@ -163,9 +163,14 @@ describe("octokit.hook", () => {
   });
 
   it("octokit.hook.wrap('request')", async () => {
-    const octokit = new Octokit();
+    const octokit = new Octokit({
+      auth: "9c4ada1ade77b5d8bb3e5fa918b5eb4d2368c939"
+    });
 
     octokit.hook.wrap("request", (request, options) => {
+      expect((request as typeof octokit.request).endpoint).toBeInstanceOf(
+        Function
+      );
       expect(request).toBeInstanceOf(Function);
       expect(options).toStrictEqual({
         baseUrl: "https://api.github.com",
