@@ -37,7 +37,7 @@
     "@pika/plugin-build-web": "^0.8.1",
     "@pika/plugin-ts-standard-pkg": "^0.8.1",
     "@types/fetch-mock": "^7.3.1",
-    "@types/jest": "^24.0.17",
+    "@types/jest": "^25.1.0",
     "@types/lolex": "^5.1.0",
     "@types/node": "^13.1.0",
     "@types/node-fetch": "^2.5.0",
