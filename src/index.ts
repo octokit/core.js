@@ -14,6 +14,7 @@ import {
 import { VERSION } from "./version";
 
 export class Octokit {
+  static VERSION = VERSION;
   static defaults<S extends Constructor<any>>(
     this: S,
     defaults: OctokitOptions
