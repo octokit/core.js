@@ -21,7 +21,20 @@ export class Octokit {
   ) {
     const OctokitWithDefaults = class extends this {
       constructor(...args: any[]) {
-        super(Object.assign({}, defaults, args[0] || {}));
+        const options = args[0] || {};
+
+        super(
+          Object.assign(
+            {},
+            defaults,
+            options,
+            options.userAgent && defaults.userAgent
+              ? {
+                  userAgent: `${options.userAgent} ${defaults.userAgent}`
+                }
+              : null
+          )
+        );
       }
     };
 
