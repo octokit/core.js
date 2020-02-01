@@ -29,8 +29,8 @@ export type ReturnTypeOf<
  * @see https://stackoverflow.com/a/50375286/10325032
  */
 type UnionToIntersection<Union> = (Union extends any
-  ? (argument: Union) => void
-  : never) extends (argument: infer Intersection) => void // tslint:disable-line: no-unused
+? (argument: Union) => void
+: never) extends (argument: infer Intersection) => void // tslint:disable-line: no-unused
   ? Intersection
   : never;
 
