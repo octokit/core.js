@@ -44,19 +44,47 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": `my-app/v1.2.3 ${userAgent}`
+          "user-agent": `my-app/1.2.3 ${userAgent}`
         }
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
-      userAgent: "my-app/v1.2.3",
+      userAgent: "my-app/1.2.3",
       request: {
         fetch: mock
       }
     });
 
     const octokit = new OctokitWithDefaults();
+
+    return octokit.request("GET /").then(response => {
+      expect(response.data).toStrictEqual({ ok: true });
+    });
+  });
+
+  it("Octokit.defaults({userAgent}) with userAgent Constructor Option", () => {
+    const mock = fetchMock.sandbox().getOnce(
+      "https://api.github.com/",
+      { ok: true },
+      {
+        headers: {
+          accept: "application/vnd.github.v3+json",
+          "user-agent": `my-app/1.2.3 my-octokit.js/1.2.3 ${userAgent}`
+        }
+      }
+    );
+
+    const OctokitWithDefaults = Octokit.defaults({
+      userAgent: "my-octokit.js/1.2.3",
+      request: {
+        fetch: mock
+      }
+    });
+
+    const octokit = new OctokitWithDefaults({
+      userAgent: "my-app/1.2.3"
+    });
 
     return octokit.request("GET /").then(response => {
       expect(response.data).toStrictEqual({ ok: true });
@@ -128,7 +156,7 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": `my-app/v1.2.3 ${userAgent}`
+          "user-agent": `my-app/1.2.3 ${userAgent}`
         }
       }
     );
@@ -139,7 +167,7 @@ describe("Octokit.defaults", () => {
         fetch: mock
       }
     }).defaults({
-      userAgent: "my-app/v1.2.3"
+      userAgent: "my-app/1.2.3"
     });
 
     const octokit = new OctokitWithDefaults();
