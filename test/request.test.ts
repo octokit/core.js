@@ -160,4 +160,29 @@ describe("octokit.request()", () => {
       }
     });
   });
+
+  it("sends null values (octokit/rest.js#765)", () => {
+    const mock = fetchMock.sandbox().patchOnce(
+      "https://api.github.com/repos/epmatsw/example-repo/issues/1",
+      {},
+      {
+        body: {
+          milestone: null
+        }
+      }
+    );
+
+    const octokit = new Octokit({
+      auth: "secret123",
+      request: {
+        fetch: mock
+      }
+    });
+    return octokit.request("PATCH /repos/:owner/:repo/issues/:issue_number", {
+      owner: "epmatsw",
+      repo: "example-repo",
+      milestone: null,
+      issue_number: 1
+    });
+  });
 });
