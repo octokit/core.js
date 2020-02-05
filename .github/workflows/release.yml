@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - master
+      - next
+      - beta
+      - "*.x" # maintenance releases
 
 jobs:
   release:
