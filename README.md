@@ -109,16 +109,23 @@ See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documen
   <tbody align=left valign=top>
     <tr>
       <th>
+        <code>options.authStrategy</code>
+      </th>
+      <td>
+        <code>Function<code>
+      </td>
+      <td>
+        Defaults to <a href="https://github.com/octokit/auth-token.js#readme"><code>@octokit/auth-token</code></a>. See <a href="authentication">Authentication</a> below for examples.
+      </td>
+    </tr>
+    <tr>
+      <th>
         <code>options.auth</code>
       </th>
       <td>
-        <code>String</code> or <a href="https://github.com/octokit/auth.js"><code>@octokit/auth</code></a> instance
+        <code>String</code> or <code>Object</code>
       </td>
       <td>
-        If set to a <code>String</code>, then it's expected to be a <a href="https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line">personal access token</a> or  <a href="https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow">OAuth access token</a> and used accordingly in the <code>Authorization</code> header.<br>
-        <br>
-        For all other authentication strategies, set <code>options.auth</code> to a <a href="https://github.com/octokit/auth.js"><code>@octokit/auth</code></a> instance.<br>
-        <br>
         See <a href="authentication">Authentication</a> below for examples.
       </td>
     </tr>
