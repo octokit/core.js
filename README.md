@@ -198,6 +198,26 @@ There are more `options.request.*` options, see [`@octokit/request` options](htt
 </td></tr>
     <tr>
       <th>
+        <code>options.timeZone</code>
+      </th>
+      <td>
+        <code>String</code>
+      </td>
+      <td>
+
+Sets the `Time-Zone` header which defines a timezone according to the [list of names from the Olson database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+```js
+const octokit = new Octokit({
+  timeZone: "America/Los_Angeles"
+});
+```
+
+The time zone header will determine the timezone used for generating the timestamp when creating commits. See [GitHub's Timezones documentation](https://developer.github.com/v3/#timezones).
+
+</td></tr>
+    <tr>
+      <th>
         <code>options.userAgent</code>
       </th>
       <td>
