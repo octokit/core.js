@@ -4,7 +4,8 @@ import { Response } from "node-fetch";
 import {
   createBasicAuth,
   createAppAuth,
-  createActionAuth
+  createActionAuth,
+  createOAuthAppAuth
 } from "@octokit/auth";
 import lolex from "lolex";
 
@@ -216,6 +217,51 @@ describe("Authentication", () => {
     const { data } = await octokit.request("/user");
     expect(data).toStrictEqual({ id: 1 });
     expect(mock.done()).toBeTruthy();
+  });
+  it("auth = createOAuthAppAuth()", async () => {
+    const CLIENT_ID = "0123";
+    const CLIENT_SECRET = "0123secret";
+    const CODE = "code123";
+    const STATE = "state123";
+
+    const mock = fetchMock.sandbox().postOnce(
+      "https://github.com/login/oauth/access_token",
+      {
+        access_token: "token123",
+        scope: "",
+        token_type: "bearer"
+      },
+      {
+        body: {
+          client_id: CLIENT_ID,
+          client_secret: CLIENT_SECRET,
+          code: CODE,
+          state: STATE
+        }
+      }
+    );
+
+    const MyOctokit = Octokit.defaults({
+      authStrategy: createOAuthAppAuth,
+      request: {
+        fetch: mock
+      }
+    });
+
+    const octokit = new MyOctokit({
+      auth: {
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET
+      }
+    });
+
+    await octokit.auth({
+      type: "token",
+      code: CODE,
+      state: STATE
+    });
+
+    expect(mock.done()).toBe(true);
   });
   it("auth = createAppAuth()", async () => {
     const APP_ID = 1;
