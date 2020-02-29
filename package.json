@@ -41,7 +41,7 @@
     "@types/lolex": "^5.1.0",
     "@types/node": "^13.1.0",
     "@types/node-fetch": "^2.5.0",
-    "fetch-mock": "^8.3.2",
+    "fetch-mock": "^9.0.0",
     "http-proxy-agent": "^4.0.1",
     "jest": "^25.1.0",
     "lolex": "^6.0.0",
