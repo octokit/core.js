@@ -44,12 +44,18 @@ export class Octokit {
   static plugins: OctokitPlugin[] = [];
   static plugin<
     S extends Constructor<any> & { plugins: any[] },
-    T extends OctokitPlugin | OctokitPlugin[]
-  >(this: S, pluginOrPlugins: T) {
+    T1 extends OctokitPlugin,
+    T2 extends OctokitPlugin,
+    T3 extends OctokitPlugin,
+    T4 extends OctokitPlugin
+  >(this: S, p1: T1, p2?: T2, p3?: T3, p4?: T4) {
     const currentPlugins = this.plugins;
-    const newPlugins = Array.isArray(pluginOrPlugins)
-      ? pluginOrPlugins
-      : [pluginOrPlugins];
+    // TODO: Warn array method is deprecated and will be removed soon.
+    // const newPlugins = Array.isArray(pluginOrPlugins)
+    //   ? pluginOrPlugins
+    //   : [pluginOrPlugins];
+
+    let newPlugins: (OctokitPlugin | undefined)[] = [p1, p2, p3, p4]
 
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
@@ -57,7 +63,12 @@ export class Octokit {
       );
     };
 
-    return NewOctokit as typeof NewOctokit & Constructor<ReturnTypeOf<T>>;
+    // TODO: Do we need to wrap ReturnTypeOf with UnionToIntersection?
+    return NewOctokit as typeof NewOctokit
+      & Constructor<ReturnTypeOf<T1>>
+      & Constructor<ReturnTypeOf<T2>>
+      & Constructor<ReturnTypeOf<T3>>
+      & Constructor<ReturnTypeOf<T4>>;
   }
 
   constructor(options: OctokitOptions = {}) {
