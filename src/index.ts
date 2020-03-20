@@ -45,7 +45,7 @@ export class Octokit {
   static plugins: OctokitPlugin[] = [];
   /**
    * Attach a plugin (or many) to your Octokit instance.
-   * 
+   *
    * @example
    * const API = Octokit.plugin(plugin1, plugin2, plugin3, ...)
    */
@@ -55,21 +55,20 @@ export class Octokit {
     T2 extends OctokitPlugin[]
   >(this: S, p1: T1, ...p2: T2) {
     const currentPlugins = this.plugins;
-      let newPlugins: (OctokitPlugin | undefined)[] = [
-        ...(p1 instanceof Array ? p1 as OctokitPlugin[] : [p1 as OctokitPlugin]), 
-        ...p2
-      ]
+    let newPlugins: (OctokitPlugin | undefined)[] = [
+      ...(p1 instanceof Array
+        ? (p1 as OctokitPlugin[])
+        : [p1 as OctokitPlugin]),
+      ...p2
+    ];
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
         newPlugins.filter(plugin => !currentPlugins.includes(plugin))
       );
     };
 
-    return NewOctokit as typeof NewOctokit
-      & Constructor<UnionToIntersection<
-          ReturnTypeOf<T1>
-        & ReturnTypeOf<T2> 
-      >>;
+    return NewOctokit as typeof NewOctokit &
+      Constructor<UnionToIntersection<ReturnTypeOf<T1> & ReturnTypeOf<T2>>>;
   }
 
   constructor(options: OctokitOptions = {}) {
