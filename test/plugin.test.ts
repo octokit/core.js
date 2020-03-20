@@ -1,38 +1,38 @@
 import { Octokit } from "../src";
 
+const pluginFoo = () => {
+  return { foo: "bar" };
+};
+const pluginBaz = () => {
+  return { baz: "daz" };
+};
+const pluginQaz = () => {
+  return { qaz: "naz" };
+};
+
 describe("Octokit.plugin()", () => {
   it("gets called in constructor", () => {
-    const MyOctokit = Octokit.plugin(() => {
-      return {
-        foo: "bar"
-      };
-    });
+    const MyOctokit = Octokit.plugin(pluginFoo);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
   });
 
   it("supports array of plugins", () => {
-    const MyOctokit = Octokit.plugin([
-      () => {
-        return {
-          foo: "bar"
-        };
-      },
-      () => {
-        return { baz: "daz" };
-      }
-    ]);
+    const MyOctokit = Octokit.plugin([pluginFoo, pluginBaz]);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
     expect(myClient.baz).toEqual("daz");
   });
 
+  it("supports multiple plugins", () => {
+    const MyOctokit = Octokit.plugin(pluginFoo, pluginBaz, pluginQaz);
+    const myClient = new MyOctokit();
+    expect(myClient.foo).toEqual("bar");
+    expect(myClient.baz).toEqual("daz");
+    expect(myClient.qaz).toEqual("naz");
+  });
   it("does not override plugins of original constructor", () => {
-    const MyOctokit = Octokit.plugin(octokit => {
-      return {
-        foo: "bar"
-      };
-    });
+    const MyOctokit = Octokit.plugin(pluginFoo);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
 
@@ -64,17 +64,9 @@ describe("Octokit.plugin()", () => {
   });
 
   it("supports chaining", () => {
-    const MyOctokit = Octokit.plugin(() => {
-      return {
-        foo: "bar"
-      };
-    })
-      .plugin(() => {
-        return { baz: "daz" };
-      })
-      .plugin(() => {
-        return { qaz: "naz" };
-      });
+    const MyOctokit = Octokit.plugin(pluginFoo)
+      .plugin(pluginBaz)
+      .plugin(pluginQaz);
 
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
