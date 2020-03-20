@@ -342,7 +342,7 @@ See [before-after-hook](https://github.com/gr2m/before-after-hook#readme) for 
 
 ## Plugins
 
-Octokit’s functionality can be extended using plugins. THe `Octokit.plugin()` method accepts a function or an array of functions and returns a new constructor.
+Octokit’s functionality can be extended using plugins. The `Octokit.plugin()` method accepts a plugin (or many) and returns a new constructor.
 
 A plugin is a function which gets two arguments:
 
@@ -353,10 +353,10 @@ In order to extend `octokit`'s API, the plugin must return an object with the ne
 
 ```js
 // index.js
-const MyOctokit = require("@octokit/core").plugin([
+const MyOctokit = require("@octokit/core").plugin(
   require("./lib/my-plugin"),
   require("octokit-plugin-example")
-]);
+);
 
 const octokit = new MyOctokit({ greeting: "Moin moin" });
 octokit.helloWorld(); // logs "Moin moin, world!"
@@ -388,11 +388,11 @@ You can build your own Octokit class with preset default options and plugins. In
 
 ```js
 const MyActionOctokit = require("@octokit/core")
-  .plugin([
+  .plugin(
     require("@octokit/plugin-paginate"),
     require("@octokit/plugin-throttle"),
     require("@octokit/plugin-retry")
-  ])
+  )
   .defaults({
     authStrategy: require("@octokit/auth-action"),
     userAgent: `my-octokit-action/v1.2.3`
