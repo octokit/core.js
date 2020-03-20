@@ -43,26 +43,22 @@ export class Octokit {
   }
 
   static plugins: OctokitPlugin[] = [];
+  /**
+   * Attach a plugin (or many) to your Octokit instance.
+   * 
+   * @example
+   * const API = Octokit.plugin(plugin1, plugin2, plugin3, ...)
+   */
   static plugin<
     S extends Constructor<any> & { plugins: any[] },
     T1 extends OctokitPlugin | OctokitPlugin[],
-    T2 extends OctokitPlugin,
-    T3 extends OctokitPlugin,
-    T4 extends OctokitPlugin,
-    T5 extends OctokitPlugin,
-    T6 extends OctokitPlugin,
-    T7 extends OctokitPlugin,
-    T8 extends OctokitPlugin,
-    T9 extends OctokitPlugin[]
-  >(this: S, p1: T1, p2?: T2, p3?: T3, p4?: T4, p5?: T5, p6?: T6, p7?: T7, p8?: T8, ...p9: T9) {
+    T2 extends OctokitPlugin[]
+  >(this: S, p1: T1, ...p2: T2) {
     const currentPlugins = this.plugins;
       let newPlugins: (OctokitPlugin | undefined)[] = [
         ...(p1 instanceof Array ? p1 as OctokitPlugin[] : [p1 as OctokitPlugin]), 
-        p2, p3, p4, p5, p6, p7, p8, ...p9
-      ].map(v => {
-        return typeof v === 'function' ? v : undefined
-      })
-
+        ...p2
+      ]
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
         newPlugins.filter(plugin => !currentPlugins.includes(plugin))
@@ -73,13 +69,6 @@ export class Octokit {
       & Constructor<UnionToIntersection<
           ReturnTypeOf<T1>
         & ReturnTypeOf<T2> 
-        & ReturnTypeOf<T3> 
-        & ReturnTypeOf<T4> 
-        & ReturnTypeOf<T5> 
-        & ReturnTypeOf<T6> 
-        & ReturnTypeOf<T7> 
-        & ReturnTypeOf<T8> 
-        & ReturnTypeOf<T9>
       >>;
   }
 

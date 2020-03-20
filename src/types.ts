@@ -16,14 +16,12 @@ export type OctokitOptions = {
 
 export type Constructor<T> = new (...args: any[]) => T;
 
-export type SimplifyEmpty<T> = T extends void | undefined | null ? void : T
-
 export type ReturnTypeOf<
   T extends AnyFunction | AnyFunction[]
 > = T extends AnyFunction
-  ? SimplifyEmpty<ReturnType<T>>
+  ? ReturnType<T>
   : T extends AnyFunction[]
-  ? UnionToIntersection<SimplifyEmpty<ReturnType<T[number]>>>
+  ? UnionToIntersection<ReturnType<T[number]>>
   : never;
 
 /**
@@ -41,4 +39,4 @@ type AnyFunction = (...args: any) => any;
 export type OctokitPlugin = (
   octokit: Octokit,
   options: OctokitOptions
-) => { [key: string]: any } | void | undefined;
+) => { [key: string]: any } | void;
