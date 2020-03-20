@@ -9,7 +9,8 @@ import {
   OctokitOptions,
   OctokitPlugin,
   RequestParameters,
-  ReturnTypeOf
+  ReturnTypeOf,
+  UnionToIntersection
 } from "./types";
 import { VERSION } from "./version";
 
@@ -44,18 +45,23 @@ export class Octokit {
   static plugins: OctokitPlugin[] = [];
   static plugin<
     S extends Constructor<any> & { plugins: any[] },
-    T1 extends OctokitPlugin,
+    T1 extends OctokitPlugin | OctokitPlugin[],
     T2 extends OctokitPlugin,
     T3 extends OctokitPlugin,
-    T4 extends OctokitPlugin
-  >(this: S, p1: T1, p2?: T2, p3?: T3, p4?: T4) {
+    T4 extends OctokitPlugin,
+    T5 extends OctokitPlugin,
+    T6 extends OctokitPlugin,
+    T7 extends OctokitPlugin,
+    T8 extends OctokitPlugin,
+    T9 extends OctokitPlugin[]
+  >(this: S, p1: T1, p2?: T2, p3?: T3, p4?: T4, p5?: T5, p6?: T6, p7?: T7, p8?: T8, ...p9: T9) {
     const currentPlugins = this.plugins;
-    // TODO: Warn array method is deprecated and will be removed soon.
-    // const newPlugins = Array.isArray(pluginOrPlugins)
-    //   ? pluginOrPlugins
-    //   : [pluginOrPlugins];
-
-    let newPlugins: (OctokitPlugin | undefined)[] = [p1, p2, p3, p4]
+      let newPlugins: (OctokitPlugin | undefined)[] = [
+        ...(p1 instanceof Array ? p1 as OctokitPlugin[] : [p1 as OctokitPlugin]), 
+        p2, p3, p4, p5, p6, p7, p8, ...p9
+      ].map(v => {
+        return typeof v === 'function' ? v : undefined
+      })
 
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
@@ -63,12 +69,18 @@ export class Octokit {
       );
     };
 
-    // TODO: Do we need to wrap ReturnTypeOf with UnionToIntersection?
     return NewOctokit as typeof NewOctokit
-      & Constructor<ReturnTypeOf<T1>>
-      & Constructor<ReturnTypeOf<T2>>
-      & Constructor<ReturnTypeOf<T3>>
-      & Constructor<ReturnTypeOf<T4>>;
+      & Constructor<UnionToIntersection<
+          ReturnTypeOf<T1>
+        & ReturnTypeOf<T2> 
+        & ReturnTypeOf<T3> 
+        & ReturnTypeOf<T4> 
+        & ReturnTypeOf<T5> 
+        & ReturnTypeOf<T6> 
+        & ReturnTypeOf<T7> 
+        & ReturnTypeOf<T8> 
+        & ReturnTypeOf<T9>
+      >>;
   }
 
   constructor(options: OctokitOptions = {}) {

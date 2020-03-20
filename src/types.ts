@@ -16,19 +16,21 @@ export type OctokitOptions = {
 
 export type Constructor<T> = new (...args: any[]) => T;
 
+export type SimplifyEmpty<T> = T extends void | undefined | null ? void : T
+
 export type ReturnTypeOf<
   T extends AnyFunction | AnyFunction[]
 > = T extends AnyFunction
-  ? ReturnType<T>
+  ? SimplifyEmpty<ReturnType<T>>
   : T extends AnyFunction[]
-  ? UnionToIntersection<ReturnType<T[number]>>
+  ? UnionToIntersection<SimplifyEmpty<ReturnType<T[number]>>>
   : never;
 
 /**
  * @author https://stackoverflow.com/users/2887218/jcalz
  * @see https://stackoverflow.com/a/50375286/10325032
  */
-type UnionToIntersection<Union> = (Union extends any
+export type UnionToIntersection<Union> = (Union extends any
 ? (argument: Union) => void
 : never) extends (argument: infer Intersection) => void // tslint:disable-line: no-unused
   ? Intersection
@@ -39,4 +41,4 @@ type AnyFunction = (...args: any) => any;
 export type OctokitPlugin = (
   octokit: Octokit,
   options: OctokitOptions
-) => { [key: string]: any } | void;
+) => { [key: string]: any } | void | undefined;
