@@ -7,11 +7,11 @@ const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 describe("custom client certificate", () => {
   let server: any;
-  beforeAll(done => {
+  beforeAll((done) => {
     server = createServer(
       {
         key: readFileSync(resolve(__dirname, "./localhost.key")),
-        cert: readFileSync(resolve(__dirname, "./localhost.crt"))
+        cert: readFileSync(resolve(__dirname, "./localhost.crt")),
       },
       (request: any, response: any) => {
         expect(request.method).toEqual("GET");
@@ -28,11 +28,11 @@ describe("custom client certificate", () => {
 
   it("https.Agent({ca})", () => {
     const agent = new Agent({
-      ca
+      ca,
     });
     const octokit = new Octokit({
       baseUrl: "https://localhost:" + server.address().port,
-      request: { agent }
+      request: { agent },
     });
 
     return octokit.request("/");
@@ -41,15 +41,15 @@ describe("custom client certificate", () => {
   it("https.Agent({ca, rejectUnauthorized})", () => {
     const agent = new Agent({
       ca: "invalid",
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
     });
     const octokit = new Octokit({
       baseUrl: "https://localhost:" + server.address().port,
-      request: { agent }
+      request: { agent },
     });
 
     return octokit.request("/");
   });
 
-  afterAll(done => server.close(done));
+  afterAll((done) => server.close(done));
 });

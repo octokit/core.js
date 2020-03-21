@@ -18,21 +18,21 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -44,21 +44,21 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": `my-app/1.2.3 ${userAgent}`
-        }
+          "user-agent": `my-app/1.2.3 ${userAgent}`,
+        },
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
       userAgent: "my-app/1.2.3",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -70,23 +70,23 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": `my-app/1.2.3 my-octokit.js/1.2.3 ${userAgent}`
-        }
+          "user-agent": `my-app/1.2.3 my-octokit.js/1.2.3 ${userAgent}`,
+        },
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
       userAgent: "my-octokit.js/1.2.3",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithDefaults({
-      userAgent: "my-app/1.2.3"
+      userAgent: "my-app/1.2.3",
     });
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -99,21 +99,21 @@ describe("Octokit.defaults", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
-          "time-zone": "Europe/Amsterdam"
-        }
+          "time-zone": "Europe/Amsterdam",
+        },
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
       timeZone: "Europe/Amsterdam",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -126,21 +126,21 @@ describe("Octokit.defaults", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: `token githubtoken123`,
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
     const currentEnv = process.env;
     process.env = {
       GITHUB_ACTION: "1",
-      GITHUB_TOKEN: "githubtoken123"
+      GITHUB_TOKEN: "githubtoken123",
     };
 
     const OctokitWithDefaults = Octokit.defaults({
       authStrategy: createActionAuth,
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithDefaults();
@@ -156,23 +156,23 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": `my-app/1.2.3 ${userAgent}`
-        }
+          "user-agent": `my-app/1.2.3 ${userAgent}`,
+        },
       }
     );
 
     const OctokitWithDefaults = Octokit.defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     }).defaults({
-      userAgent: "my-app/1.2.3"
+      userAgent: "my-app/1.2.3",
     });
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -184,27 +184,27 @@ describe("Octokit.defaults", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const OctokitWithPluginAndDefaults = Octokit.plugin(() => {
       return {
-        foo: "bar"
+        foo: "bar",
       };
     }).defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new OctokitWithPluginAndDefaults();
 
     expect(octokit.foo).toEqual("bar");
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });

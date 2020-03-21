@@ -37,13 +37,13 @@ describe("octokit.hook", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     // We don't need to test all of before-after-hook's functionality, it's well tested itself.
     // But we do want to test common use cases in case we switch to a different hook implementation in future.
-    octokit.hook.before("request", options => {
+    octokit.hook.before("request", (options) => {
       expect(options).toStrictEqual({
         baseUrl: "https://api.github.com",
         method: "GET",
@@ -51,18 +51,18 @@ describe("octokit.hook", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
-          "x-foo": "bar"
+          "x-foo": "bar",
         },
         mediaType: {
           previews: ["octicon"],
-          format: "rad"
+          format: "rad",
         },
         bar: "daz",
         qux: "quux",
         request: {
           fetch: mock,
-          hook: options.request.hook
-        }
+          hook: options.request.hook,
+        },
       });
 
       // test alternating options
@@ -73,12 +73,12 @@ describe("octokit.hook", () => {
       bar: "daz",
       qux: "quux",
       headers: {
-        "x-foo": "bar"
+        "x-foo": "bar",
       },
       mediaType: {
         previews: ["octicon"],
-        format: "rad"
-      }
+        format: "rad",
+      },
     });
   });
 
@@ -89,8 +89,8 @@ describe("octokit.hook", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     octokit.hook.after("request", (response: any, requestOptions: any) => {
@@ -100,16 +100,16 @@ describe("octokit.hook", () => {
         url: "/",
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": userAgent
+          "user-agent": userAgent,
         },
         mediaType: {
           previews: [],
-          format: ""
+          format: "",
         },
         request: {
           fetch: mock,
-          hook: requestOptions.request.hook
-        }
+          hook: requestOptions.request.hook,
+        },
       });
 
       response.data.afterAddition = "works";
@@ -119,7 +119,7 @@ describe("octokit.hook", () => {
 
     expect(data).toStrictEqual({
       ok: true,
-      afterAddition: "works"
+      afterAddition: "works",
     });
   });
 
@@ -128,8 +128,8 @@ describe("octokit.hook", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     octokit.hook.error("request", (error: any, requestOptions: any) => {
@@ -140,16 +140,16 @@ describe("octokit.hook", () => {
         url: "/",
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": userAgent
+          "user-agent": userAgent,
         },
         mediaType: {
           previews: [],
-          format: ""
+          format: "",
         },
         request: {
           fetch: mock,
-          hook: requestOptions.request.hook
-        }
+          hook: requestOptions.request.hook,
+        },
       });
 
       return { data: { ok: true } };
@@ -158,7 +158,7 @@ describe("octokit.hook", () => {
     const { data } = await octokit.request("/");
 
     expect(data).toStrictEqual({
-      ok: true
+      ok: true,
     });
   });
 
@@ -173,15 +173,15 @@ describe("octokit.hook", () => {
         url: "/",
         headers: {
           accept: "application/vnd.github.v3+json",
-          "user-agent": userAgent
+          "user-agent": userAgent,
         },
         mediaType: {
           previews: [],
-          format: ""
+          format: "",
         },
         request: {
-          hook: options.request.hook
-        }
+          hook: options.request.hook,
+        },
       });
 
       return { data: { ok: true } };
@@ -190,7 +190,7 @@ describe("octokit.hook", () => {
     const { data } = await octokit.request("/");
 
     expect(data).toStrictEqual({
-      ok: true
+      ok: true,
     });
   });
 
@@ -204,7 +204,7 @@ describe("octokit.hook", () => {
 
     await octokit.hook("magic", (options: any) => {
       return {
-        magic: true
+        magic: true,
       };
     });
 

@@ -17,7 +17,7 @@ describe("client proxy", () => {
   let proxyUrl: string;
 
   // start HTTP proxy & http server
-  beforeAll(done => {
+  beforeAll((done) => {
     proxy = HttpProxy();
     proxy.listen(() => {
       proxyUrl = "http://localhost:" + proxy.address().port;
@@ -26,7 +26,7 @@ describe("client proxy", () => {
   });
 
   let server: any;
-  beforeAll(done => {
+  beforeAll((done) => {
     server = http.createServer((request: any, response: any) => {
       expect(request.method).toEqual("GET");
       expect(request.url).toEqual("/");
@@ -40,12 +40,12 @@ describe("client proxy", () => {
   });
 
   // stop proxy HTTP & http server
-  afterAll(done => {
+  afterAll((done) => {
     proxy.once("close", () => done());
     proxy.close();
   });
 
-  afterAll(done => server.close(done));
+  afterAll((done) => server.close(done));
 
   it("options.agent = new HttpProxyAgent(proxyUrl)", async () => {
     let proxyReceivedRequest;
@@ -57,7 +57,7 @@ describe("client proxy", () => {
 
     const octokit = new Octokit({
       baseUrl: "http://localhost:" + server.address().port,
-      request: { agent: new HttpProxyAgent(proxyUrl) }
+      request: { agent: new HttpProxyAgent(proxyUrl) },
     });
 
     await octokit.request("/");

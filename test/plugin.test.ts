@@ -4,7 +4,7 @@ describe("Octokit.plugin()", () => {
   it("gets called in constructor", () => {
     const MyOctokit = Octokit.plugin(() => {
       return {
-        foo: "bar"
+        foo: "bar",
       };
     });
     const myClient = new MyOctokit();
@@ -15,12 +15,12 @@ describe("Octokit.plugin()", () => {
     const MyOctokit = Octokit.plugin([
       () => {
         return {
-          foo: "bar"
+          foo: "bar",
         };
       },
       () => {
         return { baz: "daz" };
-      }
+      },
     ]);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
@@ -28,9 +28,9 @@ describe("Octokit.plugin()", () => {
   });
 
   it("does not override plugins of original constructor", () => {
-    const MyOctokit = Octokit.plugin(octokit => {
+    const MyOctokit = Octokit.plugin((octokit) => {
       return {
-        foo: "bar"
+        foo: "bar",
       };
     });
     const myClient = new MyOctokit();
@@ -43,7 +43,7 @@ describe("Octokit.plugin()", () => {
   it("receives client options", () => {
     const MyOctokit = Octokit.plugin((octokit, options) => {
       expect(options).toStrictEqual({
-        foo: "bar"
+        foo: "bar",
       });
     });
     new MyOctokit({ foo: "bar" });
@@ -56,7 +56,7 @@ describe("Octokit.plugin()", () => {
       }
 
       return {
-        customKey: true
+        customKey: true,
       };
     };
     const MyOctokit = Octokit.plugin(myPlugin).plugin(myPlugin);
@@ -66,7 +66,7 @@ describe("Octokit.plugin()", () => {
   it("supports chaining", () => {
     const MyOctokit = Octokit.plugin(() => {
       return {
-        foo: "bar"
+        foo: "bar",
       };
     })
       .plugin(() => {

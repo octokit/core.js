@@ -9,8 +9,8 @@ describe("Smoke test", () => {
       {
         headers: {
           accept:
-            "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json"
-        }
+            "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
+        },
       }
     );
 
@@ -18,11 +18,11 @@ describe("Smoke test", () => {
       previews: [
         // test with & without -preview suffix
         "jean-grey-preview",
-        "symmetra"
+        "symmetra",
       ],
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     return octokit.request("/");
@@ -35,19 +35,19 @@ describe("Smoke test", () => {
       {
         headers: {
           accept: "application/vnd.github.v3+json",
-          "time-zone": "Europe/Amsterdam"
-        }
+          "time-zone": "Europe/Amsterdam",
+        },
       }
     );
 
     const octokit = new Octokit({
       timeZone: "Europe/Amsterdam",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
-    return octokit.request("GET /").then(response => {
+    return octokit.request("GET /").then((response) => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
@@ -55,8 +55,8 @@ describe("Smoke test", () => {
   it("request option", () => {
     const octokit = new Octokit({
       request: {
-        foo: "bar"
-      }
+        foo: "bar",
+      },
     });
 
     octokit.hook.wrap("request", (request, options) => {
@@ -67,7 +67,7 @@ describe("Smoke test", () => {
     return octokit
       .request("/")
 
-      .then(response => {
+      .then((response) => {
         expect(response).toEqual("ok");
       });
   });

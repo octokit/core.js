@@ -44,8 +44,8 @@ describe("octokit.log", () => {
         debug: () => calls.push("debug"),
         info: () => calls.push("info"),
         warn: () => calls.push("warn"),
-        error: () => calls.push("error")
-      }
+        error: () => calls.push("error"),
+      },
     });
 
     octokit.log.debug("foo");
