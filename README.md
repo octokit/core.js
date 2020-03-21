@@ -65,7 +65,7 @@ const octokit = new Octokit({ auth: `personal-access-token123` });
 
 const response = await octokit.request("GET /orgs/:org/repos", {
   org: "octokit",
-  type: "private"
+  type: "private",
 });
 ```
 
@@ -142,7 +142,7 @@ When using with GitHub Enterprise Server, set `options.baseUrl` to the root URL 
 
 ```js
 const octokit = new Octokit({
-  baseUrl: "https://github.acme-inc.com/api/v3"
+  baseUrl: "https://github.acme-inc.com/api/v3",
 });
 ```
 
@@ -162,14 +162,14 @@ additional features. Preview headers can be set on a per-request basis, e.g.
 ```js
 octokit.request("POST /repos/:owner/:repo/pulls", {
   mediaType: {
-    previews: ["shadow-cat"]
+    previews: ["shadow-cat"],
   },
   owner,
   repo,
   title: "My pull request",
   base: "master",
   head: "my-feature",
-  draft: true
+  draft: true,
 });
 ```
 
@@ -177,7 +177,7 @@ You can also set previews globally, by setting the `options.previews` option on 
 
 ```js
 const octokit = new Octokit({
-  previews: ["shadow-cat"]
+  previews: ["shadow-cat"],
 });
 ```
 
@@ -209,7 +209,7 @@ Sets the `Time-Zone` header which defines a timezone according to the [list of n
 
 ```js
 const octokit = new Octokit({
-  timeZone: "America/Los_Angeles"
+  timeZone: "America/Los_Angeles",
 });
 ```
 
@@ -229,7 +229,7 @@ A custom user agent string for your app or library. Example
 
 ```js
 const octokit = new Octokit({
-  userAgent: "my-app/v1.2.3"
+  userAgent: "my-app/v1.2.3",
 });
 ```
 
@@ -245,7 +245,7 @@ You can create a new Octokit class with customized default options.
 const MyOctokit = Octokit.defaults({
   auth: "personal-access-token123",
   baseUrl: "https://github.acme-inc.com/api/v3",
-  userAgent: "my-app/v1.2.3"
+  userAgent: "my-app/v1.2.3",
 });
 const octokit1 = new MyOctokit();
 const octokit2 = new MyOctokit();
@@ -261,7 +261,7 @@ By default, Octokit authenticates using the [token authentication strategy](http
 import { Octokit } from "@octokit/core";
 
 const octokit = new Octokit({
-  auth: "mypersonalaccesstoken123"
+  auth: "mypersonalaccesstoken123",
 });
 
 const { data } = await octokit.request("/user");
@@ -277,8 +277,8 @@ const appOctokit = new Octokit({
   authStrategy: createAppAuth,
   auth: {
     id: 123,
-    privateKey: process.env.PRIVATE_KEY
-  }
+    privateKey: process.env.PRIVATE_KEY,
+  },
 });
 
 const { data } = await appOctokit.request("/app");
@@ -289,7 +289,7 @@ The `.auth()` method returned by the current authentication strategy can be acce
 ```js
 const { token } = await appOctokit.auth({
   type: "installation",
-  installationId: 123
+  installationId: 123,
 });
 ```
 
@@ -310,7 +310,7 @@ If you would like to make the log level configurable using an environment variab
 
 ```js
 const octokit = new Octokit({
-  log: require("console-log-level")({ level: "info" })
+  log: require("console-log-level")({ level: "info" }),
 });
 ```
 
@@ -319,7 +319,7 @@ const octokit = new Octokit({
 You can customize Octokit's request lifecycle with hooks.
 
 ```js
-octokit.hook.before("request", async options => {
+octokit.hook.before("request", async (options) => {
   validate(options);
 });
 octokit.hook.after("request", async (response, options) => {
@@ -391,11 +391,11 @@ const MyActionOctokit = require("@octokit/core")
   .plugin([
     require("@octokit/plugin-paginate"),
     require("@octokit/plugin-throttle"),
-    require("@octokit/plugin-retry")
+    require("@octokit/plugin-retry"),
   ])
   .defaults({
     authStrategy: require("@octokit/auth-action"),
-    userAgent: `my-octokit-action/v1.2.3`
+    userAgent: `my-octokit-action/v1.2.3`,
   });
 
 const octokit = new MyActionOctokit();
