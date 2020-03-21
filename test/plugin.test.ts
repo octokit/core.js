@@ -17,11 +17,14 @@ describe("Octokit.plugin()", () => {
     expect(myClient.foo).toEqual("bar");
   });
 
-  it("supports array of plugins", () => {
+  it("supports array of plugins and warns of deprecated usage", () => {
+    const warningSpy = jest.spyOn(console, "warn").mockImplementation();
     const MyOctokit = Octokit.plugin([pluginFoo, pluginBaz]);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
     expect(myClient.baz).toEqual("daz");
+    expect(warningSpy).toMatchSnapshot();
+    warningSpy.mockClear();
   });
 
   it("supports multiple plugins", () => {

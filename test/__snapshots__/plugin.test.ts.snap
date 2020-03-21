@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Octokit.plugin() supports array of plugins and warns of deprecated usage 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "Passing an array of plugins to octokit.plugin() has been deprecated and support will be removed with v18.
+Instead of:
+  octokit.plugin([plugin1, plugin2, ...])
+Use:
+  octokit.plugin(plugin1, plugin2, ...)",
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;

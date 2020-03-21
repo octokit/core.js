@@ -54,6 +54,17 @@ export class Octokit {
     T1 extends OctokitPlugin | OctokitPlugin[],
     T2 extends OctokitPlugin[]
   >(this: S, p1: T1, ...p2: T2) {
+    if (p1 instanceof Array) {
+      console.warn(
+        [
+          "Passing an array of plugins to octokit.plugin() has been deprecated and support will be removed with v18.",
+          "Instead of:",
+          "  octokit.plugin([plugin1, plugin2, ...])",
+          "Use:",
+          "  octokit.plugin(plugin1, plugin2, ...)"
+        ].join("\n")
+      );
+    }
     const currentPlugins = this.plugins;
     let newPlugins: (OctokitPlugin | undefined)[] = [
       ...(p1 instanceof Array
