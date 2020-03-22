@@ -15,9 +15,9 @@ describe("octokit.graphql()", () => {
     const mockResult = {
       organization: {
         repositories: {
-          totalCount: 123
-        }
-      }
+          totalCount: 123,
+        },
+      },
     };
     const mock = fetchMock
       .sandbox()
@@ -26,15 +26,15 @@ describe("octokit.graphql()", () => {
         expect(body.query).toEqual(query);
 
         return {
-          data: mockResult
+          data: mockResult,
         };
       });
 
     const octokit = new Octokit({
       auth: `secret123`,
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const query = `query ($login: String!) {
