@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Octokit.plugin() supports array of plugins 1`] = `
+exports[`Octokit.plugin() supports array of plugins and warns of deprecated usage 1`] = `
 [MockFunction] {
   "calls": Array [
     Array [
