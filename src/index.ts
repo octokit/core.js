@@ -10,7 +10,7 @@ import {
   OctokitPlugin,
   RequestParameters,
   ReturnTypeOf,
-  UnionToIntersection
+  UnionToIntersection,
 } from "./types";
 import { VERSION } from "./version";
 
@@ -61,7 +61,7 @@ export class Octokit {
           "Instead of:",
           "  octokit.plugin([plugin1, plugin2, ...])",
           "Use:",
-          "  octokit.plugin(plugin1, plugin2, ...)"
+          "  octokit.plugin(plugin1, plugin2, ...)",
         ].join("\n")
       );
     }
@@ -70,7 +70,7 @@ export class Octokit {
       ...(p1 instanceof Array
         ? (p1 as OctokitPlugin[])
         : [p1 as OctokitPlugin]),
-      ...p2
+      ...p2,
     ];
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
