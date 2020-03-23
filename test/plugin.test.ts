@@ -38,7 +38,6 @@ describe("Octokit.plugin()", () => {
     const MyOctokit = Octokit.plugin(pluginFoo);
     const myClient = new MyOctokit();
     expect(myClient.foo).toEqual("bar");
-
     const octokit = new Octokit();
     expect(octokit).not.toHaveProperty("foo");
   });
@@ -46,7 +45,7 @@ describe("Octokit.plugin()", () => {
   it("receives client options", () => {
     const MyOctokit = Octokit.plugin((octokit, options) => {
       expect(options).toStrictEqual({
-        foo: "bar"
+        foo: "bar",
       });
     });
     new MyOctokit({ foo: "bar" });
@@ -59,7 +58,7 @@ describe("Octokit.plugin()", () => {
       }
 
       return {
-        customKey: true
+        customKey: true,
       };
     };
     const MyOctokit = Octokit.plugin(myPlugin).plugin(myPlugin);

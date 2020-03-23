@@ -5,7 +5,7 @@ import {
   createBasicAuth,
   createAppAuth,
   createActionAuth,
-  createOAuthAppAuth
+  createOAuthAppAuth,
 } from "@octokit/auth";
 import lolex from "lolex";
 
@@ -25,7 +25,7 @@ beforeAll(() => {
   // `new Date()` always returns `new Date(0)` by default.
   const clock = lolex.install({
     now: 0,
-    toFake: ["Date"]
+    toFake: ["Date"],
   });
 
   beforeEach(() => {
@@ -42,16 +42,16 @@ describe("Authentication", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: "token secret123",
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const octokit = new Octokit({
       auth: "secret123",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     return octokit.request("/");
@@ -65,16 +65,16 @@ describe("Authentication", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: "token secret123",
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const octokit = new Octokit({
       auth: "token secret123",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     return octokit.request("/");
@@ -88,16 +88,16 @@ describe("Authentication", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: "token secret123",
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const octokit = new Octokit({
       auth: "Token secret123",
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     return octokit.request("/");
@@ -113,16 +113,16 @@ describe("Authentication", () => {
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: `bearer ${BEARER_TOKEN}`,
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
 
     const octokit = new Octokit({
       auth: BEARER_TOKEN,
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     return octokit.request("/");
@@ -133,7 +133,7 @@ describe("Authentication", () => {
       accept: "application/vnd.github.v3+json",
       authorization: "basic b2N0b2NhdDpzZWNyZXQ=",
       "content-type": "application/json; charset=utf-8",
-      "user-agent": userAgent
+      "user-agent": userAgent,
     };
 
     const matchCreateToken: MockMatcherFunction = (url, { body, headers }) => {
@@ -142,7 +142,7 @@ describe("Authentication", () => {
         fingerprint: "4feornbt361",
         note: "octokit 1970-01-01 4feornbt361",
         note_url: "https://github.com/octokit/auth-basic.js#readme",
-        scopes: []
+        scopes: [],
       });
       expect(headers).toStrictEqual(expectedCreateTokenRequestHeaders);
 
@@ -158,11 +158,11 @@ describe("Authentication", () => {
         fingerprint: "4feornbt361",
         note: "octokit 1970-01-01 4feornbt361",
         note_url: "https://github.com/octokit/auth-basic.js#readme",
-        scopes: []
+        scopes: [],
       });
       expect(headers).toStrictEqual({
         ...expectedCreateTokenRequestHeaders,
-        "x-github-otp": "123456"
+        "x-github-otp": "123456",
       });
 
       return true;
@@ -176,24 +176,24 @@ describe("Authentication", () => {
       expect(headers).toStrictEqual({
         accept: "application/vnd.github.v3+json",
         authorization: "token 1234567890abcdef1234567890abcdef12345678",
-        "user-agent": userAgent
+        "user-agent": userAgent,
       });
 
       return true;
     };
 
     const responseGetUser = {
-      id: 1
+      id: 1,
     };
     const responseTokenCreated = {
       id: 123,
-      token: "1234567890abcdef1234567890abcdef12345678"
+      token: "1234567890abcdef1234567890abcdef12345678",
     };
     const responseOtpRequired = new Response("Unauthorized", {
       status: 401,
       headers: {
-        "x-github-otp": "required; app"
-      }
+        "x-github-otp": "required; app",
+      },
     });
 
     const mock = fetchMock
@@ -207,11 +207,11 @@ describe("Authentication", () => {
       auth: {
         username: "octocat",
         password: "secret",
-        on2Fa: () => `123456`
+        on2Fa: () => `123456`,
       },
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const { data } = await octokit.request("/user");
@@ -229,36 +229,36 @@ describe("Authentication", () => {
       {
         access_token: "token123",
         scope: "",
-        token_type: "bearer"
+        token_type: "bearer",
       },
       {
         body: {
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
           code: CODE,
-          state: STATE
-        }
+          state: STATE,
+        },
       }
     );
 
     const MyOctokit = Octokit.defaults({
       authStrategy: createOAuthAppAuth,
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     const octokit = new MyOctokit({
       auth: {
         clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET
-      }
+        clientSecret: CLIENT_SECRET,
+      },
     });
 
     await octokit.auth({
       type: "token",
       code: CODE,
-      state: STATE
+      state: STATE,
     });
 
     expect(mock.done()).toBe(true);
@@ -302,18 +302,18 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
         token: "secret123",
         expires_at: "1970-01-01T01:00:00.000Z",
         permissions: {
-          metadata: "read"
+          metadata: "read",
         },
-        repository_selection: "all"
+        repository_selection: "all",
       })
       .get(
         "https://api.github.com/repos/octocat/hello-world",
         { id: 123 },
         {
           headers: {
-            authorization: "token secret123"
+            authorization: "token secret123",
           },
-          repeat: 2
+          repeat: 2,
         }
       )
       .getOnce(
@@ -323,8 +323,8 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
           headers: {
             accept: "application/vnd.github.machine-man-preview+json",
             "user-agent": userAgent,
-            authorization: `bearer ${BEARER}`
-          }
+            authorization: `bearer ${BEARER}`,
+          },
         }
       );
 
@@ -333,11 +333,11 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
       auth: {
         id: APP_ID,
         privateKey: PRIVATE_KEY,
-        installationId: 123
+        installationId: 123,
       },
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     await octokit.request("GET /repos/octocat/hello-world");
@@ -345,8 +345,8 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
 
     await octokit.request("GET /app", {
       mediaType: {
-        previews: ["machine-man"]
-      }
+        previews: ["machine-man"],
+      },
     });
 
     expect(mock.done()).toBe(true);
@@ -359,21 +359,21 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
         headers: {
           accept: "application/vnd.github.v3+json",
           authorization: `token githubtoken123`,
-          "user-agent": userAgent
-        }
+          "user-agent": userAgent,
+        },
       }
     );
     const currentEnv = process.env;
     process.env = {
       GITHUB_ACTION: "1",
-      GITHUB_TOKEN: "githubtoken123"
+      GITHUB_TOKEN: "githubtoken123",
     };
 
     const octokit = new Octokit({
       authStrategy: createActionAuth,
       request: {
-        fetch: mock
-      }
+        fetch: mock,
+      },
     });
 
     await octokit.request("/app");
@@ -388,13 +388,13 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
 
   it("octokit.auth() with options.auth = secret", async () => {
     const octokit = new Octokit({
-      auth: "secret"
+      auth: "secret",
     });
     const result = await octokit.auth();
     expect(result).toStrictEqual({
       type: "token",
       tokenType: "oauth",
-      token: "secret"
+      token: "secret",
     });
   });
 });

@@ -45,7 +45,7 @@
     "http-proxy-agent": "^4.0.1",
     "jest": "^25.1.0",
     "lolex": "^6.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.0",
     "proxy": "^1.0.1",
     "semantic-release": "^17.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",

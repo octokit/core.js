@@ -31,7 +31,7 @@ export class Octokit {
             options,
             options.userAgent && defaults.userAgent
               ? {
-                  userAgent: `${options.userAgent} ${defaults.userAgent}`
+                  userAgent: `${options.userAgent} ${defaults.userAgent}`,
                 }
               : null
           )
@@ -74,7 +74,7 @@ export class Octokit {
     ];
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
-        newPlugins.filter(plugin => !currentPlugins.includes(plugin))
+        newPlugins.filter((plugin) => !currentPlugins.includes(plugin))
       );
     };
 
@@ -88,18 +88,18 @@ export class Octokit {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
       request: Object.assign({}, options.request, {
-        hook: hook.bind(null, "request")
+        hook: hook.bind(null, "request"),
       }),
       mediaType: {
         previews: [],
-        format: ""
-      }
+        format: "",
+      },
     };
 
     // prepend default user agent with `options.userAgent` if set
     requestDefaults.headers["user-agent"] = [
       options.userAgent,
-      `octokit-core.js/${VERSION} ${getUserAgent()}`
+      `octokit-core.js/${VERSION} ${getUserAgent()}`,
     ]
       .filter(Boolean)
       .join(" ");
@@ -123,7 +123,7 @@ export class Octokit {
         debug: () => {},
         info: () => {},
         warn: console.warn.bind(console),
-        error: console.error.bind(console)
+        error: console.error.bind(console),
       },
       options.log
     );
@@ -138,7 +138,7 @@ export class Octokit {
       if (!options.auth) {
         // (1)
         this.auth = async () => ({
-          type: "unauthenticated"
+          type: "unauthenticated",
         });
       } else {
         // (2)
@@ -151,7 +151,7 @@ export class Octokit {
       const auth = options.authStrategy(
         Object.assign(
           {
-            request: this.request
+            request: this.request,
           },
           options.auth
         )
@@ -164,7 +164,7 @@ export class Octokit {
     // apply plugins
     // https://stackoverflow.com/a/16345172
     const classConstructor = this.constructor as typeof Octokit;
-    classConstructor.plugins.forEach(plugin => {
+    classConstructor.plugins.forEach((plugin) => {
       Object.assign(this, plugin(this, options));
     });
   }
