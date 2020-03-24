@@ -59,9 +59,9 @@ export class Octokit {
         [
           "Passing an array of plugins to octokit.plugin() has been deprecated and support will be removed with v18.",
           "Instead of:",
-          "  octokit.plugin([plugin1, plugin2, ...])",
+          "  Octokit.plugin([plugin1, plugin2, ...])",
           "Use:",
-          "  octokit.plugin(plugin1, plugin2, ...)",
+          "  Octokit.plugin(plugin1, plugin2, ...)",
         ].join("\n")
       );
     }
