@@ -57,7 +57,7 @@ export class Octokit {
     if (p1 instanceof Array) {
       console.warn(
         [
-          "Passing an array of plugins to octokit.plugin() has been deprecated and support will be removed with v18.",
+          "Passing an array of plugins to Octokit.plugin() has been deprecated.",
           "Instead of:",
           "  Octokit.plugin([plugin1, plugin2, ...])",
           "Use:",
