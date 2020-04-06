@@ -78,11 +78,8 @@ export class Octokit {
       );
     };
 
-    return (
-      NewOctokit as
-      typeof NewOctokit &
-        Constructor<UnionToIntersection<ReturnTypeOf<T1> & ReturnTypeOf<T2>>>
-    );
+    return NewOctokit as typeof NewOctokit &
+      Constructor<UnionToIntersection<ReturnTypeOf<T1> & ReturnTypeOf<T2>>>;
   }
 
   constructor(options: OctokitOptions = {}) {
