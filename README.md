@@ -353,7 +353,8 @@ In order to extend `octokit`'s API, the plugin must return an object with the ne
 
 ```js
 // index.js
-const MyOctokit = require("@octokit/core").plugin(
+const { Octokit } = require("@octokit/core")
+const MyOctokit = Octokit.plugin(
   require("./lib/my-plugin"),
   require("octokit-plugin-example")
 );
