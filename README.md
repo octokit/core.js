@@ -388,17 +388,15 @@ module.exports = (octokit, options = { greeting: "Hello" }) => {
 You can build your own Octokit class with preset default options and plugins. In fact, this is mostly how the `@octokit/<context>` modules work, such as [`@octokit/action`](https://github.com/octokit/action.js):
 
 ```js
-const { Octokit } = require("@octokit/core")
-const MyActionOctokit = Octokit
-  .plugin(
-    require("@octokit/plugin-paginate"),
-    require("@octokit/plugin-throttle"),
-    require("@octokit/plugin-retry")
-  )
-  .defaults({
-    authStrategy: require("@octokit/auth-action"),
-    userAgent: `my-octokit-action/v1.2.3`,
-  });
+const { Octokit } = require("@octokit/core");
+const MyActionOctokit = Octokit.plugin(
+  require("@octokit/plugin-paginate"),
+  require("@octokit/plugin-throttle"),
+  require("@octokit/plugin-retry")
+).defaults({
+  authStrategy: require("@octokit/auth-action"),
+  userAgent: `my-octokit-action/v1.2.3`,
+});
 
 const octokit = new MyActionOctokit();
 const installations = await octokit.paginate("GET /app/installations");
