@@ -128,96 +128,6 @@ describe("Authentication", () => {
     return octokit.request("/");
   });
 
-  it("auth = createBasicAuth()", async () => {
-    const expectedCreateTokenRequestHeaders = {
-      accept: "application/vnd.github.v3+json",
-      authorization: "basic b2N0b2NhdDpzZWNyZXQ=",
-      "content-type": "application/json; charset=utf-8",
-      "user-agent": userAgent,
-    };
-
-    const matchCreateToken: MockMatcherFunction = (url, { body, headers }) => {
-      expect(url).toEqual("https://api.github.com/authorizations");
-      expect(JSON.parse(String(body))).toStrictEqual({
-        fingerprint: "4feornbt361",
-        note: "octokit 1970-01-01 4feornbt361",
-        note_url: "https://github.com/octokit/auth-basic.js#readme",
-        scopes: [],
-      });
-      expect(headers).toStrictEqual(expectedCreateTokenRequestHeaders);
-
-      return true;
-    };
-
-    const matchCreateTokenWithOtp: MockMatcherFunction = (
-      url,
-      { body, headers }
-    ) => {
-      expect(url).toEqual("https://api.github.com/authorizations");
-      expect(JSON.parse(String(body))).toStrictEqual({
-        fingerprint: "4feornbt361",
-        note: "octokit 1970-01-01 4feornbt361",
-        note_url: "https://github.com/octokit/auth-basic.js#readme",
-        scopes: [],
-      });
-      expect(headers).toStrictEqual({
-        ...expectedCreateTokenRequestHeaders,
-        "x-github-otp": "123456",
-      });
-
-      return true;
-    };
-
-    const matchGetUserWithOtp: MockMatcherFunction = (
-      url,
-      { body, headers }
-    ) => {
-      expect(url).toEqual("https://api.github.com/user");
-      expect(headers).toStrictEqual({
-        accept: "application/vnd.github.v3+json",
-        authorization: "token 1234567890abcdef1234567890abcdef12345678",
-        "user-agent": userAgent,
-      });
-
-      return true;
-    };
-
-    const responseGetUser = {
-      id: 1,
-    };
-    const responseTokenCreated = {
-      id: 123,
-      token: "1234567890abcdef1234567890abcdef12345678",
-    };
-    const responseOtpRequired = new Response("Unauthorized", {
-      status: 401,
-      headers: {
-        "x-github-otp": "required; app",
-      },
-    });
-
-    const mock = fetchMock
-      .sandbox()
-      .postOnce(matchCreateToken, responseOtpRequired)
-      .postOnce(matchCreateTokenWithOtp, responseTokenCreated)
-      .getOnce(matchGetUserWithOtp, responseGetUser);
-
-    const octokit = new Octokit({
-      authStrategy: createBasicAuth,
-      auth: {
-        username: "octocat",
-        password: "secret",
-        on2Fa: () => `123456`,
-      },
-      request: {
-        fetch: mock,
-      },
-    });
-
-    const { data } = await octokit.request("/user");
-    expect(data).toStrictEqual({ id: 1 });
-    expect(mock.done()).toBeTruthy();
-  });
   it("auth = createOAuthAppAuth()", async () => {
     const CLIENT_ID = "0123";
     const CLIENT_SECRET = "0123secret";
@@ -263,6 +173,7 @@ describe("Authentication", () => {
 
     expect(mock.done()).toBe(true);
   });
+
   it("auth = createAppAuth()", async () => {
     const APP_ID = 1;
     const PRIVATE_KEY = `-----BEGIN RSA PRIVATE KEY-----
@@ -351,6 +262,7 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
 
     expect(mock.done()).toBe(true);
   });
+
   it("auth = createActionAuth()", async () => {
     const mock = fetchMock.sandbox().getOnce(
       "https://api.github.com/app",

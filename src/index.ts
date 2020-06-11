@@ -51,27 +51,9 @@ export class Octokit {
    */
   static plugin<
     S extends Constructor<any> & { plugins: any[] },
-    T1 extends OctokitPlugin | OctokitPlugin[],
-    T2 extends OctokitPlugin[]
-  >(this: S, p1: T1, ...p2: T2) {
-    if (p1 instanceof Array) {
-      console.warn(
-        [
-          "Passing an array of plugins to Octokit.plugin() has been deprecated.",
-          "Instead of:",
-          "  Octokit.plugin([plugin1, plugin2, ...])",
-          "Use:",
-          "  Octokit.plugin(plugin1, plugin2, ...)",
-        ].join("\n")
-      );
-    }
+    T extends OctokitPlugin[]
+  >(this: S, ...newPlugins: T) {
     const currentPlugins = this.plugins;
-    let newPlugins: (OctokitPlugin | undefined)[] = [
-      ...(p1 instanceof Array
-        ? (p1 as OctokitPlugin[])
-        : [p1 as OctokitPlugin]),
-      ...p2,
-    ];
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
         newPlugins.filter((plugin) => !currentPlugins.includes(plugin))
@@ -79,7 +61,7 @@ export class Octokit {
     };
 
     return NewOctokit as typeof NewOctokit &
-      Constructor<UnionToIntersection<ReturnTypeOf<T1> & ReturnTypeOf<T2>>>;
+      Constructor<UnionToIntersection<ReturnTypeOf<T>>>;
   }
 
   constructor(options: OctokitOptions = {}) {
