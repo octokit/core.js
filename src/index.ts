@@ -18,11 +18,16 @@ export class Octokit {
   static VERSION = VERSION;
   static defaults<S extends Constructor<any>>(
     this: S,
-    defaults: OctokitOptions
+    defaults: OctokitOptions | Function
   ) {
     const OctokitWithDefaults = class extends this {
       constructor(...args: any[]) {
         const options = args[0] || {};
+
+        if (typeof defaults === "function") {
+          super(defaults(options));
+          return;
+        }
 
         super(
           Object.assign(
