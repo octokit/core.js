@@ -208,4 +208,95 @@ describe("Octokit.defaults", () => {
       expect(response.data).toStrictEqual({ ok: true });
     });
   });
+
+  it("Octokit.defaults(function)", () => {
+    const plugin = (octokit: Octokit, options: any) => {
+      expect(options).toStrictEqual({
+        foo: {
+          bar: 1,
+          baz: 1,
+        },
+      });
+    };
+
+    const MyOctokit = Octokit.plugin(plugin).defaults((options: any) => {
+      if (!options.foo) {
+        options.foo = {};
+      }
+
+      options.foo.bar = 1;
+
+      return options;
+    });
+
+    new MyOctokit({
+      foo: {
+        baz: 1,
+      },
+    });
+  });
+
+  it("Octokit.defaults(opts).defaults(function)", () => {
+    const plugin = (octokit: Octokit, options: any) => {
+      expect(options).toStrictEqual({
+        other: "foo",
+        foo: {
+          bar: 1,
+          baz: 1,
+        },
+      });
+    };
+
+    const MyOctokit = Octokit.plugin(plugin)
+      .defaults({
+        other: "foo",
+      })
+      .defaults((options: any) => {
+        if (!options.foo) {
+          options.foo = {};
+        }
+
+        options.foo.bar = 1;
+
+        return options;
+      });
+
+    new MyOctokit({
+      foo: {
+        baz: 1,
+      },
+    });
+  });
+
+  it("Octokit.defaults(function).defaults(opts)", () => {
+    const plugin = (octokit: Octokit, options: any) => {
+      expect(options).toStrictEqual({
+        other: "foo",
+        foo: {
+          bar: 1,
+          baz: 1,
+        },
+      });
+    };
+
+    const MyOctokit = Octokit.plugin(plugin)
+      .defaults((options: any) => {
+        if (!options.foo) {
+          options.foo = {};
+        }
+
+        options.foo.bar = 1;
+
+        return options;
+      })
+      .defaults({
+        other: "foo",
+      });
+
+    new MyOctokit({
+      foo: {
+        baz: 1,
+      },
+    });
+  });
 });
