@@ -250,6 +250,40 @@ const octokit1 = new MyOctokit();
 const octokit2 = new MyOctokit();
 ```
 
+If you pass additional options to your new constructor, the options will be merged shallowly.
+
+```js
+const MyOctokit = Octokit.defaults({
+  foo: {
+    opt1: 1,
+  },
+});
+const octokit = new MyOctokit({
+  foo: {
+    opt2: 1,
+  },
+});
+// options will be { foo: { opt2: 1 }}
+```
+
+If you need a deep or conditional merge, you can pass a function instead.
+
+```js
+const MyOctokit = Octokit.defaults({
+  foo: {
+    opt1: 1,
+  },
+});
+const octokit = new MyOctokit((options) => {
+  return {
+    foo: Object.assign({}, options.foo, { opt2: 1 }),
+  };
+});
+// options will be { foo: { opt1: 1, opt2: 1 }}
+```
+
+Be careful about mutating the `options` object directly, as it can have unforeseen consequences.
+
 ## Authentication
 
 Authentication is optional for some REST API endpoints accessing public data, but is required for GraphQL queries. Using authentication also increases your [API rate limit](https://developer.github.com/v3/#rate-limiting).
