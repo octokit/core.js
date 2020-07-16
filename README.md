@@ -269,20 +269,18 @@ const octokit = new MyOctokit({
 If you need a deep or conditional merge, you can pass a function instead.
 
 ```js
-const MyOctokit = Octokit.defaults({
-  foo: {
-    opt1: 1,
-  },
-});
-const octokit = new MyOctokit((options) => {
+const MyOctokit = Octokit.defaults((options) => {
   return {
     foo: Object.assign({}, options.foo, { opt2: 1 }),
   };
 });
+const octokit = new MyOctokit({
+  foo: { opt2: 1 },
+});
 // options will be { foo: { opt1: 1, opt2: 1 }}
 ```
 
-Be careful about mutating the `options` object directly, as it can have unforeseen consequences.
+Be careful about mutating the `options` object in the `Octokit.defaults` callback, as it can have unforeseen consequences.
 
 ## Authentication
 
