@@ -19,7 +19,7 @@ export type OctokitOptions = {
     error: () => unknown;
   };
   request?: OctokitTypes.RequestRequestOptions;
-  timeZone?: string; 
+  timeZone?: string;
   [option: string]: any;
 };
 
