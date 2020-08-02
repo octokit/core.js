@@ -13,10 +13,10 @@ export type OctokitOptions = {
   previews?: string[];
   baseUrl?: string;
   log?: {
-    debug: () => unknown;
-    info: () => unknown;
-    warn: () => unknown;
-    error: () => unknown;
+    debug: (message: string) => unknown;
+    info: (message: string) => unknown;
+    warn: (message: string) => unknown;
+    error: (message: string) => unknown;
   };
   request?: OctokitTypes.RequestRequestOptions;
   timeZone?: string;
