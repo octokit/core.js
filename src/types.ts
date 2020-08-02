@@ -9,8 +9,17 @@ export type OctokitOptions = {
   //       see https://tinyurl.com/typescript-auth-strategies
   authStrategy?: any;
   auth?: any;
+  userAgent?: string;
+  previews?: string[];
+  baseUrl?: string;
+  log?: {
+    debug: () => unknown;
+    info: () => unknown;
+    warn: () => unknown;
+    error: () => unknown;
+  };
   request?: OctokitTypes.RequestRequestOptions;
-  timeZone?: string;
+  timeZone?: string; 
   [option: string]: any;
 };
 
