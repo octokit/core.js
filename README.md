@@ -114,7 +114,7 @@ See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documen
         <code>Function<code>
       </td>
       <td>
-        Defaults to <a href="https://github.com/octokit/auth-token.js#readme"><code>@octokit/auth-token</code></a>. See <a href="authentication">Authentication</a> below for examples.
+        Defaults to <a href="https://github.com/octokit/auth-token.js#readme"><code>@octokit/auth-token</code></a>. See <a href="#authentication">Authentication</a> below for examples.
       </td>
     </tr>
     <tr>
@@ -125,7 +125,7 @@ See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documen
         <code>String</code> or <code>Object</code>
       </td>
       <td>
-        See <a href="authentication">Authentication</a> below for examples.
+        See <a href="#authentication">Authentication</a> below for examples.
       </td>
     </tr>
     <tr>
