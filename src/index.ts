@@ -104,10 +104,7 @@ export class Octokit {
     }
 
     this.request = request.defaults(requestDefaults);
-    this.graphql = withCustomRequest(this.request).defaults({
-      ...requestDefaults,
-      baseUrl: requestDefaults.baseUrl.replace(/\/api\/v3$/, "/api"),
-    });
+    this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
     this.log = Object.assign(
       {
         debug: () => {},
