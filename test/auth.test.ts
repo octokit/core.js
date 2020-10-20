@@ -308,7 +308,7 @@ describe("Authentication", () => {
     });
   });
 
-  it.only("createAppAuth with GraphQL + GHES (probot/probot#1386)", async () => {
+  it("createAppAuth with GraphQL + GHES (probot/probot#1386)", async () => {
     const mock = fetchMock
       .sandbox()
       .postOnce(
