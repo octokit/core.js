@@ -1,8 +1,6 @@
 import { getUserAgent } from "universal-user-agent";
-import fetchMock, { MockMatcherFunction } from "fetch-mock";
-import { Response } from "node-fetch";
+import fetchMock from "fetch-mock";
 import {
-  createBasicAuth,
   createAppAuth,
   createActionAuth,
   createOAuthAppAuth,
