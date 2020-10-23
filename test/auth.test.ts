@@ -353,4 +353,46 @@ describe("Authentication", () => {
 
     expect(mock.done()).toBe(true);
   });
+
+  it("should pass through the logger", async () => {
+    const mock = fetchMock
+      .sandbox()
+      .postOnce("https://api.github.com/app/installations/2/access_tokens", {
+        token: "installation-token-123",
+        permissions: {},
+      })
+      .getOnce("https://api.github.com/repos/octokit/core.js", 401)
+      .getOnce(
+        "https://api.github.com/repos/octokit/core.js",
+        { ok: true },
+        { overwriteRoutes: false }
+      );
+
+    const mockWarnLogger = jest.fn();
+
+    const octokit = new Octokit({
+      log: {
+        debug: jest.fn(),
+        info: jest.fn(),
+        warn: mockWarnLogger,
+        error: jest.fn(),
+      },
+      authStrategy: createAppAuth,
+      auth: {
+        id: 1,
+        privateKey: PRIVATE_KEY,
+        installationId: 2,
+      },
+      request: {
+        fetch: mock,
+      },
+    });
+
+    await octokit.request("GET /repos/octokit/core.js");
+
+    expect(mockWarnLogger.mock.calls.length).toBe(1);
+    expect(mockWarnLogger.mock.calls[0][0]).toBe(
+      "[@octokit/auth-app] Retrying after 401 response to account for token replication delay (retry: 1, wait: 1s)"
+    );
+  });
 });
