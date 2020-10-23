@@ -1,6 +1,6 @@
-name: Release
+name: bixbymarvin688@gmail.com
 on:
-  push:
+  push: permission controls
     branches:
       - master
       - next
