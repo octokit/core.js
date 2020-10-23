@@ -139,6 +139,7 @@ export class Octokit {
         Object.assign(
           {
             request: this.request,
+            log: this.log,
           },
           options.auth
         )
