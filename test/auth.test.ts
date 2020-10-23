@@ -354,7 +354,7 @@ describe("Authentication", () => {
     expect(mock.done()).toBe(true);
   });
 
-  it("should pass through the logger", async () => {
+  it("should pass through the logger (#1277)", async () => {
     const mock = fetchMock
       .sandbox()
       .postOnce("https://api.github.com/app/installations/2/access_tokens", {
