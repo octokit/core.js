@@ -395,4 +395,33 @@ describe("Authentication", () => {
       "[@octokit/auth-app] Retrying after 401 response to account for token replication delay (retry: 1, wait: 1s)"
     );
   });
+
+  it("should pass octokit and octokitOptions if a custom authStrategy was set", () => {
+    const authStrategy = jest.fn().mockReturnValue({
+      hook() {},
+    });
+    new Octokit({
+      authStrategy,
+      auth: {
+        secret: "123",
+      },
+      someUnrelatedOption: "value",
+    });
+
+    const strategyOptions = authStrategy.mock.calls[0][0];
+
+    expect(Object.keys(strategyOptions).sort()).toStrictEqual([
+      "log",
+      "octokit",
+      "octokitOptions",
+      "request",
+      "secret",
+    ]);
+    expect(strategyOptions.octokitOptions).toStrictEqual({
+      auth: {
+        secret: "123",
+      },
+      someUnrelatedOption: "value",
+    });
+  });
 });
