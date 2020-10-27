@@ -135,11 +135,19 @@ export class Octokit {
         this.auth = auth;
       }
     } else {
-      const auth = options.authStrategy(
+      const { authStrategy, ...otherOptions } = options;
+      const auth = authStrategy(
         Object.assign(
           {
             request: this.request,
             log: this.log,
+            // we pass the current octokit instance as well as its constructor options
+            // to allow for authentication strategies that return a new octokit instance
+            // that shares the same internal state as the current one. The original
+            // requirement for this was the "event-octokit" authentication strategy
+            // of https://github.com/probot/octokit-auth-probot.
+            octokit: this,
+            octokitOptions: otherOptions,
           },
           options.auth
         )
