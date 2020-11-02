@@ -240,7 +240,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        id: APP_ID,
+        appId: APP_ID,
         privateKey: PRIVATE_KEY,
         installationId: 123,
       },
@@ -335,7 +335,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       authStrategy: createAppAuth,
       auth: {
-        id: APP_ID,
+        appId: APP_ID,
         privateKey: PRIVATE_KEY,
         installationId: 123,
       },
@@ -379,7 +379,7 @@ describe("Authentication", () => {
       },
       authStrategy: createAppAuth,
       auth: {
-        id: 1,
+        appId: 1,
         privateKey: PRIVATE_KEY,
         installationId: 2,
       },
