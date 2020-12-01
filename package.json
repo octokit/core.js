@@ -26,7 +26,7 @@
     "@octokit/auth-token": "^2.4.0",
     "@octokit/graphql": "^4.3.1",
     "@octokit/request": "^5.4.0",
-    "@octokit/types": "^5.0.0",
+    "@octokit/types": "^6.0.0",
     "before-after-hook": "^2.1.0",
     "universal-user-agent": "^6.0.0"
   },
