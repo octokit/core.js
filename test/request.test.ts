@@ -44,7 +44,7 @@ describe("octokit.request()", () => {
       },
     });
 
-    return octokit.request("GET /orgs/:org", {
+    return octokit.request("GET /orgs/{org}", {
       org: "octokit",
     });
   });
@@ -173,11 +173,14 @@ describe("octokit.request()", () => {
         fetch: mock,
       },
     });
-    return octokit.request("PATCH /repos/:owner/:repo/issues/:issue_number", {
-      owner: "epmatsw",
-      repo: "example-repo",
-      milestone: null,
-      issue_number: 1,
-    });
+    return octokit.request(
+      "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
+      {
+        owner: "epmatsw",
+        repo: "example-repo",
+        milestone: null,
+        issue_number: 1,
+      }
+    );
   });
 });
