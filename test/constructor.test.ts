@@ -47,9 +47,7 @@ describe("Smoke test", () => {
       },
     });
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("request option", () => {

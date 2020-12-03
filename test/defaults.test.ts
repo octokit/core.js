@@ -32,9 +32,7 @@ describe("Octokit.defaults", () => {
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.defaults({userAgent})", () => {
@@ -58,9 +56,7 @@ describe("Octokit.defaults", () => {
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.defaults({userAgent}) with userAgent Constructor Option", () => {
@@ -86,9 +82,7 @@ describe("Octokit.defaults", () => {
       userAgent: "my-app/1.2.3",
     });
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.defaults({timeZone})", () => {
@@ -113,9 +107,7 @@ describe("Octokit.defaults", () => {
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.defaults({ auth })", async () => {
@@ -172,9 +164,7 @@ describe("Octokit.defaults", () => {
 
     const octokit = new OctokitWithDefaults();
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.plugin().defaults()", () => {
@@ -204,9 +194,7 @@ describe("Octokit.defaults", () => {
 
     expect(octokit.foo).toEqual("bar");
 
-    return octokit.request("GET /").then((response) => {
-      expect(response.data).toStrictEqual({ ok: true });
-    });
+    return octokit.request("GET /");
   });
 
   it("Octokit.defaults(function)", () => {
