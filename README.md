@@ -62,7 +62,7 @@ const { Octokit } = require("@octokit/core");
 // Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
 const octokit = new Octokit({ auth: `personal-access-token123` });
 
-const response = await octokit.request("GET /orgs/:org/repos", {
+const response = await octokit.request("GET /orgs/{org}/repos", {
   org: "octokit",
   type: "private",
 });
@@ -159,7 +159,7 @@ Some REST API endpoints require preview headers to be set, or enable
 additional features. Preview headers can be set on a per-request basis, e.g.
 
 ```js
-octokit.request("POST /repos/:owner/:repo/pulls", {
+octokit.request("POST /repos/{owner}/{repo}/pulls", {
   mediaType: {
     previews: ["shadow-cat"],
   },

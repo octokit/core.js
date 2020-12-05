@@ -47,7 +47,7 @@ describe("octokit.hook", () => {
       expect(options).toStrictEqual({
         baseUrl: "https://api.github.com",
         method: "GET",
-        url: "/foo/:bar/baz",
+        url: "/foo/{bar}/baz",
         headers: {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
@@ -69,7 +69,7 @@ describe("octokit.hook", () => {
       options.beforeAddition = "works";
     });
 
-    return octokit.request("/foo/:bar/baz", {
+    return octokit.request("/foo/{bar}/baz", {
       bar: "daz",
       qux: "quux",
       headers: {
