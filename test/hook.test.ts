@@ -61,6 +61,7 @@ describe("octokit.hook", () => {
         qux: "quux",
         request: {
           fetch: mock,
+          // @ts-ignore
           hook: options.request.hook,
         },
       });
@@ -180,11 +181,12 @@ describe("octokit.hook", () => {
           format: "",
         },
         request: {
+          // @ts-ignore
           hook: options.request.hook,
         },
       });
 
-      return { data: { ok: true } };
+      return { data: { ok: true }, headers: {}, status: 200, url: "" };
     });
 
     const { data } = await octokit.request("/");
