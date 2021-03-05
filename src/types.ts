@@ -1,4 +1,5 @@
 import * as OctokitTypes from "@octokit/types";
+import { RequestError } from "@octokit/request-error";
 
 import { Octokit } from ".";
 
@@ -49,3 +50,16 @@ export type OctokitPlugin = (
   octokit: Octokit,
   options: OctokitOptions
 ) => { [key: string]: any } | void;
+
+export type Hooks = {
+  request: {
+    Options: OctokitTypes.EndpointOptions;
+    Result: OctokitTypes.OctokitResponse<any>;
+    Error: RequestError | Error;
+  };
+  [key: string]: {
+    Options: unknown;
+    Result: unknown;
+    Error: unknown;
+  };
+};
