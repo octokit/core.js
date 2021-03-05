@@ -12,7 +12,7 @@
     "pretest": "npm run -s lint",
     "test": "jest --coverage"
   },
-  "repository": "https://github.com/octokit/core.js",
+  "repository": "github:octokit/core.js",
   "keywords": [
     "octokit",
     "github",
