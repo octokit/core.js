@@ -6,6 +6,7 @@ import { createTokenAuth } from "@octokit/auth-token";
 
 import {
   Constructor,
+  Hooks,
   OctokitOptions,
   OctokitPlugin,
   RequestParameters,
@@ -70,11 +71,12 @@ export class Octokit {
   }
 
   constructor(options: OctokitOptions = {}) {
-    const hook = new Collection();
+    const hook = new Collection<Hooks>();
     const requestDefaults: Required<RequestParameters> = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
       request: Object.assign({}, options.request, {
+        // @ts-ignore internal usage only, no need to type
         hook: hook.bind(null, "request"),
       }),
       mediaType: {
@@ -175,7 +177,7 @@ export class Octokit {
     error: (message: string, additionalInfo?: object) => any;
     [key: string]: any;
   };
-  hook: HookCollection;
+  hook: HookCollection<Hooks>;
 
   // TODO: type `octokit.auth` based on passed options.authStrategy
   auth: (...args: unknown[]) => Promise<unknown>;
