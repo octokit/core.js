@@ -53,7 +53,7 @@ export type OctokitPlugin = (
 
 export type Hooks = {
   request: {
-    Options: OctokitTypes.EndpointOptions;
+    Options: Required<OctokitTypes.EndpointDefaults>;
     Result: OctokitTypes.OctokitResponse<any>;
     Error: RequestError | Error;
   };
