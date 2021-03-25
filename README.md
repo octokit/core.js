@@ -298,7 +298,9 @@ const octokit = new Octokit({
 const { data } = await octokit.request("/user");
 ```
 
-To use a different authentication strategy, set `options.authStrategy`. A set of officially supported authentication strategies can be retrieved from [`@octokit/auth`](https://github.com/octokit/auth-app.js#readme). Example
+To use a different authentication strategy, set `options.authStrategy`. A list of authentication strategies is available at [octokit/authentication-strategies.js](https://github.com/octokit/authentication-strategies.js/#readme).
+
+Example
 
 ```js
 import { Octokit } from "@octokit/core";
