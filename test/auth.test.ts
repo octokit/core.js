@@ -196,7 +196,7 @@ describe("Authentication", () => {
     });
 
     await octokit.auth({
-      type: "token",
+      type: "oauth-user",
       code: CODE,
       state: STATE,
     });
