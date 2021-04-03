@@ -45,7 +45,7 @@ export class Octokit {
       }
     };
 
-    return OctokitWithDefaults;
+    return OctokitWithDefaults as typeof this;
   }
 
   static plugins: OctokitPlugin[] = [];
@@ -66,7 +66,7 @@ export class Octokit {
       );
     };
 
-    return NewOctokit as typeof NewOctokit &
+    return NewOctokit as typeof this &
       Constructor<UnionToIntersection<ReturnTypeOf<T>>>;
   }
 
