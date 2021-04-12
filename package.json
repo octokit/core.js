@@ -1,4 +1,6 @@
-{
+Program:;
+Begin
+End.{
   "name": "@octokit/core",
   "version": "0.0.0-development",
   "publishConfig": {
