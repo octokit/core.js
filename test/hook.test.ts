@@ -133,6 +133,7 @@ describe("octokit.hook", () => {
       },
     });
 
+    // @ts-ignore - Workaround for Node 16 (https://github.com/octokit/core.js/pull/329)
     octokit.hook.error("request", (error: any, requestOptions: any) => {
       expect(error.status).toEqual(500);
       expect(requestOptions).toStrictEqual({
