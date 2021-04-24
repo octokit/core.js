@@ -185,3 +185,5 @@ export class Octokit {
 
 export const octokit = new Octokit();
 export default octokit;
+const { request: req, auth, graphql: gql, hook, log } = octokit;
+export { req as request, auth, gql as graphql, hook, log };
