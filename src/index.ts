@@ -184,3 +184,4 @@ export class Octokit {
 }
 
 export const octokit = new Octokit();
+export default octokit;
