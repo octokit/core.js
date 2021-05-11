@@ -26,13 +26,12 @@ export type OctokitOptions = {
 
 export type Constructor<T> = new (...args: any[]) => T;
 
-export type ReturnTypeOf<
-  T extends AnyFunction | AnyFunction[]
-> = T extends AnyFunction
-  ? ReturnType<T>
-  : T extends AnyFunction[]
-  ? UnionToIntersection<ReturnType<T[number]>>
-  : never;
+export type ReturnTypeOf<T extends AnyFunction | AnyFunction[]> =
+  T extends AnyFunction
+    ? ReturnType<T>
+    : T extends AnyFunction[]
+    ? UnionToIntersection<ReturnType<T[number]>>
+    : never;
 
 /**
  * @author https://stackoverflow.com/users/2887218/jcalz
