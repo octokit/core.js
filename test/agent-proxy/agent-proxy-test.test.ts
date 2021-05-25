@@ -45,7 +45,9 @@ describe("client proxy", () => {
     proxy.close();
   });
 
-  afterAll((done) => server.close(done));
+  afterAll((done) => {
+    server.close(done);
+  });
 
   it("options.agent = new HttpProxyAgent(proxyUrl)", async () => {
     let proxyReceivedRequest;
