@@ -5,7 +5,7 @@ import {
   createActionAuth,
   createOAuthAppAuth,
 } from "@octokit/auth";
-import lolex from "lolex";
+import lolex, { Clock } from "lolex";
 
 import { Octokit } from "../src";
 
@@ -43,6 +43,7 @@ x//0u+zd/R/QRUzLOw4N72/Hu+UG6MNt5iDZFCtapRaKt6OvSBwy8w==
 const BEARER =
   "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOi0zMCwiZXhwIjo1NzAsImlzcyI6MX0.q3foRa78U3WegM5PrWLEh5N0bH1SD62OqW66ZYzArp95JBNiCbo8KAlGtiRENCIfBZT9ibDUWy82cI4g3F09mdTq3bD1xLavIfmTksIQCz5EymTWR5v6gL14LSmQdWY9lSqkgUG0XCFljWUglEP39H4yeHbFgdjvAYg3ifDS12z9oQz2ACdSpvxPiTuCC804HkPVw8Qoy0OSXvCkFU70l7VXCVUxnuhHnk8-oCGcKUspmeP6UdDnXk-Aus-eGwDfJbU2WritxxaXw6B4a3flTPojkYLSkPBr6Pi0H2-mBsW_Nvs0aLPVLKobQd4gqTkosX3967DoAG8luUMhrnxe8Q";
 
+let clock: Clock;
 beforeAll(() => {
   // Math.random is used to generate the token fingerprint,
   // unless `token.fingerprint` option was passed. The fingerprint is
@@ -53,14 +54,14 @@ beforeAll(() => {
   // A timestamp is added to the default token note, e.g.
   // "octokit 2019-07-04 4feornbt361". Lolex mocks the Date class so
   // `new Date()` always returns `new Date(0)` by default.
-  const clock = lolex.install({
+  clock = lolex.install({
     now: 0,
     toFake: ["Date"],
   });
+});
 
-  beforeEach(() => {
-    clock.reset();
-  });
+beforeEach(() => {
+  clock.reset();
 });
 
 describe("Authentication", () => {
