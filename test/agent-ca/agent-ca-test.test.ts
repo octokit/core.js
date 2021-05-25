@@ -51,5 +51,7 @@ describe("custom client certificate", () => {
     return octokit.request("/");
   });
 
-  afterAll((done) => server.close(done));
+  afterAll((done) => {
+    server.close(done);
+  });
 });
