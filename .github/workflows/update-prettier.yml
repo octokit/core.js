@@ -2,7 +2,7 @@ name: Update Prettier
 "on":
   push:
     branches:
-      - dependabot/npm_and_yarn/prettier-*
+      - renovate/prettier-*
 jobs:
   update_prettier:
     runs-on: ubuntu-latest
