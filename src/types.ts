@@ -30,7 +30,8 @@ export type ReturnTypeOf<T extends AnyFunction | AnyFunction[]> =
   T extends AnyFunction
     ? ReturnType<T>
     : T extends AnyFunction[]
-    ? UnionToIntersection<ReturnType<T[number]>>
+    ? // exclude `void` from intersection, see octokit/octokit.js#2115
+      UnionToIntersection<Exclude<ReturnType<T[number]>, void>>
     : never;
 
 /**
