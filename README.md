@@ -360,7 +360,7 @@ octokit.hook.after("request", async (response, options) => {
 });
 octokit.hook.error("request", async (error, options) => {
   if (error.status === 304) {
-    return findInCache(error.headers.etag);
+    return findInCache(error.response.headers.etag);
   }
 
   throw error;
