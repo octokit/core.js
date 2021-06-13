@@ -4,6 +4,8 @@
 
 import { Octokit } from "../src";
 
+export function expectType<T>(what: T) {}
+
 export function pluginsTest() {
   // `octokit` instance does not permit unknown keys
   const octokit = new Octokit();
@@ -36,4 +38,18 @@ export function pluginsTest() {
   octokitWithPluginAndDefaults.foo;
   // @ts-expect-error `.unknown` should not be typed as `any`
   octokitWithPluginAndDefaults.unknown;
+
+  // https://github.com/octokit/octokit.js/issues/2115
+  const OctokitWithVoidAndNonVoidPlugins = Octokit.plugin(
+    () => ({ foo: "foo" }),
+    () => {},
+    () => ({ bar: "bar" })
+  );
+  const octokitWithVoidAndNonVoidPlugins =
+    new OctokitWithVoidAndNonVoidPlugins();
+
+  // @ts-expect-error octokitWithVoidAndNonVoidPlugins must never be `void`, even if one of the plugins returns `void`
+  expectType<void>(octokitWithVoidAndNonVoidPlugins);
+  expectType<string>(octokitWithVoidAndNonVoidPlugins.foo);
+  expectType<string>(octokitWithVoidAndNonVoidPlugins.bar);
 }
