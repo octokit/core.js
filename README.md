@@ -427,7 +427,7 @@ const MyActionOctokit = Octokit.plugin(
   require("@octokit/plugin-throttling"),
   require("@octokit/plugin-retry")
 ).defaults({
-  authStrategy: require("@octokit/auth-action"),
+  authStrategy: require("@octokit/auth-action").createActionAuth,
   userAgent: `my-octokit-action/v1.2.3`,
 });
 
