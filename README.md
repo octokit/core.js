@@ -423,10 +423,14 @@ You can build your own Octokit class with preset default options and plugins. In
 ```js
 const { Octokit } = require("@octokit/core");
 const MyActionOctokit = Octokit.plugin(
-  require("@octokit/plugin-paginate-rest"),
-  require("@octokit/plugin-throttling"),
+  require("@octokit/plugin-paginate-rest").paginateRest,
+  require("@octokit/plugin-throttling").throttling,
   require("@octokit/plugin-retry")
 ).defaults({
+  throttle: {
+    onAbuseLimit: (retryAfter, options) => {/* ... */},
+    onRateLimit: (retryAfter, options) => {/* ... */}
+  },
   authStrategy: require("@octokit/auth-action").createActionAuth,
   userAgent: `my-octokit-action/v1.2.3`,
 });
