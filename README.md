@@ -428,8 +428,12 @@ const MyActionOctokit = Octokit.plugin(
   require("@octokit/plugin-retry")
 ).defaults({
   throttle: {
-    onAbuseLimit: (retryAfter, options) => {/* ... */},
-    onRateLimit: (retryAfter, options) => {/* ... */}
+    onAbuseLimit: (retryAfter, options) => {
+      /* ... */
+    },
+    onRateLimit: (retryAfter, options) => {
+      /* ... */
+    },
   },
   authStrategy: require("@octokit/auth-action").createActionAuth,
   userAgent: `my-octokit-action/v1.2.3`,
