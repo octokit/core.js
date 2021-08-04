@@ -10,9 +10,10 @@
     "lint": "prettier --check '{src,test}/**/*.{ts,md}' README.md package.json",
     "lint:fix": "prettier --write '{src,test}/**/*.{ts,md}' README.md package.json",
     "pretest": "npm run -s lint",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals test/typescript-validate.ts"
   },
-  "repository": "https://github.com/octokit/core.js",
+  "repository": "github:octokit/core.js",
   "keywords": [
     "octokit",
     "github",
@@ -25,9 +26,10 @@
   "dependencies": {
     "@octokit/auth-token": "^2.4.4",
     "@octokit/graphql": "^4.5.8",
-    "@octokit/request": "^5.4.12",
+    "@octokit/request": "^5.6.0",
+    "@octokit/request-error": "^2.0.5",
     "@octokit/types": "^6.0.3",
-    "before-after-hook": "^2.1.0",
+    "before-after-hook": "^2.2.0",
     "universal-user-agent": "^6.0.0"
   },
   "devDependencies": {
@@ -43,13 +45,13 @@
     "@types/node-fetch": "^2.5.0",
     "fetch-mock": "^9.0.0",
     "http-proxy-agent": "^4.0.1",
-    "jest": "^26.1.0",
+    "jest": "^27.0.0",
     "lolex": "^6.0.0",
-    "prettier": "^2.0.4",
+    "prettier": "2.3.2",
     "proxy": "^1.0.1",
     "semantic-release": "^17.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
-    "ts-jest": "^26.1.3",
+    "ts-jest": "^27.0.0",
     "typescript": "^4.0.2"
   },
   "jest": {

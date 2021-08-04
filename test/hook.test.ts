@@ -61,6 +61,7 @@ describe("octokit.hook", () => {
         qux: "quux",
         request: {
           fetch: mock,
+          // @ts-ignore
           hook: options.request.hook,
         },
       });
@@ -132,6 +133,7 @@ describe("octokit.hook", () => {
       },
     });
 
+    // @ts-ignore - Workaround for Node 16 (https://github.com/octokit/core.js/pull/329)
     octokit.hook.error("request", (error: any, requestOptions: any) => {
       expect(error.status).toEqual(500);
       expect(requestOptions).toStrictEqual({
@@ -180,11 +182,12 @@ describe("octokit.hook", () => {
           format: "",
         },
         request: {
+          // @ts-ignore
           hook: options.request.hook,
         },
       });
 
-      return { data: { ok: true } };
+      return { data: { ok: true }, headers: {}, status: 200, url: "" };
     });
 
     const { data } = await octokit.request("/");
