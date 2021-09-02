@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - master
+      - master 
       - next
       - beta
       - "*.x" # maintenance releases
