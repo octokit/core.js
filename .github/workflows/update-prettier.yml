@@ -12,13 +12,14 @@ jobs:
         with:
           version: 12
           cache: npm
+          node-version: 16
       - run: npm ci
-      - run: "npm run lint:fix"
+      - run: npm run lint:fix
       - uses: gr2m/create-or-update-pull-request-action@v1.x
         env:
-          GITHUB_TOKEN: "${{ secrets.OCTOKITBOT_PAT }}"
+          GITHUB_TOKEN: ${{ secrets.OCTOKITBOT_PAT }}
         with:
           title: Prettier updated
           body: An update to prettier required updates to your code.
-          branch: "${{ github.ref }}"
+          branch: ${{ github.ref }}
           commit-message: "style: prettier"
