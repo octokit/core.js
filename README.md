@@ -7,15 +7,12 @@
 
 <!-- toc -->
 
-- [Usage](#usage)
-  - [REST API example](#rest-api-example)
-  - [GraphQL example](#graphql-example)
-- [Options](#options)
+- [Options]
 - [Defaults](#defaults)
 - [Authentication](#authentication)
-- [Logging](#logging)
+- [Logging]
 - [Hooks](#hooks)
-- [Plugins](#plugins)
+- [Plugins]
 - [Build your own Octokit with Plugins and Defaults](#build-your-own-octokit-with-plugins-and-defaults)
 - [LICENSE](#license)
 
@@ -49,9 +46,7 @@ Install with <code>npm install @octokit/core</code>
 
 ```js
 const { Octokit } = require("@octokit/core");
-// or: import { Octokit } from "@octokit/core";
-```
-
+//
 </td></tr>
 </tbody>
 </table>
@@ -87,7 +82,7 @@ const response = await octokit.graphql(
 );
 ```
 
-See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documentation of the `.graphql` method.
+See [`@octokit/graphql`] for full documentation of the `.graphql` method.
 
 ## Options
 
@@ -114,7 +109,7 @@ See [`@octokit/graphql`](https://github.com/octokit/graphql.js) for full documen
         <code>Function<code>
       </td>
       <td>
-        Defaults to <a href="https://github.com/octokit/auth-token.js#readme"><code>@octokit/auth-token</code></a>. See <a href="#authentication">Authentication</a> below for examples.
+         <a href="https://github.com/octokit/auth-token><code>@octokit/auth-token</code></a>. See <a href="#authentication">Authentication</a> below for examples.
       </td>
     </tr>
     <tr>
@@ -292,7 +287,6 @@ By default, Octokit authenticates using the [token authentication strategy](http
 import { Octokit } from "@octokit/core";
 
 const octokit = new Octokit({
-  auth: "mypersonalaccesstoken123",
 });
 
 const { data } = await octokit.request("/user");
@@ -322,7 +316,7 @@ The `.auth()` method returned by the current authentication strategy can be acce
 ```js
 const { token } = await appOctokit.auth({
   type: "installation",
-  installationId: 123,
+ 
 });
 ```
 
