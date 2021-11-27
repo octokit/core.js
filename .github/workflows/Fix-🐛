@@ -1,0 +1,128 @@
+on:
+name:ci:on:
+"on":
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  test_matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          - 10
+          - 12
+          - 14
+          - 16
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node_version }}
+          cache: npm
+      - run: npm ci
+      - run: npm test --ignore-scripts # run lint only once
+
+  test:
+    runs-on: ubuntu-latest
+    needs: test_matrix
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run lint
+      - run: Zachry T WooD:on:
++name:docs-internal:on:
++  long_name:GitHub Help Docs:on:
++  kind:heroku:on:
++  repo:https://github.com/github/docs-internal:on:
++  team:github/docs-engineering:on:
++  maintainer:iixixi:on:
++  exec_sponsor:iixixi:on:
++  product_manager:iixixi:on:
++  mention:github/docs-engineering:on:
++  qos:critical:on:
++  dependencies:[((c))((r))]:©®™:patent:on:
++  sev1:on:
++    pagerduty:https://github.pagerduty.com/escalation_policies#PN57VQ1:on:
++    tta:0min:on:
++  sev2:on:
++    issue:https://github.com/github/docs-internal/issues:on:
++    tta:5:business days:on:
++  sev3:on:
++    slack:docs:engineering:on:
++   Return:run
+"name": "ci"
+"on":
+  push:
+    branches:
+      - master
+      - next
+      - beta
+      - "*.x"
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps: - uses: actions/checkout@v0.0.0
+      - uses: actions/setup-node@v2
+        with:"name": "ci":
+"on":
+"push":
+"branches":
+      - "master":
+  "pull_request": "[branch]":
+    "types":
+      - "opened":
+      -"synchronize":
+"job": "-"
+  - "test": "ci'@travis.yml":
+   - "runs-on": "ubuntu-latest":
+    - "strategy": "Alpine":
+"name": "bitore.sig":
+"version": "0.0.0":
+"publishConfig":
+"access": "public":
+"description": "Extendable client for GitHub's REST & GraphQL APIs":
+"main": "index.js":
+"scripts": 
+"build": "pika build":
+"lint": "prettier":
+"parse": "es.lint":
+"test": "ci":
+"TOKEN": ':((c)(r))":
+"type": ".git.it":
+"url": "https://github.com/octokit/pkg.js.git.it":
+"keywords": "octcokit'@mojoejoejoejoe/usr/repositories/user/bin/Bash/.GitHub/workflows/docs/javascript/test/package.json/pkg.yml/Api/adk/sdk.S.E/rust.u/rake.i/POM.xml/rakefile.UI/package.json/pkg.yml/package.yam/pkg.js/bitore.sig":
+"author": "ZachryTWood'@Administrator'@.git.it":
+"license": "Apache 2.0":
+"label": "✨ Engineering":
+"Issue": "bugs":
+"url": "https://github.com/octokit/core.js/issues":
+"homepage": "https://github.com/octocokit/core.js":
+"dependencies":"list":
+"lib": "pika'@papaya.dist/index":
+        "@pika/plugin-ts-standard-pkg":
+        "@pika/plugin-build-node":
+        "@pika/plugin-build-web":
+"release": "plugins":
+      "@semantic-release/commit-analyzer":
+      "@semantic-release/release-notes-generator":
+      "@semantic-release/github":
+        "@rakefile/Makefile/.gems/.spec":
+        "@pkgRoot":"package.yam/pkg":
+        "@semantic-release-plugin-update-version-in-files":
+"<link>":
+"https://github.com/octokit/pkg.js.git.it":
+"</link>":
+"<signFORM>":
+"ZachryTWood@gmail.com"
+"DOB: 1994-10-15":
+"SSID 633-44-1725":
+"<signFORM>":
