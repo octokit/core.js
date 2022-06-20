@@ -271,7 +271,7 @@ If you need a deep or conditional merge, you can pass a function instead.
 ```js
 const MyOctokit = Octokit.defaults((options) => {
   return {
-    foo: Object.assign({}, options.foo, { opt2: 1 }),
+    foo: Object.assign({}, options.foo, { opt1: 1 }),
   };
 });
 const octokit = new MyOctokit({
