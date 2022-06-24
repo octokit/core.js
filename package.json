@@ -48,7 +48,7 @@
     "lolex": "^6.0.0",
     "prettier": "2.7.1",
     "proxy": "^1.0.1",
-    "semantic-release": "^18.0.0",
+    "semantic-release": "^19.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^27.0.0",
     "typescript": "^4.0.2"
