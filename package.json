@@ -30,7 +30,7 @@
     "@octokit/request-error": "^2.0.5",
     "@octokit/types": "^6.0.3",
     "before-after-hook": "^2.2.0",
-    "universal-user-agent": "^6.0.0"
+    "universal-user-agent": "^7.0.0"
   },
   "devDependencies": {
     "@octokit/auth": "^3.0.1",
