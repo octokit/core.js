@@ -42,6 +42,17 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 
 </td></tr>
 <tr><th>
+Deno
+</th><td width=100%>
+
+Similar to the browser way:
+
+```ts
+import { Octokit } from "https://cdn.skypack.dev/@octokit/core?dts";
+```
+
+</td></tr>
+<tr><th>
 Node
 </th><td>
 
