@@ -16,7 +16,7 @@ jobs:
           - 14
           - 16
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@e6d535c99c374d0c3f6d8cd8086a57b43c6c700a
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b
         with:
@@ -30,7 +30,7 @@ jobs:
     steps:
       - run: exit 1
         if: ${{ needs.test_matrix.result != 'success' }}
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@e6d535c99c374d0c3f6d8cd8086a57b43c6c700a
       - run: npm ci
       - run: npm run lint
       - run: npm run test:typescript
