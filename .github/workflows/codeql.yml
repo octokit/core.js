@@ -69,4 +69,4 @@ jobs:
     #   ./location_of_script_within_repo/buildscript.sh
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@86f3159a697a097a813ad9bfa0002412d97690a4 # tag=v2
+      uses: github/codeql-action/analyze@v2 # tag=v2
