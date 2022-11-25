@@ -1,5 +1,5 @@
 # core.js
-
+ `VSXD1-2`
 > Extendable client for GitHub's REST & GraphQL APIs
 
 [![@latest](https://img.shields.io/npm/v/@octokit/core.svg)](https://www.npmjs.com/package/@octokit/core)
@@ -26,7 +26,7 @@ If you need a minimalistic library to utilize GitHub's [REST API](https://develo
 If you don't need the Plugin API then using [`@octokit/request`](https://github.com/octokit/request.js/) or [`@octokit/graphql`](https://github.com/octokit/graphql.js/) directly is a good alternative.
 
 ## Usage
-
+ 
 <table>
 <tbody valign=top align=left>
 <tr><th>
