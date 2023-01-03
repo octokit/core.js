@@ -94,49 +94,6 @@ describe("octokit.request()", () => {
     return octokit.request("GET /");
   });
 
-  it("previews", async () => {
-    const mock = fetchMock
-      .sandbox()
-      .getOnce(
-        "https://api.github.com/",
-        {},
-        {
-          headers: {
-            accept:
-              "application/vnd.github.foo-preview+json,application/vnd.github.bar-preview+json",
-            "user-agent": userAgent,
-          },
-        }
-      )
-      .getOnce(
-        "https://api.github.com/",
-        {},
-        {
-          headers: {
-            accept:
-              "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.baz-preview.raw",
-            "user-agent": userAgent,
-          },
-          overwriteRoutes: false,
-        }
-      );
-
-    const octokit = new Octokit({
-      previews: ["foo", "bar-preview"],
-      request: {
-        fetch: mock,
-      },
-    });
-
-    await octokit.request("/");
-    await octokit.request("/", {
-      mediaType: {
-        previews: ["bar", "baz-preview"],
-        format: "raw",
-      },
-    });
-  });
-
   it('octokit.request.endpoint("GET /")', () => {
     const octokit = new Octokit();
     const requestOptions = octokit.request.endpoint("GET /");

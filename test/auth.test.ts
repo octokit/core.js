@@ -231,7 +231,6 @@ describe("Authentication", () => {
         { id: 123 },
         {
           headers: {
-            accept: "application/vnd.github.machine-man-preview+json",
             "user-agent": userAgent,
             authorization: `bearer ${BEARER}`,
           },
@@ -253,11 +252,7 @@ describe("Authentication", () => {
     await octokit.request("GET /repos/octocat/hello-world");
     await octokit.request("GET /repos/octocat/hello-world");
 
-    await octokit.request("GET /app", {
-      mediaType: {
-        previews: ["machine-man"],
-      },
-    });
+    await octokit.request("GET /app");
 
     expect(mock.done()).toBe(true);
   });

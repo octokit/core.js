@@ -11,7 +11,6 @@ export interface OctokitOptions {
   authStrategy?: any;
   auth?: any;
   userAgent?: string;
-  previews?: string[];
   baseUrl?: string;
   log?: {
     debug: (message: string) => unknown;
