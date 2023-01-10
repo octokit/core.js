@@ -11,18 +11,18 @@ Resolves #ISSUE_NUMBER
 ### Before the change?
 <!-- Please describe the current behavior that you are modifying. -->
 
-* 
+*
 
 ### After the change?
 <!-- Please describe the behavior or changes that are being added by this PR. -->
 
-* 
+*
 
 
 ### Other information
 <!-- Any other information that is important to this PR  -->
 
-* 
+*
 
 ----
 
@@ -36,20 +36,20 @@ Resolves #ISSUE_NUMBER
 ### Does this introduce a breaking change?
 <!-- If this introduces a breaking change make sure to note it here any what the impact might be -->
 
-Please see our docs on [breaking changes](https://github.com/octokit/.github/blob/master/community/breaking_changes.md) to help!
+Please see our docs on [breaking changes](https://github.com/octokit/.github/blob/main/community/breaking_changes.md) to help!
 
 - [ ] Yes (Please add the `Type: Breaking change` label)
 - [ ] No
 
-If `Yes`, what's the impact:  
+If `Yes`, what's the impact:
 
 * N/A
 
 
 ### Pull request type
 
-<!-- Please do not submit updates to dependencies unless it fixes an issue. --> 
-<!-- Please try to limit your pull request to one type, submit multiple pull requests if needed. --> 
+<!-- Please do not submit updates to dependencies unless it fixes an issue. -->
+<!-- Please try to limit your pull request to one type, submit multiple pull requests if needed. -->
 
 Please add the corresponding label for change this PR introduces:
 - Bugfix: `Type: Bug`
