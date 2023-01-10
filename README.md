@@ -3,7 +3,7 @@
 > Extendable client for GitHub's REST & GraphQL APIs
 
 [![@latest](https://img.shields.io/npm/v/@octokit/core.svg)](https://www.npmjs.com/package/@octokit/core)
-[![Build Status](https://github.com/octokit/core.js/workflows/Test/badge.svg)](https://github.com/octokit/core.js/actions?query=workflow%3ATest+branch%3Amaster)
+[![Build Status](https://github.com/octokit/core.js/workflows/Test/badge.svg)](https://github.com/octokit/core.js/actions?query=workflow%3ATest+branch%3Amain)
 
 <!-- toc -->
 
@@ -33,10 +33,10 @@ If you don't need the Plugin API then using [`@octokit/request`](https://github.
 Browsers
 </th><td width=100%>
 Load <code>@octokit/core</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
-        
+
 ```html
 <script type="module">
-import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
+  import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 </script>
 ```
 
@@ -166,7 +166,7 @@ octokit.request("POST /repos/{owner}/{repo}/pulls", {
   owner,
   repo,
   title: "My pull request",
-  base: "master",
+  base: "main",
   head: "my-feature",
   draft: true,
 });
