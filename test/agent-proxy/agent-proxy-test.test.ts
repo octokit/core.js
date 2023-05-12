@@ -8,7 +8,7 @@
 const http = require("http");
 
 const HttpProxy = require("proxy");
-const HttpProxyAgent = require("http-proxy-agent");
+const { HttpProxyAgent } = require("http-proxy-agent");
 
 import { Octokit } from "../../src";
 
