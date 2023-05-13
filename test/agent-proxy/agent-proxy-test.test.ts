@@ -7,7 +7,7 @@
  */
 const http = require("http");
 
-const HttpProxy = require("proxy");
+const { createProxy } = require("proxy");
 const { HttpProxyAgent } = require("http-proxy-agent");
 
 import { Octokit } from "../../src";
@@ -18,7 +18,7 @@ describe("client proxy", () => {
 
   // start HTTP proxy & http server
   beforeAll((done) => {
-    proxy = HttpProxy();
+    proxy = createProxy();
     proxy.listen(() => {
       proxyUrl = "http://localhost:" + proxy.address().port;
       done();
