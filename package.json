@@ -72,7 +72,7 @@
       [
         "@pika/plugin-build-node",
         {
-          "minNodeVersion": "14"
+          "minNodeVersion": 18
         }
       ],
       [
@@ -113,6 +113,6 @@
     ]
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 18"
   }
 }
