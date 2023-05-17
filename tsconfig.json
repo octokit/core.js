@@ -1,10 +1,7 @@
 {
+  "extends": "@octokit/tsconfig",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "target": "es2018"
+    "esModuleInterop": true
   },
   "include": ["src/**/*"]
 }

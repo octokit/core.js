@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@octokit/auth": "^3.0.1",
+    "@octokit/tsconfig": "^1.0.2",
     "@types/fetch-mock": "^7.3.1",
     "@types/jest": "^29.0.0",
     "@types/lolex": "^5.1.0",
