@@ -33,7 +33,7 @@ describe("Octokit.plugin()", () => {
   });
 
   it("receives client options", () => {
-    const MyOctokit = Octokit.plugin((octokit, options) => {
+    const MyOctokit = Octokit.plugin((_octokit, options) => {
       expect(options).toStrictEqual({
         foo: "bar",
       });
