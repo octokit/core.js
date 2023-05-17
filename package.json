@@ -34,10 +34,6 @@
   },
   "devDependencies": {
     "@octokit/auth": "^3.0.1",
-    "@pika/pack": "^0.3.7",
-    "@pika/plugin-build-node": "^0.9.0",
-    "@pika/plugin-build-web": "^0.9.0",
-    "@pika/plugin-ts-standard-pkg": "^0.9.0",
     "@types/fetch-mock": "^7.3.1",
     "@types/jest": "^29.0.0",
     "@types/lolex": "^5.1.0",
@@ -63,22 +59,6 @@
         "lines": 100
       }
     }
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-ts-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-node",
-        {
-          "minNodeVersion": "14"
-        }
-      ],
-      [
-        "@pika/plugin-build-web"
-      ]
-    ]
   },
   "release": {
     "branches": [
