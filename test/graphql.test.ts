@@ -1,9 +1,6 @@
-import { getUserAgent } from "universal-user-agent";
 import fetchMock from "fetch-mock";
 
 import { Octokit } from "../src";
-
-const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
 
 describe("octokit.graphql()", () => {
   it("is a function", () => {
@@ -21,7 +18,7 @@ describe("octokit.graphql()", () => {
     };
     const mock = fetchMock
       .sandbox()
-      .postOnce("https://api.github.com/graphql", (url, request) => {
+      .postOnce("https://api.github.com/graphql", (_url, request) => {
         const body = JSON.parse(request.body!.toString());
         expect(body.query).toEqual(query);
 
@@ -60,7 +57,7 @@ describe("octokit.graphql()", () => {
     };
     const mock = fetchMock
       .sandbox()
-      .postOnce("https://github.acme-inc.com/api/graphql", (url, request) => {
+      .postOnce("https://github.acme-inc.com/api/graphql", (_url, request) => {
         const body = JSON.parse(request.body!.toString());
         expect(body.query).toEqual(query);
 
@@ -93,7 +90,7 @@ describe("octokit.graphql()", () => {
   it("custom headers: octokit.graphql({ query, headers })", async () => {
     const mock = fetchMock
       .sandbox()
-      .postOnce("https://api.github.com/graphql", (url, request) => {
+      .postOnce("https://api.github.com/graphql", (_url, request) => {
         // @ts-ignore `request.headers` are typed incorrectly by fetch-mock
         expect(request.headers["x-custom"]).toEqual("value");
 
@@ -122,7 +119,7 @@ describe("octokit.graphql()", () => {
   it("custom headers: octokit.graphql(query, { headers })", async () => {
     const mock = fetchMock
       .sandbox()
-      .postOnce("https://api.github.com/graphql", (url, request) => {
+      .postOnce("https://api.github.com/graphql", (_url, request) => {
         // @ts-ignore `request.headers` are typed incorrectly by fetch-mock
         expect(request.headers["x-custom"]).toEqual("value");
 

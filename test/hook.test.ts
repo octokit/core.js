@@ -201,11 +201,11 @@ describe("octokit.hook", () => {
     const octokit = new Octokit();
 
     let beforeMagicCalled = false;
-    octokit.hook.before("magic", (options: any) => {
+    octokit.hook.before("magic", (_options: any) => {
       beforeMagicCalled = true;
     });
 
-    await octokit.hook("magic", (options: any) => {
+    await octokit.hook("magic", (_options: any) => {
       return {
         magic: true,
       };

@@ -57,7 +57,7 @@ describe("Smoke test", () => {
       },
     });
 
-    octokit.hook.wrap("request", (request, options) => {
+    octokit.hook.wrap("request", (_request, options) => {
       // @ts-ignore
       expect(options.request.foo).toEqual("bar");
       return {

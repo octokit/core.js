@@ -198,7 +198,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults(function)", () => {
-    const plugin = (octokit: Octokit, options: any) => {
+    const plugin = (_octokit: Octokit, options: any) => {
       expect(options).toStrictEqual({
         foo: {
           bar: 1,
@@ -225,7 +225,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults(opts).defaults(function)", () => {
-    const plugin = (octokit: Octokit, options: any) => {
+    const plugin = (_octokit: Octokit, options: any) => {
       expect(options).toStrictEqual({
         other: "foo",
         foo: {
@@ -257,7 +257,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults(function).defaults(opts)", () => {
-    const plugin = (octokit: Octokit, options: any) => {
+    const plugin = (_octokit: Octokit, options: any) => {
       expect(options).toStrictEqual({
         other: "foo",
         foo: {
