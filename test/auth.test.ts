@@ -5,7 +5,7 @@ import {
   createActionAuth,
   createOAuthAppAuth,
 } from "@octokit/auth";
-import lolex, { Clock } from "lolex";
+import lolex, { type Clock } from "lolex";
 
 import { Octokit } from "../src";
 
