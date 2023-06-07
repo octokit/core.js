@@ -54,6 +54,14 @@
   },
   "jest": {
     "preset": "ts-jest",
+    "transform": {
+      "^.+\\.(ts|tsx)$": [
+        "ts-jest",
+        {
+          "tsconfig": "test/tsconfig.test.json"
+        }
+      ]
+    },
     "coverageThreshold": {
       "global": {
         "statements": 100,
