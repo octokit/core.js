@@ -1,10 +1,10 @@
 import { getUserAgent } from "universal-user-agent";
-import { Collection, HookCollection } from "before-after-hook";
+import type { Collection, HookCollection } from "before-after-hook";
 import { request } from "@octokit/request";
 import { graphql, withCustomRequest } from "@octokit/graphql";
 import { createTokenAuth } from "@octokit/auth-token";
 
-import {
+import type {
   Constructor,
   Hooks,
   OctokitOptions,
