@@ -28,7 +28,7 @@
     "@octokit/graphql": "^5.0.0",
     "@octokit/request": "^6.0.0",
     "@octokit/request-error": "^4.0.1",
-    "@octokit/types": "^9.0.0",
+    "@octokit/types": "^10.0.0",
     "before-after-hook": "^2.2.0",
     "universal-user-agent": "^6.0.0"
   },
