@@ -24,9 +24,9 @@
   "author": "Gregor Martynus (https://github.com/gr2m)",
   "license": "MIT",
   "dependencies": {
-    "@octokit/auth-token": "^3.0.0",
+    "@octokit/auth-token": "^4.0.0",
     "@octokit/graphql": "^5.0.0",
-    "@octokit/request": "^6.0.0",
+    "@octokit/request": "^7.0.0",
     "@octokit/request-error": "^4.0.1",
     "@octokit/types": "^10.0.0",
     "before-after-hook": "^2.2.0",
