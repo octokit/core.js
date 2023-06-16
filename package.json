@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@octokit/auth-token": "^4.0.0",
-    "@octokit/graphql": "^5.0.0",
+    "@octokit/graphql": "^6.0.0-beta.2",
     "@octokit/request": "^7.0.0",
     "@octokit/request-error": "^4.0.1",
     "@octokit/types": "^10.0.0",
