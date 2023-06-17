@@ -54,7 +54,6 @@ describe("octokit.hook", () => {
           "x-foo": "bar",
         },
         mediaType: {
-          previews: ["octicon"],
           format: "rad",
         },
         bar: "daz",
@@ -77,7 +76,6 @@ describe("octokit.hook", () => {
         "x-foo": "bar",
       },
       mediaType: {
-        previews: ["octicon"],
         format: "rad",
       },
     });
@@ -104,7 +102,6 @@ describe("octokit.hook", () => {
           "user-agent": userAgent,
         },
         mediaType: {
-          previews: [],
           format: "",
         },
         request: {
@@ -145,7 +142,6 @@ describe("octokit.hook", () => {
           "user-agent": userAgent,
         },
         mediaType: {
-          previews: [],
           format: "",
         },
         request: {
@@ -178,7 +174,6 @@ describe("octokit.hook", () => {
           "user-agent": userAgent,
         },
         mediaType: {
-          previews: [],
           format: "",
         },
         request: {

@@ -81,7 +81,6 @@ export class Octokit {
         hook: hook.bind(null, "request"),
       }),
       mediaType: {
-        previews: [],
         format: "",
       },
     };
@@ -96,10 +95,6 @@ export class Octokit {
 
     if (options.baseUrl) {
       requestDefaults.baseUrl = options.baseUrl;
-    }
-
-    if (options.previews) {
-      requestDefaults.mediaType.previews = options.previews;
     }
 
     if (options.timeZone) {

@@ -148,41 +148,6 @@ const octokit = new Octokit({
 </td></tr>
     <tr>
       <th>
-        <code>options.previews</code>
-      </th>
-      <td>
-        <code>Array of Strings</code>
-      </td>
-      <td>
-
-Some REST API endpoints require preview headers to be set, or enable
-additional features. Preview headers can be set on a per-request basis, e.g.
-
-```js
-octokit.request("POST /repos/{owner}/{repo}/pulls", {
-  mediaType: {
-    previews: ["shadow-cat"],
-  },
-  owner,
-  repo,
-  title: "My pull request",
-  base: "main",
-  head: "my-feature",
-  draft: true,
-});
-```
-
-You can also set previews globally, by setting the `options.previews` option on the constructor. Example:
-
-```js
-const octokit = new Octokit({
-  previews: ["shadow-cat"],
-});
-```
-
-</td></tr>
-    <tr>
-      <th>
         <code>options.request</code>
       </th>
       <td>
