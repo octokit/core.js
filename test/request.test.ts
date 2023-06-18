@@ -102,8 +102,7 @@ describe("octokit.request()", () => {
         {},
         {
           headers: {
-            accept:
-              "application/vnd.github.foo-preview+json,application/vnd.github.bar-preview+json",
+            accept: "application/vnd.github.v3+json",
             "user-agent": userAgent,
           },
         }
@@ -113,8 +112,7 @@ describe("octokit.request()", () => {
         {},
         {
           headers: {
-            accept:
-              "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.baz-preview.raw",
+            accept: "application/vnd.github.raw",
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
@@ -122,7 +120,6 @@ describe("octokit.request()", () => {
       );
 
     const octokit = new Octokit({
-      previews: ["foo", "bar-preview"],
       request: {
         fetch: mock,
       },
@@ -131,7 +128,6 @@ describe("octokit.request()", () => {
     await octokit.request("/");
     await octokit.request("/", {
       mediaType: {
-        previews: ["bar", "baz-preview"],
         format: "raw",
       },
     });

@@ -4,7 +4,7 @@ import fetchMock from "fetch-mock";
 describe("Smoke test", () => {
   it("previews option", () => {
     const mock = fetchMock.sandbox().getOnce(
-      "https://api.github.com/",
+      "https://api.github.com/graphql",
       { ok: true },
       {
         headers: {
@@ -25,7 +25,7 @@ describe("Smoke test", () => {
       },
     });
 
-    return octokit.request("/");
+    return octokit.request("/graphql");
   });
 
   it("timeZone option", () => {

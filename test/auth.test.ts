@@ -1,10 +1,8 @@
 import { getUserAgent } from "universal-user-agent";
 import fetchMock from "fetch-mock";
-import {
-  createAppAuth,
-  createActionAuth,
-  createOAuthAppAuth,
-} from "@octokit/auth";
+import { createAppAuth } from "@octokit/auth-app";
+import { createActionAuth } from "@octokit/auth-action";
+import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
 import lolex, { type Clock } from "lolex";
 
 import { Octokit } from "../src";
@@ -231,7 +229,7 @@ describe("Authentication", () => {
         { id: 123 },
         {
           headers: {
-            accept: "application/vnd.github.machine-man-preview+json",
+            accept: "application/vnd.github.v3+json",
             "user-agent": userAgent,
             authorization: `bearer ${BEARER}`,
           },
@@ -253,11 +251,7 @@ describe("Authentication", () => {
     await octokit.request("GET /repos/octocat/hello-world");
     await octokit.request("GET /repos/octocat/hello-world");
 
-    await octokit.request("GET /app", {
-      mediaType: {
-        previews: ["machine-man"],
-      },
-    });
+    await octokit.request("GET /app");
 
     expect(mock.done()).toBe(true);
   });

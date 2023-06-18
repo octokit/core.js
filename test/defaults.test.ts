@@ -1,6 +1,6 @@
 import fetchMock from "fetch-mock";
 import { getUserAgent } from "universal-user-agent";
-import { createActionAuth } from "@octokit/auth";
+import { createActionAuth } from "@octokit/auth-action";
 
 import { Octokit } from "../src";
 

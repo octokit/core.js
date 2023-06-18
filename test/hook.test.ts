@@ -54,7 +54,7 @@ describe("octokit.hook", () => {
           "x-foo": "bar",
         },
         mediaType: {
-          previews: ["octicon"],
+          previews: [],
           format: "rad",
         },
         bar: "daz",
@@ -77,7 +77,7 @@ describe("octokit.hook", () => {
         "x-foo": "bar",
       },
       mediaType: {
-        previews: ["octicon"],
+        previews: [],
         format: "rad",
       },
     });
