@@ -98,21 +98,21 @@ describe("octokit.request()", () => {
     const mock = fetchMock
       .sandbox()
       .getOnce(
-        "https://api.github.com/",
+        "https://api.github.com/graphql",
         {},
         {
           headers: {
-            accept: "application/vnd.github.v3+json",
+            accept: "application/vnd.github.package-deletes-preview+json",
             "user-agent": userAgent,
           },
         }
       )
       .getOnce(
-        "https://api.github.com/",
+        "https://api.github.com/graphql",
         {},
         {
           headers: {
-            accept: "application/vnd.github.raw",
+            accept: "application/vnd.github.v3+raw",
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
@@ -174,6 +174,7 @@ describe("octokit.request()", () => {
       {
         owner: "epmatsw",
         repo: "example-repo",
+        // @ts-expect-error There is currently an issue with the types, null is an allowed value
         milestone: null,
         issue_number: 1,
       }
