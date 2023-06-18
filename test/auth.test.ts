@@ -175,7 +175,6 @@ describe("Authentication", () => {
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
           code: CODE,
-          state: STATE,
         },
       }
     );
