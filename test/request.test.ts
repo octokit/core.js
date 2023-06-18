@@ -102,7 +102,7 @@ describe("octokit.request()", () => {
         {},
         {
           headers: {
-            accept: "application/vnd.github.package-deletes-preview+json",
+            accept: "application/vnd.github.package-deletes-preview.json",
             "user-agent": userAgent,
           },
         }
@@ -112,7 +112,7 @@ describe("octokit.request()", () => {
         {},
         {
           headers: {
-            accept: "application/vnd.github.v3+raw",
+            accept: "application/vnd.github.v3.raw",
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
@@ -128,6 +128,7 @@ describe("octokit.request()", () => {
     await octokit.request("/graphql", {
       mediaType: {
         previews: ["package-deletes"],
+        format: "json",
       },
     });
     await octokit.request("/graphql", {
