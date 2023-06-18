@@ -125,8 +125,12 @@ describe("octokit.request()", () => {
       },
     });
 
-    await octokit.request("/");
-    await octokit.request("/", {
+    await octokit.request("/graphql", {
+      mediaType: {
+        previews: ["package-deletes"],
+      },
+    });
+    await octokit.request("/graphql", {
       mediaType: {
         format: "raw",
       },
