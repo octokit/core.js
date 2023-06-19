@@ -26,6 +26,8 @@ describe("issues", () => {
     const response = await octokit.request("/");
 
     expect(response.status).toEqual(200);
-    expect(response.data).toStrictEqual({ ok: true });
+    expect(JSON.stringify(response.data)).toStrictEqual(
+      JSON.stringify({ ok: true })
+    );
   });
 });

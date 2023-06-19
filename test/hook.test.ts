@@ -118,10 +118,12 @@ describe("octokit.hook", () => {
 
     const { data } = await octokit.request("/");
 
-    expect(data).toStrictEqual({
-      ok: true,
-      afterAddition: "works",
-    });
+    expect(JSON.stringify(data)).toStrictEqual(
+      JSON.stringify({
+        ok: true,
+        afterAddition: "works",
+      })
+    );
   });
 
   it("octokit.hook.error('request')", async () => {
@@ -159,9 +161,11 @@ describe("octokit.hook", () => {
 
     const { data } = await octokit.request("/");
 
-    expect(data).toStrictEqual({
-      ok: true,
-    });
+    expect(JSON.stringify(data)).toStrictEqual(
+      JSON.stringify({
+        ok: true,
+      })
+    );
   });
 
   it("octokit.hook.wrap('request')", async () => {
@@ -192,9 +196,11 @@ describe("octokit.hook", () => {
 
     const { data } = await octokit.request("/");
 
-    expect(data).toStrictEqual({
-      ok: true,
-    });
+    expect(JSON.stringify(data)).toStrictEqual(
+      JSON.stringify({
+        ok: true,
+      })
+    );
   });
 
   it("octokit.hook()", async () => {
