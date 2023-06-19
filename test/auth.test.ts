@@ -196,7 +196,6 @@ describe("Authentication", () => {
     await octokit.auth({
       type: "oauth-user",
       code: CODE,
-      state: STATE,
     });
 
     expect(mock.done()).toBe(true);
