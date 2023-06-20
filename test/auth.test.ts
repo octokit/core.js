@@ -161,7 +161,6 @@ describe("Authentication", () => {
     const CLIENT_ID = "0123";
     const CLIENT_SECRET = "0123secret";
     const CODE = "code123";
-    const STATE = "state123";
 
     const mock = fetchMock.sandbox().postOnce(
       "https://github.com/login/oauth/access_token",
