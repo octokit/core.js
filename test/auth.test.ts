@@ -75,7 +75,7 @@ describe("Authentication", () => {
           authorization: "token secret123",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -98,7 +98,7 @@ describe("Authentication", () => {
           authorization: "token secret123",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -121,7 +121,7 @@ describe("Authentication", () => {
           authorization: "token secret123",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -146,7 +146,7 @@ describe("Authentication", () => {
           authorization: `bearer ${BEARER_TOKEN}`,
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -179,7 +179,7 @@ describe("Authentication", () => {
           code: CODE,
           state: STATE,
         },
-      }
+      },
     );
 
     const MyOctokit = Octokit.defaults({
@@ -224,7 +224,7 @@ describe("Authentication", () => {
             authorization: "token secret123",
           },
           repeat: 2,
-        }
+        },
       )
       .getOnce(
         "https://api.github.com/app",
@@ -235,7 +235,7 @@ describe("Authentication", () => {
             "user-agent": userAgent,
             authorization: `bearer ${BEARER}`,
           },
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -272,7 +272,7 @@ describe("Authentication", () => {
           authorization: `token githubtoken123`,
           "user-agent": userAgent,
         },
-      }
+      },
     );
     const currentEnv = process.env;
     process.env = {
@@ -321,7 +321,7 @@ describe("Authentication", () => {
             metadata: "read",
           },
           repository_selection: "all",
-        }
+        },
       )
       .postOnce(
         "https://fake.github-enterprise.com/api/graphql",
@@ -330,7 +330,7 @@ describe("Authentication", () => {
           headers: {
             authorization: "token secret123",
           },
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -366,7 +366,7 @@ describe("Authentication", () => {
       .getOnce(
         "https://api.github.com/repos/octokit/core.js",
         { ok: true },
-        { overwriteRoutes: false }
+        { overwriteRoutes: false },
       );
 
     const mockWarnLogger = jest.fn();
@@ -393,7 +393,7 @@ describe("Authentication", () => {
 
     expect(mockWarnLogger.mock.calls.length).toBe(1);
     expect(mockWarnLogger.mock.calls[0][0]).toBe(
-      "[@octokit/auth-app] Retrying after 401 response to account for token replication delay (retry: 1, wait: 1s)"
+      "[@octokit/auth-app] Retrying after 401 response to account for token replication delay (retry: 1, wait: 1s)",
     );
   });
 

@@ -20,7 +20,7 @@ export class Octokit {
   static VERSION = VERSION;
   static defaults<S extends Constructor<any>>(
     this: S,
-    defaults: OctokitOptions | Function
+    defaults: OctokitOptions | Function,
   ) {
     const OctokitWithDefaults = class extends this {
       constructor(...args: any[]) {
@@ -40,8 +40,8 @@ export class Octokit {
               ? {
                   userAgent: `${options.userAgent} ${defaults.userAgent}`,
                 }
-              : null
-          )
+              : null,
+          ),
         );
       }
     };
@@ -58,12 +58,12 @@ export class Octokit {
    */
   static plugin<
     S extends Constructor<any> & { plugins: any[] },
-    T extends OctokitPlugin[]
+    T extends OctokitPlugin[],
   >(this: S, ...newPlugins: T) {
     const currentPlugins = this.plugins;
     const NewOctokit = class extends this {
       static plugins = currentPlugins.concat(
-        newPlugins.filter((plugin) => !currentPlugins.includes(plugin))
+        newPlugins.filter((plugin) => !currentPlugins.includes(plugin)),
       );
     };
 
@@ -115,7 +115,7 @@ export class Octokit {
         warn: console.warn.bind(console),
         error: console.error.bind(console),
       },
-      options.log
+      options.log,
     );
     this.hook = hook;
 
@@ -152,8 +152,8 @@ export class Octokit {
             octokit: this,
             octokitOptions: otherOptions,
           },
-          options.auth
-        )
+          options.auth,
+        ),
       );
       // @ts-ignore  ¯\_(ツ)_/¯
       hook.wrap("request", auth.hook);

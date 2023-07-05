@@ -20,7 +20,7 @@ describe("octokit.request()", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -58,7 +58,7 @@ describe("octokit.request()", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": `myApp/1.2.3 ${userAgent}`,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -81,7 +81,7 @@ describe("octokit.request()", () => {
           "user-agent": userAgent,
           "time-zone": "Europe/Amsterdam",
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -106,7 +106,7 @@ describe("octokit.request()", () => {
               "application/vnd.github.foo-preview+json,application/vnd.github.bar-preview+json",
             "user-agent": userAgent,
           },
-        }
+        },
       )
       .getOnce(
         "https://api.github.com/",
@@ -118,7 +118,7 @@ describe("octokit.request()", () => {
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -164,7 +164,7 @@ describe("octokit.request()", () => {
         body: {
           milestone: null,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -180,7 +180,7 @@ describe("octokit.request()", () => {
         repo: "example-repo",
         milestone: null,
         issue_number: 1,
-      }
+      },
     );
   });
 });
