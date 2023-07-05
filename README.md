@@ -83,7 +83,7 @@ const response = await octokit.graphql(
       }
     }
   }`,
-  { login: "octokit" }
+  { login: "octokit" },
 );
 ```
 
@@ -425,7 +425,7 @@ const { Octokit } = require("@octokit/core");
 const MyActionOctokit = Octokit.plugin(
   require("@octokit/plugin-paginate-rest").paginateRest,
   require("@octokit/plugin-throttling").throttling,
-  require("@octokit/plugin-retry").retry
+  require("@octokit/plugin-retry").retry,
 ).defaults({
   throttle: {
     onAbuseLimit: (retryAfter, options) => {
