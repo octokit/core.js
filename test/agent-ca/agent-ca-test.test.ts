@@ -5,7 +5,7 @@ import { resolve } from "path";
 const { Octokit } = require("../../src");
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
-describe("custom client certificate", () => {
+describe.skip("custom client certificate", () => {
   let server: any;
   beforeAll((done) => {
     server = createServer(

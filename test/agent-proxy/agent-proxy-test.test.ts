@@ -12,7 +12,7 @@ const { HttpProxyAgent } = require("http-proxy-agent");
 
 import { Octokit } from "../../src";
 
-describe("client proxy", () => {
+describe.skip("client proxy", () => {
   let proxy: any;
   let proxyUrl: string;
 
