@@ -20,7 +20,7 @@ describe("Octokit.defaults", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const OctokitWithDefaults = Octokit.defaults({
@@ -44,7 +44,7 @@ describe("Octokit.defaults", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": `my-app/1.2.3 ${userAgent}`,
         },
-      }
+      },
     );
 
     const OctokitWithDefaults = Octokit.defaults({
@@ -68,7 +68,7 @@ describe("Octokit.defaults", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": `my-app/1.2.3 my-octokit.js/1.2.3 ${userAgent}`,
         },
-      }
+      },
     );
 
     const OctokitWithDefaults = Octokit.defaults({
@@ -95,7 +95,7 @@ describe("Octokit.defaults", () => {
           "user-agent": userAgent,
           "time-zone": "Europe/Amsterdam",
         },
-      }
+      },
     );
 
     const OctokitWithDefaults = Octokit.defaults({
@@ -120,7 +120,7 @@ describe("Octokit.defaults", () => {
           authorization: `token githubtoken123`,
           "user-agent": userAgent,
         },
-      }
+      },
     );
     const currentEnv = process.env;
     process.env = {
@@ -150,7 +150,7 @@ describe("Octokit.defaults", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": `my-app/1.2.3 ${userAgent}`,
         },
-      }
+      },
     );
 
     const OctokitWithDefaults = Octokit.defaults({
@@ -176,7 +176,7 @@ describe("Octokit.defaults", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const OctokitWithPluginAndDefaults = Octokit.plugin(() => {

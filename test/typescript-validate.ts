@@ -43,7 +43,7 @@ export function pluginsTest() {
   const OctokitWithVoidAndNonVoidPlugins = Octokit.plugin(
     () => ({ foo: "foo" }),
     () => {},
-    () => ({ bar: "bar" })
+    () => ({ bar: "bar" }),
   );
   const octokitWithVoidAndNonVoidPlugins =
     new OctokitWithVoidAndNonVoidPlugins();

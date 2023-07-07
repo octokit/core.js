@@ -32,7 +32,7 @@ describe("octokit.hook", () => {
       .sandbox()
       .getOnce(
         "https://api.github.com/foo/daz/baz?qux=quux&beforeAddition=works",
-        { ok: true }
+        { ok: true },
       );
 
     const octokit = new Octokit({

@@ -20,7 +20,7 @@ describe("octokit.request()", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": userAgent,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -58,7 +58,7 @@ describe("octokit.request()", () => {
           accept: "application/vnd.github.v3+json",
           "user-agent": `myApp/1.2.3 ${userAgent}`,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -81,7 +81,7 @@ describe("octokit.request()", () => {
           "user-agent": userAgent,
           "time-zone": "Europe/Amsterdam",
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -105,7 +105,7 @@ describe("octokit.request()", () => {
             accept: "application/vnd.github.package-deletes-preview.json",
             "user-agent": userAgent,
           },
-        }
+        },
       )
       .getOnce(
         "https://api.github.com/graphql",
@@ -116,7 +116,7 @@ describe("octokit.request()", () => {
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
-        }
+        },
       );
 
     const octokit = new Octokit({
@@ -165,7 +165,7 @@ describe("octokit.request()", () => {
         body: {
           milestone: null,
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -182,7 +182,7 @@ describe("octokit.request()", () => {
         // @ts-expect-error There is currently an issue with the types, null is an allowed value
         milestone: null,
         issue_number: 1,
-      }
+      },
     );
   });
 });

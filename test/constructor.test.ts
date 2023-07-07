@@ -11,7 +11,7 @@ describe("Smoke test", () => {
           accept:
             "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
         },
-      }
+      },
     );
 
     const octokit = new Octokit({
@@ -37,7 +37,7 @@ describe("Smoke test", () => {
           accept: "application/vnd.github.v3+json",
           "time-zone": "Europe/Amsterdam",
         },
-      }
+      },
     );
 
     const octokit = new Octokit({

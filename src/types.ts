@@ -48,7 +48,7 @@ type AnyFunction = (...args: any) => any;
 
 export type OctokitPlugin = (
   octokit: Octokit,
-  options: OctokitOptions
+  options: OctokitOptions,
 ) => { [key: string]: any } | void;
 
 export type Hooks = {
