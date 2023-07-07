@@ -122,7 +122,7 @@ describe("octokit.hook", () => {
       JSON.stringify({
         ok: true,
         afterAddition: "works",
-      })
+      }),
     );
   });
 
@@ -164,7 +164,7 @@ describe("octokit.hook", () => {
     expect(JSON.stringify(data)).toStrictEqual(
       JSON.stringify({
         ok: true,
-      })
+      }),
     );
   });
 
@@ -199,7 +199,7 @@ describe("octokit.hook", () => {
     expect(JSON.stringify(data)).toStrictEqual(
       JSON.stringify({
         ok: true,
-      })
+      }),
     );
   });
 

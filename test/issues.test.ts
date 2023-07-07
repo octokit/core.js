@@ -27,7 +27,7 @@ describe("issues", () => {
 
     expect(response.status).toEqual(200);
     expect(JSON.stringify(response.data)).toStrictEqual(
-      JSON.stringify({ ok: true })
+      JSON.stringify({ ok: true }),
     );
   });
 });
