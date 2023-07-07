@@ -5,6 +5,7 @@ import { resolve } from "path";
 const { Octokit } = require("../../src");
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
+// TODO: rewrite tests to use fetch dispatchers
 describe.skip("custom client certificate", () => {
   let server: any;
   beforeAll((done) => {
