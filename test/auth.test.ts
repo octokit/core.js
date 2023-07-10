@@ -1,10 +1,8 @@
 import { getUserAgent } from "universal-user-agent";
 import fetchMock from "fetch-mock";
-import {
-  createAppAuth,
-  createActionAuth,
-  createOAuthAppAuth,
-} from "@octokit/auth";
+import { createAppAuth } from "@octokit/auth-app";
+import { createActionAuth } from "@octokit/auth-action";
+import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
 import lolex, { type Clock } from "lolex";
 
 import { Octokit } from "../src";
@@ -163,7 +161,6 @@ describe("Authentication", () => {
     const CLIENT_ID = "0123";
     const CLIENT_SECRET = "0123secret";
     const CODE = "code123";
-    const STATE = "state123";
 
     const mock = fetchMock.sandbox().postOnce(
       "https://github.com/login/oauth/access_token",
@@ -177,7 +174,6 @@ describe("Authentication", () => {
           client_id: CLIENT_ID,
           client_secret: CLIENT_SECRET,
           code: CODE,
-          state: STATE,
         },
       },
     );
@@ -199,7 +195,6 @@ describe("Authentication", () => {
     await octokit.auth({
       type: "oauth-user",
       code: CODE,
-      state: STATE,
     });
 
     expect(mock.done()).toBe(true);
@@ -231,7 +226,7 @@ describe("Authentication", () => {
         { id: 123 },
         {
           headers: {
-            accept: "application/vnd.github.machine-man-preview+json",
+            accept: "application/vnd.github.v3+json",
             "user-agent": userAgent,
             authorization: `bearer ${BEARER}`,
           },
@@ -253,11 +248,7 @@ describe("Authentication", () => {
     await octokit.request("GET /repos/octocat/hello-world");
     await octokit.request("GET /repos/octocat/hello-world");
 
-    await octokit.request("GET /app", {
-      mediaType: {
-        previews: ["machine-man"],
-      },
-    });
+    await octokit.request("GET /app");
 
     expect(mock.done()).toBe(true);
   });

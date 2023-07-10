@@ -98,23 +98,21 @@ describe("octokit.request()", () => {
     const mock = fetchMock
       .sandbox()
       .getOnce(
-        "https://api.github.com/",
+        "https://api.github.com/graphql",
         {},
         {
           headers: {
-            accept:
-              "application/vnd.github.foo-preview+json,application/vnd.github.bar-preview+json",
+            accept: "application/vnd.github.package-deletes-preview.json",
             "user-agent": userAgent,
           },
         },
       )
       .getOnce(
-        "https://api.github.com/",
+        "https://api.github.com/graphql",
         {},
         {
           headers: {
-            accept:
-              "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.baz-preview.raw",
+            accept: "application/vnd.github.v3.raw",
             "user-agent": userAgent,
           },
           overwriteRoutes: false,
@@ -122,16 +120,19 @@ describe("octokit.request()", () => {
       );
 
     const octokit = new Octokit({
-      previews: ["foo", "bar-preview"],
       request: {
         fetch: mock,
       },
     });
 
-    await octokit.request("/");
-    await octokit.request("/", {
+    await octokit.request("/graphql", {
       mediaType: {
-        previews: ["bar", "baz-preview"],
+        previews: ["package-deletes"],
+        format: "json",
+      },
+    });
+    await octokit.request("/graphql", {
+      mediaType: {
         format: "raw",
       },
     });
@@ -178,6 +179,7 @@ describe("octokit.request()", () => {
       {
         owner: "epmatsw",
         repo: "example-repo",
+        // @ts-expect-error There is currently an issue with the types, null is an allowed value
         milestone: null,
         issue_number: 1,
       },
