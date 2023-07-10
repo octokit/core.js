@@ -12,7 +12,6 @@ describe("custom client certificate", () => {
   // let myFetch: any;
 
   beforeAll((done) => {
-
     // Stand up a server that requires a client certificate
     // requestCert forces the server to request a certificate
     // rejectUnauthorized: false allows us to test with a self-signed certificate
@@ -37,13 +36,12 @@ describe("custom client certificate", () => {
   });
 
   it("https.Agent({ca})", () => {
-
     // Setup a dispatcher that uses the undici agent
     const agent = new Agent({
       keepAliveTimeout: 10,
       keepAliveMaxTimeout: 10,
-      connect: {ca: ca}
-    })
+      connect: { ca: ca },
+    });
 
     const myFetch = (url: any, opts: any) => {
       return undiciFetch(url, {
@@ -63,13 +61,12 @@ describe("custom client certificate", () => {
   });
 
   it("https.Agent({ca, rejectUnauthorized})", () => {
-
     // Setup a dispatcher that uses the undici agent
     const agent = new Agent({
       keepAliveTimeout: 10,
       keepAliveMaxTimeout: 10,
-      connect: {ca: "invalid"}
-    })
+      connect: { ca: "invalid" },
+    });
 
     const myFetch = (url: any, opts: any) => {
       return undiciFetch(url, {
