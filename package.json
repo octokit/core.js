@@ -52,7 +52,8 @@
     "semantic-release": "^21.0.0",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^29.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "undici": "5.22.1"
   },
   "jest": {
     "transform": {

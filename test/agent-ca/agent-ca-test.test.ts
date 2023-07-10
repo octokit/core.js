@@ -1,18 +1,26 @@
-import { Agent, createServer } from "https";
+import { createServer } from "https";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { fetch as undiciFetch, Agent } from "undici";
+import { request } from "@octokit/request";
 
-const { Octokit } = require("../../src");
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 // TODO: rewrite tests to use fetch dispatchers
-describe.skip("custom client certificate", () => {
+describe("custom client certificate", () => {
   let server: any;
+  // let myFetch: any;
+
   beforeAll((done) => {
+    // Stand up a server that requires a client certificate
+    // requestCert forces the server to request a certificate
+    // rejectUnauthorized: false allows us to test with a self-signed certificate
     server = createServer(
       {
         key: readFileSync(resolve(__dirname, "./localhost.key")),
         cert: readFileSync(resolve(__dirname, "./localhost.crt")),
+        requestCert: true,
+        rejectUnauthorized: false,
       },
       (request: any, response: any) => {
         expect(request.method).toEqual("GET");
@@ -28,28 +36,53 @@ describe.skip("custom client certificate", () => {
   });
 
   it("https.Agent({ca})", () => {
+    // Setup a dispatcher that uses the undici agent
     const agent = new Agent({
-      ca,
-    });
-    const octokit = new Octokit({
-      baseUrl: "https://localhost:" + server.address().port,
-      request: { agent },
+      keepAliveTimeout: 10,
+      keepAliveMaxTimeout: 10,
+      connect: { ca: ca },
     });
 
-    return octokit.request("/");
+    const myFetch = (url: any, opts: any) => {
+      return undiciFetch(url, {
+        ...opts,
+        dispatcher: agent,
+      });
+    };
+
+    return request("/", {
+      options: {
+        baseUrl: "https://localhost:" + server.address().port,
+        request: {
+          fetch: myFetch,
+        },
+      },
+    });
   });
 
   it("https.Agent({ca, rejectUnauthorized})", () => {
+    // Setup a dispatcher that uses the undici agent
     const agent = new Agent({
-      ca: "invalid",
-      rejectUnauthorized: false,
-    });
-    const octokit = new Octokit({
-      baseUrl: "https://localhost:" + server.address().port,
-      request: { agent },
+      keepAliveTimeout: 10,
+      keepAliveMaxTimeout: 10,
+      connect: { ca: "invalid" },
     });
 
-    return octokit.request("/");
+    const myFetch = (url: any, opts: any) => {
+      return undiciFetch(url, {
+        ...opts,
+        dispatcher: agent,
+      });
+    };
+
+    return request("/", {
+      options: {
+        baseUrl: "https://localhost:" + server.address().port,
+        request: {
+          fetch: myFetch,
+        },
+      },
+    });
   });
 
   afterAll((done) => {
