@@ -5,66 +5,61 @@
  * Copyright (c) 2013 Nathan Rajlich <nathan@tootallnate.net>
  * Released under the MIT license
  */
-const http = require("http");
-
-const { createProxy } = require("proxy");
-const { HttpProxyAgent } = require("http-proxy-agent");
-
+import { createServer } from "http";
+import { type AddressInfo } from "net";
+import { createProxy } from "proxy";
+import { fetch as undiciFetch, ProxyAgent } from "undici";
 import { Octokit } from "../../src";
 
-// TODO: rewrite tests to use fetch dispatchers
-describe.skip("client proxy", () => {
-  let proxy: any;
-  let proxyUrl: string;
+const server = createServer();
+server.listen(0, () => {});
 
-  // start HTTP proxy & http server
-  beforeAll((done) => {
-    proxy = createProxy();
-    proxy.listen(() => {
-      proxyUrl = "http://localhost:" + proxy.address().port;
-      done();
-    });
-  });
+const proxyServer = createProxy();
+proxyServer.listen(0, () => {});
 
-  let server: any;
-  beforeAll((done) => {
-    server = http.createServer((request: any, response: any) => {
-      expect(request.method).toEqual("GET");
-      expect(request.url).toEqual("/");
+const serverUrl = `http://localhost:${(server.address() as AddressInfo).port}`;
+const proxyUrl = `http://localhost:${
+  (proxyServer.address() as AddressInfo).port
+}`;
 
-      response.writeHead(200);
-      response.write("ok");
-      response.end();
-    });
+server.on("request", (request, response) => {
+  expect(request.method).toEqual("GET");
+  expect(request.url).toEqual("/");
 
-    server.listen(0, done);
-  });
+  response.writeHead(200);
+  response.write("ok");
+  response.end();
+});
 
-  // stop proxy HTTP & http server
-  afterAll((done) => {
-    proxy.once("close", () => done());
-    proxy.close();
-  });
+describe("client proxy", () => {
+  it("options.request.fetch = customFetch with dispatcher: new ProxyAgent(proxyUrl)", async () => {
+    let proxyReceivedRequest = false;
 
-  afterAll((done) => {
-    server.close(done);
-  });
-
-  it("options.agent = new HttpProxyAgent(proxyUrl)", async () => {
-    let proxyReceivedRequest;
-
-    proxy.once("request", (request: any) => {
+    proxyServer.on("request", (request) => {
+      console.log("proxyRequest", request.headers);
       expect(request.headers.accept).toBe("application/vnd.github.v3+json");
       proxyReceivedRequest = true;
     });
 
+    const myFetch: typeof undiciFetch = (url, opts) => {
+      return undiciFetch(url, {
+        ...opts,
+        dispatcher: new ProxyAgent({
+          uri: proxyUrl,
+          keepAliveTimeout: 10,
+          keepAliveMaxTimeout: 10,
+        }),
+      });
+    };
+
     const octokit = new Octokit({
-      baseUrl: "http://localhost:" + server.address().port,
-      request: { agent: new HttpProxyAgent(proxyUrl) },
+      baseUrl: serverUrl,
+      request: { fetch: myFetch },
     });
 
     await octokit.request("/");
 
     expect(proxyReceivedRequest).toBe(true);
+    expect.assertions(4);
   });
 });
