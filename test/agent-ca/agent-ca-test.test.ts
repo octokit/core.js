@@ -1,14 +1,14 @@
-import { createServer } from "https";
+import { createServer, type Server } from "https";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import { fetch as undiciFetch, Agent } from "undici";
 import { request } from "@octokit/request";
+import { type AddressInfo } from "net";
 
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
-// TODO: rewrite tests to use fetch dispatchers
 describe("custom client certificate", () => {
-  let server: any;
+  let server: Server;
   // let myFetch: any;
 
   beforeAll((done) => {
@@ -52,7 +52,7 @@ describe("custom client certificate", () => {
 
     return request("/", {
       options: {
-        baseUrl: "https://localhost:" + server.address().port,
+        baseUrl: "https://localhost:" + (server.address() as AddressInfo).port,
         request: {
           fetch: myFetch,
         },
@@ -68,7 +68,7 @@ describe("custom client certificate", () => {
       connect: { ca: "invalid" },
     });
 
-    const myFetch = (url: any, opts: any) => {
+    const myFetch: typeof undiciFetch = (url, opts) => {
       return undiciFetch(url, {
         ...opts,
         dispatcher: agent,
@@ -77,7 +77,7 @@ describe("custom client certificate", () => {
 
     return request("/", {
       options: {
-        baseUrl: "https://localhost:" + server.address().port,
+        baseUrl: "https://localhost:" + (server.address() as AddressInfo).port,
         request: {
           fetch: myFetch,
         },
