@@ -44,7 +44,7 @@ describe("octokit.graphql()", () => {
 
     const result = await octokit.graphql(query, { login: "octokit" });
 
-    expect(JSON.stringify(result)).toStrictEqual(JSON.stringify(mockResult));
+    expect(result).toEqual(mockResult);
   });
 
   it("GitHub Enterprise Server usage (with option.baseUrl)", async () => {
@@ -84,7 +84,7 @@ describe("octokit.graphql()", () => {
 
     const result = await octokit.graphql(query, { login: "octokit" });
 
-    expect(JSON.stringify(result)).toStrictEqual(JSON.stringify(mockResult));
+    expect(result).toEqual(mockResult);
   });
 
   it("custom headers: octokit.graphql({ query, headers })", async () => {
@@ -113,7 +113,7 @@ describe("octokit.graphql()", () => {
       },
     });
 
-    expect(JSON.stringify(result)).toStrictEqual(JSON.stringify({ ok: true }));
+    expect(result).toEqual({ ok: true });
   });
 
   it("custom headers: octokit.graphql(query, { headers })", async () => {
@@ -145,6 +145,6 @@ describe("octokit.graphql()", () => {
       foo: "bar",
     });
 
-    expect(JSON.stringify(result)).toStrictEqual(JSON.stringify({ ok: true }));
+    expect(result).toEqual({ ok: true });
   });
 });
