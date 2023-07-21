@@ -9,7 +9,6 @@ const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 describe("custom client certificate", () => {
   let server: Server;
-  // let myFetch: any;
 
   beforeAll((done) => {
     // Stand up a server that requires a client certificate
