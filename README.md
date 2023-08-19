@@ -382,7 +382,7 @@ A plugin is a function which gets two arguments:
 1. the current instance
 2. the options passed to the constructor.
 
-In order to extend `octokit`'s API, the plugin must return an object with the new methods.
+In order to extend `octokit`'s API, the plugin must return an object with the new methods. Please refrain from adding methods directly to the `octokit` instance, especialy if you depend on keys that do not exist in `@octokit/core`, such as `octokit.rest`.
 
 ```js
 // index.js
