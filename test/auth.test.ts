@@ -3,7 +3,7 @@ import fetchMock from "fetch-mock";
 import { createAppAuth } from "@octokit/auth-app";
 import { createActionAuth } from "@octokit/auth-action";
 import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
-import lolex, { type Clock } from "lolex";
+import { install as installFakeTimers, type Clock } from "@sinonjs/fake-timers";
 
 import { Octokit } from "../src";
 
@@ -50,9 +50,9 @@ beforeAll(() => {
   Math.random = jest.fn().mockReturnValue(0.123);
 
   // A timestamp is added to the default token note, e.g.
-  // "octokit 2019-07-04 4feornbt361". Lolex mocks the Date class so
+  // "octokit 2019-07-04 4feornbt361". sinon-fake-timers mocks the Date class so
   // `new Date()` always returns `new Date(0)` by default.
-  clock = lolex.install({
+  clock = installFakeTimers({
     now: 0,
     toFake: ["Date"],
   });
