@@ -16,6 +16,12 @@ import type {
 } from "./types";
 import { VERSION } from "./version";
 
+const noop = () => {};
+const consoleWarn = console.warn.bind(console);
+const consoleError = console.error.bind(console);
+
+const userAgentTrail = `octokit-core.js/${VERSION} ${getUserAgent()}`;
+
 export class Octokit {
   static VERSION = VERSION;
   static defaults<S extends Constructor<any>>(
@@ -87,12 +93,9 @@ export class Octokit {
     };
 
     // prepend default user agent with `options.userAgent` if set
-    requestDefaults.headers["user-agent"] = [
-      options.userAgent,
-      `octokit-core.js/${VERSION} ${getUserAgent()}`,
-    ]
-      .filter(Boolean)
-      .join(" ");
+    requestDefaults.headers["user-agent"] = options.userAgent
+      ? `${options.userAgent} ${userAgentTrail}`
+      : userAgentTrail;
 
     if (options.baseUrl) {
       requestDefaults.baseUrl = options.baseUrl;
@@ -110,10 +113,10 @@ export class Octokit {
     this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
     this.log = Object.assign(
       {
-        debug: () => {},
-        info: () => {},
-        warn: console.warn.bind(console),
-        error: console.error.bind(console),
+        debug: noop,
+        info: noop,
+        warn: consoleWarn,
+        error: consoleError,
       },
       options.log,
     );
@@ -163,9 +166,9 @@ export class Octokit {
     // apply plugins
     // https://stackoverflow.com/a/16345172
     const classConstructor = this.constructor as typeof Octokit;
-    classConstructor.plugins.forEach((plugin) => {
-      Object.assign(this, plugin(this, options));
-    });
+    for (let i = 0; i < classConstructor.plugins.length; ++i) {
+      Object.assign(this, classConstructor.plugins[i](this, options));
+    }
   }
 
   // assigned during constructor
