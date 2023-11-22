@@ -1,7 +1,46 @@
-import { Octokit } from "../src";
-
 describe("octokit.log", () => {
-  it("has .debug(), .info(), .warn(), and .error() functions", () => {
+  it(".debug() and .info() are no-ops by default", async () => {
+    const calls: String[] = [];
+
+    const debug = jest
+      .spyOn(console, "debug")
+      .mockImplementation(() => calls.push("debug"));
+    const info = jest
+      .spyOn(console, "info")
+      .mockImplementation(() => calls.push("info"));
+    const warn = jest
+      .spyOn(console, "warn")
+      .mockImplementation(() => calls.push("warn"));
+    const error = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => calls.push("error"));
+    const Octokit = (await import("../src")).Octokit;
+
+    const octokit = new Octokit();
+
+    octokit.log.debug("foo");
+    octokit.log.info("bar");
+    octokit.log.warn("baz");
+    octokit.log.error("daz");
+
+    expect(octokit.log.debug.name).toBe("noop");
+    expect(octokit.log.info.name).toBe("noop");
+
+    expect(debug).toHaveBeenCalledTimes(0);
+    expect(info).toHaveBeenCalledTimes(0);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(error).toHaveBeenCalledTimes(1);
+    expect(calls).toStrictEqual(["warn", "error"]);
+
+    debug.mockRestore();
+    info.mockRestore();
+    warn.mockRestore();
+    error.mockRestore();
+  });
+
+  it("has .debug(), .info(), .warn(), and .error() functions", async () => {
+    const Octokit = (await import("../src")).Octokit;
+
     const octokit = new Octokit();
     expect(typeof octokit.log.debug).toBe("function");
     expect(typeof octokit.log.info).toBe("function");
@@ -9,17 +48,8 @@ describe("octokit.log", () => {
     expect(typeof octokit.log.error).toBe("function");
   });
 
-  it(".debug() and .info() are no-ops by default", () => {
-    const octokit = new Octokit();
-
-    expect(octokit.log.debug.name).toBe("noop");
-    expect(octokit.log.info.name).toBe("noop");
-
-    octokit.log.debug("foo");
-    octokit.log.info("bar");
-  });
-
-  it("all .log.*() methods can be overwritten", () => {
+  it("all .log.*() methods can be overwritten", async () => {
+    const Octokit = (await import("../src")).Octokit;
     const calls: String[] = [];
 
     const octokit = new Octokit({
