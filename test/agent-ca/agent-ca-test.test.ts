@@ -1,9 +1,9 @@
-import { createServer, type Server } from "https";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+import { createServer, type Server } from "node:https";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { fetch as undiciFetch, Agent } from "undici";
 import { request } from "@octokit/request";
-import { type AddressInfo } from "net";
+import { type AddressInfo } from "node:net";
 
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
