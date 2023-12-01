@@ -14,7 +14,7 @@ describe("octokit.log", () => {
     const error = jest
       .spyOn(console, "error")
       .mockImplementation(() => calls.push("error"));
-    const Octokit = (await import("../src")).Octokit;
+    const Octokit = (await import("../src/index.ts")).Octokit;
 
     const octokit = new Octokit();
 
@@ -39,7 +39,7 @@ describe("octokit.log", () => {
   });
 
   it("has .debug(), .info(), .warn(), and .error() functions", async () => {
-    const Octokit = (await import("../src")).Octokit;
+    const Octokit = (await import("../src/index.ts")).Octokit;
 
     const octokit = new Octokit();
     expect(typeof octokit.log.debug).toBe("function");
@@ -49,7 +49,7 @@ describe("octokit.log", () => {
   });
 
   it("all .log.*() methods can be overwritten", async () => {
-    const Octokit = (await import("../src")).Octokit;
+    const Octokit = (await import("../src/index.ts")).Octokit;
     const calls: String[] = [];
 
     const octokit = new Octokit({

@@ -2,7 +2,7 @@
 // THIS CODE IS NOT EXECUTED. IT IS JUST FOR TYPECHECKING
 // ************************************************************
 
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 export function expectType<T>(what: T) {}
 

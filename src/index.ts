@@ -13,8 +13,8 @@ import type {
   RequestParameters,
   ReturnTypeOf,
   UnionToIntersection,
-} from "./types";
-import { VERSION } from "./version";
+} from "./types.js";
+import { VERSION } from "./version.js";
 
 const noop = () => {};
 const consoleWarn = console.warn.bind(console);

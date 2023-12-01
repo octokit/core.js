@@ -13,7 +13,7 @@ import { Server, createServer } from "node:http";
 import { type AddressInfo } from "node:net";
 import { ProxyServer, createProxy } from "proxy";
 import { ProxyAgent, fetch as undiciFetch } from "undici";
-import { Octokit } from "../../src";
+import { Octokit } from "../../src/index.ts";
 
 describe("client proxy", () => {
   let server: Server;

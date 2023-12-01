@@ -5,7 +5,7 @@ import { createActionAuth } from "@octokit/auth-action";
 import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
 import { install as installFakeTimers, type Clock } from "@sinonjs/fake-timers";
 
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
 
