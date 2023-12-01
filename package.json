@@ -11,7 +11,7 @@
     "lint:fix": "prettier --write '{src,test}/**/*.{ts,md}' README.md package.json",
     "pretest": "npm run -s lint",
     "test": "jest --coverage",
-    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals test/typescript-validate.ts"
+    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals --allowImportingTsExtensions test/typescript-validate.ts"
   },
   "repository": "github:octokit/core.js",
   "keywords": [
@@ -72,6 +72,9 @@
         "functions": 100,
         "lines": 100
       }
+    },
+    "moduleNameMapper": {
+      "^(.+)\\.jsx?$": "$1"
     }
   },
   "release": {

@@ -1,4 +1,4 @@
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 describe("Smoke test", () => {
   it("is a function", () => {

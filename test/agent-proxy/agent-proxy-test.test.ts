@@ -9,11 +9,11 @@
  * https://github.com/nodejs/undici/blob/512cdadc403874571cd5035a6c41debab1165310/test/proxy-agent.js#L370-L418
  * Released under the MIT license
  */
-import { Server, createServer } from "http";
-import { type AddressInfo } from "net";
+import { Server, createServer } from "node:http";
+import { type AddressInfo } from "node:net";
 import { ProxyServer, createProxy } from "proxy";
 import { ProxyAgent, fetch as undiciFetch } from "undici";
-import { Octokit } from "../../src";
+import { Octokit } from "../../src/index.ts";
 
 describe("client proxy", () => {
   let server: Server;

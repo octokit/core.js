@@ -1,7 +1,7 @@
 import { getUserAgent } from "universal-user-agent";
 import fetchMock from "fetch-mock";
 
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 const userAgent = `octokit-core.js/0.0.0-development ${getUserAgent()}`;
 

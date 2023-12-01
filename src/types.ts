@@ -1,7 +1,7 @@
 import * as OctokitTypes from "@octokit/types";
 import { RequestError } from "@octokit/request-error";
 
-import { Octokit } from ".";
+import type { Octokit } from "./index.js";
 
 export type RequestParameters = OctokitTypes.RequestParameters;
 

@@ -1,4 +1,4 @@
-import { Octokit } from "../src";
+import { Octokit } from "../src/index.ts";
 
 const pluginFoo = () => {
   return { foo: "bar" };
