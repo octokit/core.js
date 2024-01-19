@@ -16,7 +16,7 @@ import type {
 } from "./types.js";
 import { VERSION } from "./version.js";
 
-export { OctokitOptions } from "./types.js";
+export type { OctokitOptions } from "./types.js";
 
 const noop = () => {};
 const consoleWarn = console.warn.bind(console);
