@@ -29,7 +29,7 @@
     "@octokit/request": "^8.0.2",
     "@octokit/request-error": "^5.0.0",
     "@octokit/types": "^12.0.0",
-    "before-after-hook": "^2.2.0",
+    "before-after-hook": "^3.0.0",
     "universal-user-agent": "^6.0.0"
   },
   "devDependencies": {
