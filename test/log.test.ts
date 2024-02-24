@@ -1,3 +1,5 @@
+import { jest } from "@jest/globals";
+
 describe("octokit.log", () => {
   it(".debug() and .info() are no-ops by default", async () => {
     const calls: String[] = [];
