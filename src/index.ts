@@ -1,6 +1,6 @@
 import { getUserAgent } from "universal-user-agent";
 import type { HookCollection } from "before-after-hook";
-import { Collection } from "before-after-hook";
+import Hook from "before-after-hook";
 import { request } from "@octokit/request";
 import { graphql, withCustomRequest } from "@octokit/graphql";
 import { createTokenAuth } from "@octokit/auth-token";
@@ -80,7 +80,7 @@ export class Octokit {
   }
 
   constructor(options: OctokitOptions = {}) {
-    const hook = new Collection<Hooks>();
+    const hook = new Hook.Collection<Hooks>();
     const requestDefaults: Required<RequestParameters> = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},

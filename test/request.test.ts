@@ -179,7 +179,6 @@ describe("octokit.request()", () => {
       {
         owner: "epmatsw",
         repo: "example-repo",
-        // @ts-expect-error There is currently an issue with the types, null is an allowed value
         milestone: null,
         issue_number: 1,
       },

@@ -5,6 +5,7 @@ import { fetch as undiciFetch, Agent } from "undici";
 import { request } from "@octokit/request";
 import { type AddressInfo } from "node:net";
 
+const __dirname = new URL(".", import.meta.url).pathname;
 const ca = readFileSync(resolve(__dirname, "./ca.crt"));
 
 describe("custom client certificate", () => {

@@ -4,6 +4,7 @@ import { createAppAuth } from "@octokit/auth-app";
 import { createActionAuth } from "@octokit/auth-action";
 import { createOAuthAppAuth } from "@octokit/auth-oauth-app";
 import { install as installFakeTimers, type Clock } from "@sinonjs/fake-timers";
+import { jest } from "@jest/globals";
 
 import { Octokit } from "../src/index.ts";
 
@@ -47,7 +48,7 @@ beforeAll(() => {
   // unless `token.fingerprint` option was passed. The fingerprint is
   // calculated using `Math.random().toString(36).substr(2)`, so the
   // default fingerprint is always `"4feornbt361"`.
-  Math.random = jest.fn().mockReturnValue(0.123);
+  Math.random = jest.fn<Math["random"]>().mockReturnValue(0.123);
 
   // A timestamp is added to the default token note, e.g.
   // "octokit 2019-07-04 4feornbt361". sinon-fake-timers mocks the Date class so
@@ -402,6 +403,7 @@ describe("Authentication", () => {
 
     const strategyOptions = authStrategy.mock.calls[0][0];
 
+    // @ts-expect-error The types here don't work
     expect(Object.keys(strategyOptions).sort()).toStrictEqual([
       "log",
       "octokit",
@@ -409,6 +411,7 @@ describe("Authentication", () => {
       "request",
       "secret",
     ]);
+    // @ts-expect-error The types here don't work
     expect(strategyOptions.octokitOptions).toStrictEqual({
       auth: {
         secret: "123",
