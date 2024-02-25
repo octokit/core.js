@@ -24,6 +24,7 @@ async function main() {
     bundle: false,
     platform: "neutral",
     format: "esm",
+    target: "es2022",
     ...sharedOptions,
     sourcemap: false,
   });
@@ -36,30 +37,6 @@ async function main() {
   for (const typeFile of typeFiles) {
     await rm(typeFile);
   }
-
-  const entryPoints = ["./pkg/dist-src/index.js"];
-
-  await Promise.all([
-    // Build the a CJS Node.js bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-node",
-      bundle: true,
-      platform: "node",
-      target: "node18",
-      format: "cjs",
-      ...sharedOptions,
-    }),
-    // Build an ESM browser bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-web",
-      bundle: true,
-      platform: "browser",
-      format: "esm",
-      ...sharedOptions,
-    }),
-  ]);
 
   // Copy the README, LICENSE to the pkg folder
   await copyFile("LICENSE", "pkg/LICENSE");
@@ -78,10 +55,12 @@ async function main() {
       {
         ...pkg,
         files: ["dist-*/**", "bin/**"],
-        main: "dist-node/index.js",
-        module: "dist-web/index.js",
-        types: "dist-types/index.d.ts",
-        source: "dist-src/index.js",
+        exports: {
+          ".": {
+            types: "./dist-types/index.d.ts",
+            import: "./dist-bundle/index.js",
+          },
+        },
         sideEffects: false,
       },
       null,
