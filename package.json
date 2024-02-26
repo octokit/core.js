@@ -36,7 +36,7 @@
   "devDependencies": {
     "@octokit/auth-action": "^4.0.0",
     "@octokit/auth-app": "^6.0.0",
-    "@octokit/auth-oauth-app": "^7.0.0",
+    "@octokit/auth-oauth-app": "^8.0.0",
     "@octokit/tsconfig": "^3.0.0",
     "@sinonjs/fake-timers": "^11.2.2",
     "@types/fetch-mock": "^7.3.8",
