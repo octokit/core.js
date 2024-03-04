@@ -34,7 +34,7 @@
     "universal-user-agent": "^7.0.0"
   },
   "devDependencies": {
-    "@octokit/auth-action": "^4.0.0",
+    "@octokit/auth-action": "^5.0.0",
     "@octokit/auth-app": "^6.0.0",
     "@octokit/auth-oauth-app": "^8.0.0",
     "@octokit/tsconfig": "^3.0.0",
