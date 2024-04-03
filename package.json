@@ -2,7 +2,8 @@
   "name": "@octokit/core",
   "version": "0.0.0-development",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "description": "Extendable client for GitHub's REST & GraphQL APIs",
   "scripts": {
