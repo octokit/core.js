@@ -2,7 +2,7 @@ import { getUserAgent } from "universal-user-agent";
 import type { HookCollection } from "before-after-hook";
 import Hook from "before-after-hook";
 import { request } from "@octokit/request";
-import { graphql, withCustomRequest } from "@octokit/graphql";
+import { type graphql, withCustomRequest } from "@octokit/graphql";
 import { createTokenAuth } from "@octokit/auth-token";
 
 import type {
