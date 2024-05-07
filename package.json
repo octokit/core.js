@@ -45,7 +45,7 @@
     "@types/lolex": "^5.1.0",
     "@types/node": "^20.0.0",
     "@types/sinonjs__fake-timers": "^8.1.5",
-    "esbuild": "^0.20.0",
+    "esbuild": "^0.21.0",
     "fetch-mock": "npm:@gr2m/fetch-mock@9.11.0-pull-request-644.1",
     "glob": "^10.2.5",
     "http-proxy-agent": "^7.0.0",
