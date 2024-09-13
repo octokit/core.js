@@ -1,0 +1,23 @@
+name: Gravity
+"on":
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  gravity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+      - run: npm ci
+      - run: npm build
+      - run: npm run gravityci './pkg'
+        env:
+          GRAVITY_TOKEN: ${{ secrets.GRAVITY_TOKEN }}

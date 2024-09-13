@@ -13,7 +13,8 @@
     "lint:fix": "prettier --write '{src,test}/**/*.{ts,md}' README.md package.json",
     "pretest": "npm run -s lint",
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --coverage",
-    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals --module node16 --moduleResolution node16 --allowImportingTsExtensions test/typescript-validate.ts"
+    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals --module node16 --moduleResolution node16 --allowImportingTsExtensions test/typescript-validate.ts",
+    "gravityci": "gravityci"
   },
   "repository": "github:octokit/core.js",
   "keywords": [
@@ -35,6 +36,7 @@
     "universal-user-agent": "^7.0.0"
   },
   "devDependencies": {
+    "@gravityci/cli": "^0.0.2",
     "@octokit/auth-action": "^5.0.0",
     "@octokit/auth-app": "^7.0.0",
     "@octokit/auth-oauth-app": "^8.0.0",
