@@ -14,6 +14,7 @@ import { type AddressInfo } from "node:net";
 import { type ProxyServer, createProxy } from "proxy";
 import { ProxyAgent, fetch as undiciFetch } from "undici";
 import { Octokit } from "../../src/index.ts";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 describe("client proxy", () => {
   let server: Server;

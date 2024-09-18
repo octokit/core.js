@@ -1,5 +1,6 @@
 import { Octokit } from "../src/index.ts";
 import fetchMock from "fetch-mock";
+import { describe, expect, it } from "vitest";
 
 describe("Smoke test", () => {
   it("previews option", () => {
