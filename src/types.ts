@@ -1,5 +1,5 @@
-import * as OctokitTypes from "@octokit/types";
-import { RequestError } from "@octokit/request-error";
+import type * as OctokitTypes from "@octokit/types";
+import type { RequestError } from "@octokit/request-error";
 
 import type { Octokit } from "./index.js";
 

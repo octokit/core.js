@@ -1,19 +1,19 @@
-import { jest } from "@jest/globals";
+import { describe, expect, it, vi } from "vitest";
 
 describe("octokit.log", () => {
   it(".debug() and .info() are no-ops by default", async () => {
     const calls: String[] = [];
 
-    const debug = jest
+    const debug = vi
       .spyOn(console, "debug")
       .mockImplementation(() => calls.push("debug"));
-    const info = jest
+    const info = vi
       .spyOn(console, "info")
       .mockImplementation(() => calls.push("info"));
-    const warn = jest
+    const warn = vi
       .spyOn(console, "warn")
       .mockImplementation(() => calls.push("warn"));
-    const error = jest
+    const error = vi
       .spyOn(console, "error")
       .mockImplementation(() => calls.push("error"));
     const Octokit = (await import("../src/index.ts")).Octokit;
