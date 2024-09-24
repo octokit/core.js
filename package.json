@@ -13,7 +13,7 @@
     "lint:fix": "prettier --write '{src,test}/**/*.{ts,md}' README.md package.json",
     "pretest": "npm run -s lint",
     "test": "vitest --coverage",
-    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals --module node16 --moduleResolution node16 --allowImportingTsExtensions --exactOptionalPropertyTypes --strictNullChecks test/typescript-validate.ts"
+    "test:typescript": "npx tsc --noEmit --declaration --noUnusedLocals --module node16 --moduleResolution node16 --allowImportingTsExtensions --exactOptionalPropertyTypes --strict test/typescript-validate.ts"
   },
   "repository": "github:octokit/core.js",
   "keywords": [
