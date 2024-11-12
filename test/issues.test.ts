@@ -15,12 +15,12 @@ import { describe, expect, test } from "vitest";
 describe("issues", () => {
   test("#123 example issue", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce("https://api.github.com/", { ok: true });
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
