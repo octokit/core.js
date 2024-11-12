@@ -13,7 +13,7 @@ describe("octokit.request()", () => {
   });
 
   it("GET /", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -26,7 +26,7 @@ describe("octokit.request()", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -35,13 +35,13 @@ describe("octokit.request()", () => {
 
   it("custom baseUrl", () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce("https://github.acme-inc.com/api/v3/orgs/octokit", { id: 123 });
 
     const octokit = new Octokit({
       baseUrl: "https://github.acme-inc.com/api/v3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -51,7 +51,7 @@ describe("octokit.request()", () => {
   });
 
   it("custom user agent", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -65,7 +65,7 @@ describe("octokit.request()", () => {
     const octokit = new Octokit({
       userAgent: "myApp/1.2.3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -73,7 +73,7 @@ describe("octokit.request()", () => {
   });
 
   it("custom time zone", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -88,7 +88,7 @@ describe("octokit.request()", () => {
     const octokit = new Octokit({
       timeZone: "Europe/Amsterdam",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -97,7 +97,7 @@ describe("octokit.request()", () => {
 
   it("previews", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce(
         "https://api.github.com/graphql",
         {},
@@ -122,7 +122,7 @@ describe("octokit.request()", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -159,7 +159,7 @@ describe("octokit.request()", () => {
   });
 
   it("sends null values (octokit/rest.js#765)", () => {
-    const mock = fetchMock.sandbox().patchOnce(
+    const mock = fetchMock.createInstance().patchOnce(
       "https://api.github.com/repos/epmatsw/example-repo/issues/1",
       {},
       {
@@ -172,7 +172,7 @@ describe("octokit.request()", () => {
     const octokit = new Octokit({
       auth: "secret123",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
     return octokit.request(

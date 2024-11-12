@@ -65,7 +65,7 @@ beforeEach(() => {
 
 describe("Authentication", () => {
   it("new Octokit({ auth: 'secret123' })", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -80,7 +80,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       auth: "secret123",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -88,7 +88,7 @@ describe("Authentication", () => {
   });
 
   it("new Octokit({ auth: 'token secret123' })", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -103,7 +103,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       auth: "token secret123",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -111,7 +111,7 @@ describe("Authentication", () => {
   });
 
   it("new Octokit({ auth: 'Token secret123' })", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -126,7 +126,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       auth: "Token secret123",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -136,7 +136,7 @@ describe("Authentication", () => {
   const BEARER_TOKEN =
     "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTM4MTkzMTIsImV4cCI6MTU1MzgxOTM3MiwiaXNzIjoxfQ.etiSZ4LFQZ8tiMGJVqKDoGn8hxMCgwL4iLvU5xBUqbAPr4pbk_jJZmMQjuxTlOnRxq4e7NouTizGCdfohRMb3R1mpLzGPzOH9_jqSA_BWYxolsRP_WDSjuNcw6nSxrPRueMVRBKFHrqcTOZJej0djRB5pI61hDZJ_-DGtiOIFexlK3iuVKaqBkvJS5-TbTekGuipJ652g06gXuz-l8i0nHiFJldcuIruwn28hTUrjgtPbjHdSBVn_QQLKc2Fhij8OrhcGqp_D_fvb_KovVmf1X6yWiwXV5VXqWARS-JGD9JTAr2495ZlLV_E4WPxdDpz1jl6XS9HUhMuwBpaCOuipw";
   it("new Octokit({ auth: BEARER_TOKEN })", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -151,7 +151,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       auth: BEARER_TOKEN,
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -163,7 +163,7 @@ describe("Authentication", () => {
     const CLIENT_SECRET = "0123secret";
     const CODE = "code123";
 
-    const mock = fetchMock.sandbox().postOnce(
+    const mock = fetchMock.createInstance().postOnce(
       "https://github.com/login/oauth/access_token",
       {
         access_token: "token123",
@@ -182,7 +182,7 @@ describe("Authentication", () => {
     const MyOctokit = Octokit.defaults({
       authStrategy: createOAuthAppAuth,
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -198,12 +198,12 @@ describe("Authentication", () => {
       code: CODE,
     });
 
-    expect(mock.done()).toBe(true);
+    expect(mock.callHistory.done()).toBe(true);
   });
 
   it("auth = createAppAuth()", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .postOnce("https://api.github.com/app/installations/123/access_tokens", {
         token: "secret123",
         expires_at: "1970-01-01T01:00:00.000Z",
@@ -242,7 +242,7 @@ describe("Authentication", () => {
         installationId: 123,
       },
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -251,11 +251,11 @@ describe("Authentication", () => {
 
     await octokit.request("GET /app");
 
-    expect(mock.done()).toBe(true);
+    expect(mock.callHistory.done()).toBe(true);
   });
 
   it("auth = createActionAuth()", async () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/app",
       { id: 123 },
       {
@@ -275,7 +275,7 @@ describe("Authentication", () => {
     const octokit = new Octokit({
       authStrategy: createActionAuth,
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -303,7 +303,7 @@ describe("Authentication", () => {
 
   it("createAppAuth with GraphQL + GHES (probot/probot#1386)", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .postOnce(
         "https://fake.github-enterprise.com/api/v3/app/installations/123/access_tokens",
         {
@@ -334,7 +334,7 @@ describe("Authentication", () => {
       },
       baseUrl: "https://fake.github-enterprise.com/api/v3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -344,12 +344,12 @@ describe("Authentication", () => {
       }
     }`);
 
-    expect(mock.done()).toBe(true);
+    expect(mock.callHistory.done()).toBe(true);
   });
 
   it("should pass through the logger (#1277)", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .postOnce("https://api.github.com/app/installations/2/access_tokens", {
         token: "installation-token-123",
         permissions: {},
@@ -377,7 +377,7 @@ describe("Authentication", () => {
         installationId: 2,
       },
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 

@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 describe("Smoke test", () => {
   it("previews option", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/graphql",
       { ok: true },
       {
@@ -22,7 +22,7 @@ describe("Smoke test", () => {
         "symmetra",
       ],
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -30,7 +30,7 @@ describe("Smoke test", () => {
   });
 
   it("timeZone option", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -44,7 +44,7 @@ describe("Smoke test", () => {
     const octokit = new Octokit({
       timeZone: "Europe/Amsterdam",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 

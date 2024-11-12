@@ -30,7 +30,7 @@ describe("octokit.hook", () => {
 
   it("octokit.hook.before('request')", () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce(
         "https://api.github.com/foo/daz/baz?qux=quux&beforeAddition=works",
         { ok: true },
@@ -38,7 +38,7 @@ describe("octokit.hook", () => {
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -61,7 +61,7 @@ describe("octokit.hook", () => {
         bar: "daz",
         qux: "quux",
         request: {
-          fetch: mock,
+          fetch: mock.fetchHandler,
           // @ts-ignore
           hook: options.request.hook,
         },
@@ -86,12 +86,12 @@ describe("octokit.hook", () => {
 
   it("octokit.hook.after('request')", async () => {
     const mock = fetchMock
-      .sandbox()
+      .createInstance()
       .getOnce("https://api.github.com/", { ok: true });
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -109,7 +109,7 @@ describe("octokit.hook", () => {
           format: "",
         },
         request: {
-          fetch: mock,
+          fetch: mock.fetchHandler,
           hook: requestOptions.request.hook,
         },
       });
@@ -126,11 +126,13 @@ describe("octokit.hook", () => {
   });
 
   it("octokit.hook.error('request')", async () => {
-    const mock = fetchMock.sandbox().getOnce("https://api.github.com/", 500);
+    const mock = fetchMock
+      .createInstance()
+      .getOnce("https://api.github.com/", 500);
 
     const octokit = new Octokit({
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -150,7 +152,7 @@ describe("octokit.hook", () => {
           format: "",
         },
         request: {
-          fetch: mock,
+          fetch: mock.fetchHandler,
           hook: requestOptions.request.hook,
         },
       });

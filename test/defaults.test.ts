@@ -13,7 +13,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults({baseUrl})", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://github.acme-inc.test/api/v3/",
       { ok: true },
       {
@@ -27,7 +27,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -37,7 +37,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults({userAgent})", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -51,7 +51,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       userAgent: "my-app/1.2.3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -61,7 +61,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults({userAgent}) with userAgent Constructor Option", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -75,7 +75,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       userAgent: "my-octokit.js/1.2.3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -87,7 +87,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults({timeZone})", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/",
       { ok: true },
       {
@@ -102,7 +102,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       timeZone: "Europe/Amsterdam",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -112,7 +112,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults({ auth })", async () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://api.github.com/app",
       { id: 123 },
       {
@@ -132,7 +132,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       authStrategy: createActionAuth,
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
@@ -143,7 +143,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.defaults().defaults()", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://github.acme-inc.test/api/v3/",
       { ok: true },
       {
@@ -157,7 +157,7 @@ describe("Octokit.defaults", () => {
     const OctokitWithDefaults = Octokit.defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     }).defaults({
       userAgent: "my-app/1.2.3",
@@ -169,7 +169,7 @@ describe("Octokit.defaults", () => {
   });
 
   it("Octokit.plugin().defaults()", () => {
-    const mock = fetchMock.sandbox().getOnce(
+    const mock = fetchMock.createInstance().getOnce(
       "https://github.acme-inc.test/api/v3/",
       { ok: true },
       {
@@ -187,7 +187,7 @@ describe("Octokit.defaults", () => {
     }).defaults({
       baseUrl: "https://github.acme-inc.test/api/v3",
       request: {
-        fetch: mock,
+        fetch: mock.fetchHandler,
       },
     });
 
