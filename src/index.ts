@@ -24,6 +24,13 @@ const consoleError = console.error.bind(console);
 
 const userAgentTrail = `octokit-core.js/${VERSION} ${getUserAgent()}`;
 
+// Utility to omit a key and still keep dynamic properties
+type OmitKeyWithIndexSignature<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? never : P]: T[P];
+} & {
+  [key: string]: unknown;
+};
+
 export class Octokit {
   static VERSION = VERSION;
   static defaults<S extends Constructor<any>>(
@@ -81,7 +88,9 @@ export class Octokit {
 
   constructor(options: OctokitOptions = {}) {
     const hook = new Collection<Hooks>();
-    const requestDefaults: Required<RequestParameters> = {
+    const requestDefaults: Required<
+      OmitKeyWithIndexSignature<RequestParameters, "query" | "operationName">
+    > = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
       request: Object.assign({}, options.request, {
