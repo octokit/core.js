@@ -63,3 +63,8 @@ export type Hooks = {
     Error: unknown;
   };
 };
+export type StrictOmit<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? never : P]: T[P];
+} & {
+  [parameter: string]: unknown;
+};
