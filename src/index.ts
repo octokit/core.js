@@ -92,6 +92,8 @@ export class Octokit {
         previews: [],
         format: "",
       },
+      query: '',
+      operationName: '',
     };
 
     // prepend default user agent with `options.userAgent` if set
