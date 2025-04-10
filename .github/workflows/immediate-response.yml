@@ -11,9 +11,15 @@ on:
       - opened
 jobs:
   respond-to-issue:
-    if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]' && github.actor != 'githubactions[bot]' && github.actor != 'octokitbot' }}
+    if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]' && github.actor != 'githubactions[bot]' && github.actor != 'octokitbot' && github.actor != 'octokit[bot]' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.OCTOKIT_APP_ID }}
+          private-key: ${{ secrets.OCTOKIT_APP_PRIVATE_KEY }}
+
       - name: Determine issue or PR number
         id: extract
         run: echo "NUMBER=${{ github.event.issue.number || github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
@@ -27,3 +33,4 @@ jobs:
             We have a [process in place](https://github.com/octokit/.github/blob/main/community/prioritization_response.md#overview) for prioritizing and responding to your input. 
             Because you are a part of this community please feel free to comment, add to, or pick up any issues/PRs that are labeled with `Status: Up for grabs`.
             You & others like you are the reason all of this works! So thank you & happy coding! 🚀
+          token: ${{ steps.app-token.outputs.token }}
