@@ -12,6 +12,7 @@ import type {
   OctokitPlugin,
   RequestParameters,
   ReturnTypeOf,
+  StrictOmit,
   UnionToIntersection,
 } from "./types.js";
 import { VERSION } from "./version.js";
@@ -81,7 +82,10 @@ export class Octokit {
 
   constructor(options: OctokitOptions = {}) {
     const hook = new Hook.Collection<Hooks>();
-    const requestDefaults: Required<RequestParameters> = {
+    const requestDefaults: StrictOmit<
+      Required<RequestParameters>,
+      "query" | "operationName"
+    > = {
       baseUrl: request.endpoint.DEFAULTS.baseUrl,
       headers: {},
       request: Object.assign({}, options.request, {

@@ -116,7 +116,6 @@ describe("octokit.request()", () => {
             accept: "application/vnd.github.v3.raw",
             "user-agent": userAgent,
           },
-          overwriteRoutes: false,
         },
       );
 
