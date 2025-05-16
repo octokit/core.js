@@ -51,7 +51,7 @@
     "semantic-release": "^24.0.0",
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
     "typescript": "^5.0.0",
-    "undici": "^6.0.0",
+    "undici": "^7.0.0",
     "vitest": "^3.0.5"
   },
   "release": {
