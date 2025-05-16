@@ -53,11 +53,11 @@ async function main() {
           ".": {
             types: "./dist-types/index.d.ts",
             import: "./dist-src/index.js",
-            default: "./dist-src/index.js"
+            default: "./dist-src/index.js",
           },
           "./types": {
-            types: "./dist-types/types.d.ts"
-          }
+            types: "./dist-types/types.d.ts",
+          },
         },
         sideEffects: false,
       },
