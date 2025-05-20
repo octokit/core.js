@@ -28,7 +28,7 @@
   "dependencies": {
     "@octokit/auth-token": "^6.0.0",
     "@octokit/graphql": "^9.0.0",
-    "@octokit/request": "^10.0.0",
+    "@octokit/request": "^10.0.2",
     "@octokit/request-error": "^7.0.0",
     "@octokit/types": "^14.0.0",
     "before-after-hook": "^4.0.0",
