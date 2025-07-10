@@ -22,6 +22,32 @@ const noop = () => {};
 const consoleWarn = console.warn.bind(console);
 const consoleError = console.error.bind(console);
 
+/**
+ * Creates a logger object for the Octokit instance.
+ *
+ * If a logger is provided, it will ensure that the logger has
+ * `debug`, `info`, `warn`, and `error` methods.
+ * If no logger is provided, it will create a default logger.
+ *
+ * Some Loggers like pino need that the this reference point
+ * to the original object, so we cannot use `Object.assign` here.
+ */
+function createLogger(logger = {} as NonNullable<OctokitOptions["log"]>) {
+  if (typeof logger.debug !== "function") {
+    logger.debug = noop;
+  }
+  if (typeof logger.info !== "function") {
+    logger.info = noop;
+  }
+  if (typeof logger.warn !== "function") {
+    logger.warn = consoleWarn;
+  }
+  if (typeof logger.error !== "function") {
+    logger.error = consoleError;
+  }
+  return logger as NonNullable<OctokitOptions["log"]>;
+}
+
 const userAgentTrail = `octokit-core.js/${VERSION} ${getUserAgent()}`;
 
 // Utility to omit a key and still keep dynamic properties
@@ -122,15 +148,7 @@ export class Octokit {
 
     this.request = request.defaults(requestDefaults);
     this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
-    this.log = Object.assign(
-      {
-        debug: noop,
-        info: noop,
-        warn: consoleWarn,
-        error: consoleError,
-      },
-      options.log,
-    );
+    this.log = createLogger(options.log);
     this.hook = hook;
 
     // (1) If neither `options.authStrategy` nor `options.auth` are set, the `octokit` instance
