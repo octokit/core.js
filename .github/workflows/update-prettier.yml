@@ -12,7 +12,7 @@ jobs:
         with:
           app-id: ${{ vars.OCTOKIT_APP_ID }}
           private-key: ${{ secrets.OCTOKIT_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           cache: npm
