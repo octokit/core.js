@@ -41,7 +41,7 @@
     "@octokit/tsconfig": "^4.0.0",
     "@sinonjs/fake-timers": "^15.0.0",
     "@types/lolex": "^5.1.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^24.0.0",
     "@types/sinonjs__fake-timers": "^15.0.0",
     "@vitest/coverage-v8": "^4.0.0",
     "esbuild": "^0.25.0",
