@@ -27,10 +27,10 @@
   "license": "MIT",
   "dependencies": {
     "@octokit/auth-token": "^6.0.0",
-    "@octokit/graphql": "^9.0.2",
-    "@octokit/request": "^10.0.4",
-    "@octokit/request-error": "^7.0.1",
-    "@octokit/types": "^15.0.0",
+    "@octokit/graphql": "^9.0.3",
+    "@octokit/request": "^10.0.6",
+    "@octokit/request-error": "^7.0.2",
+    "@octokit/types": "^16.0.0",
     "before-after-hook": "^4.0.0",
     "universal-user-agent": "^7.0.0"
   },
@@ -42,7 +42,7 @@
     "@sinonjs/fake-timers": "^15.0.0",
     "@types/lolex": "^5.1.0",
     "@types/node": "^22.0.0",
-    "@types/sinonjs__fake-timers": "^8.1.5",
+    "@types/sinonjs__fake-timers": "^15.0.0",
     "@vitest/coverage-v8": "^4.0.0",
     "esbuild": "^0.25.0",
     "fetch-mock": "^12.0.0",
