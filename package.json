@@ -30,7 +30,7 @@
     "@octokit/graphql": "^9.0.2",
     "@octokit/request": "^10.0.4",
     "@octokit/request-error": "^7.0.1",
-    "@octokit/types": "^15.0.0",
+    "@octokit/types": "^16.0.0",
     "before-after-hook": "^4.0.0",
     "universal-user-agent": "^7.0.0"
   },
