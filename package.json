@@ -49,7 +49,7 @@
     "prettier": "3.7.4",
     "proxy": "^2.0.0",
     "semantic-release-plugin-update-version-in-files": "^2.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^6.0.0",
     "undici": "^7.0.0",
     "vitest": "^4.0.0"
   },
