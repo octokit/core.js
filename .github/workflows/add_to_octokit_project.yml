@@ -17,7 +17,7 @@ jobs:
         with:
           app-id: ${{ vars.OCTOKIT_APP_ID }}
           private-key: ${{ secrets.OCTOKIT_APP_PRIVATE_KEY }}
-      - uses: actions/add-to-project@v1.0.2
+      - uses: actions/add-to-project@v2.0.0
         with:
           project-url: https://github.com/orgs/octokit/projects/10
           github-token: ${{ steps.app-token.outputs.token }}
